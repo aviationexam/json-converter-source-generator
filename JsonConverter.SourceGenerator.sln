@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator", "src\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj", "{026690F8-2C9D-4D94-8437-FE9B85007212}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator.Tests", "src\Aviationexam.JsonConverter.SourceGenerator.Tests\Aviationexam.JsonConverter.SourceGenerator.Tests.csproj", "{D7B44284-0307-4FB0-89D4-C7ABC00BA467}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +36,9 @@ Global
 		{026690F8-2C9D-4D94-8437-FE9B85007212}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{026690F8-2C9D-4D94-8437-FE9B85007212}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{026690F8-2C9D-4D94-8437-FE9B85007212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B44284-0307-4FB0-89D4-C7ABC00BA467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B44284-0307-4FB0-89D4-C7ABC00BA467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B44284-0307-4FB0-89D4-C7ABC00BA467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B44284-0307-4FB0-89D4-C7ABC00BA467}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

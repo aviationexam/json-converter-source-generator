@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>11.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ProjectName>Aviationexam.JsonConverter.SourceGenerator.Tests</ProjectName>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\WarningConfiguration.targets" />
+  
+  <ItemGroup>
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    <PackageReference Include="Verify.XUnit" Version="21.2.0" />
+    <PackageReference Include="Verify.SourceGenerators" Version="2.1.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj" />
+  </ItemGroup>
+
+</Project>
