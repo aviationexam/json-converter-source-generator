@@ -1,0 +1,15 @@
+﻿<Project>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <WarningsAsErrors>$(WarningsAsErrors);CS4014;NU1603;NU1608</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BaseOutputPath>..\..\Build\$(ProjectName)\</BaseOutputPath>
+  </PropertyGroup>
+
+</Project>
