@@ -1,4 +1,6 @@
 using Aviationexam.JsonConverter.SourceGenerator.Filters;
+using Aviationexam.JsonConverter.SourceGenerator.Generators;
+using Aviationexam.JsonConverter.SourceGenerator.Parsers;
 using Aviationexam.JsonConverter.SourceGenerator.Transformers;
 using H.Generators;
 using H.Generators.Extensions;
@@ -75,6 +77,37 @@ public class JsonConverterGenerator : IIncrementalGenerator
         diagnostics = resultObject.Diagnostics.Concat(diagnostics).ToImmutableArray();
 
         var files = new List<FileWithName>();
+
+        foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
+        {
+            var attributes = jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument.GetAttributes();
+
+            JsonPolymorphicConfiguration? jsonPolymorphicConfiguration = null;
+            var derivedTypes = new List<JsonDerivedTypeConfiguration>();
+            foreach (var attribute in attributes)
+            {
+                if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonPolymorphicAttributeSymbol))
+                {
+                    jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
+                }
+
+                if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol))
+                {
+                    var jsonDerivedTypeConfiguration = JsonDerivedTypeAttributeParser.Parse(attribute);
+
+                    if (jsonDerivedTypeConfiguration is not null)
+                    {
+                        derivedTypes.Add(jsonDerivedTypeConfiguration);
+                    }
+                }
+            }
+
+            files.Add(JsonPolymorphicConverterGenerator.Generate(
+                jsonSerializableConfiguration,
+                jsonPolymorphicConfiguration,
+                derivedTypes
+            ));
+        }
 
         return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
     }
