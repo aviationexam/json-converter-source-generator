@@ -1,4 +1,5 @@
 ﻿//HintName: BaseContractJsonPolymorphicConverter.g.cs
+#nullable enable
 using System;
 
 namespace ApplicationNamespace;
