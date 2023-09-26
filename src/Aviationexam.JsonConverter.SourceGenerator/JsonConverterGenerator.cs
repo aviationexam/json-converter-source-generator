@@ -20,6 +20,11 @@ public class JsonConverterGenerator : IIncrementalGenerator
 {
     public const string Id = "AVI_JC";
 
+    internal static readonly SymbolDisplayFormat NamespaceFormat = new(
+        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces
+    );
+
     public void Initialize(
         IncrementalGeneratorInitializationContext context
     )
