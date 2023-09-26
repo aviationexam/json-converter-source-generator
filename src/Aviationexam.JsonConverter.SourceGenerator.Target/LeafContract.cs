@@ -1,5 +1,6 @@
 namespace Aviationexam.JsonConverter.SourceGenerator.Target;
 
-public abstract class LeafContract : BaseContract
+public sealed class LeafContract : BaseContract
 {
+    public int LeafProperty { get; set; }
 }
