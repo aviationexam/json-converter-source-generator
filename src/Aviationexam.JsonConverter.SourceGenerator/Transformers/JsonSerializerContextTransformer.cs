@@ -1,4 +1,5 @@
-﻿using H.Generators;
+﻿using Aviationexam.JsonConverter.SourceGenerator.Parsers;
+using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,14 +14,18 @@ public static class JsonSerializerContextTransformer
 {
     private const string JsonSerializableAttribute = "System.Text.Json.Serialization.JsonSerializableAttribute";
     private const string JsonPolymorphicAttribute = "System.Text.Json.Serialization.JsonPolymorphicAttribute";
+    private const string JsonDerivedTypeAttribute = "System.Text.Json.Serialization.JsonDerivedTypeAttribute";
 
-    public static ResultWithDiagnostics<JsonSerializerContextWithContextDataConfiguration> GetJsonSerializerContextClassDeclarationSyntax(GeneratorSyntaxContext context,
-        CancellationToken cancellationToken)
+    public static ResultWithDiagnostics<JsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
+        GeneratorSyntaxContext context,
+        CancellationToken cancellationToken
+    )
     {
         var classDeclarationSyntax = (ClassDeclarationSyntax) context.Node;
 
         var jsonSerializableAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonSerializableAttribute);
         var jsonPolymorphicAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonPolymorphicAttribute);
+        var jsonDerivedTypeAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonDerivedTypeAttribute);
 
         var diagnostics = new List<Diagnostic>();
 
@@ -45,7 +50,7 @@ public static class JsonSerializerContextTransformer
                 // Is the attribute the [GenerateProxy] attribute?
                 if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, jsonSerializableAttributeSymbol))
                 {
-                    var jsonSerializableAttributeTypeArgument = ParseJsonSerializableAttribute(context, attributeSyntax);
+                    var jsonSerializableAttributeTypeArgument = JsonSerializableAttributeParser.Parse(context, attributeSyntax);
 
                     if (jsonSerializableAttributeTypeArgument is null)
                     {
@@ -64,9 +69,10 @@ public static class JsonSerializerContextTransformer
             }
         }
 
-        return new JsonSerializerContextWithContextDataConfiguration(
+        return new JsonSerializerContextConfiguration(
                 jsonSerializerContextClassType,
                 jsonPolymorphicAttributeSymbol!,
+                jsonDerivedTypeAttributeSymbol!,
                 jsonConverterConfiguration
                     .ToImmutableArray()
                     .AsEquatableArray()
@@ -75,17 +81,5 @@ public static class JsonSerializerContextTransformer
     }
 
 
-    private static ITypeSymbol? ParseJsonSerializableAttribute(
-        GeneratorSyntaxContext context, AttributeSyntax attributeSyntax
-    )
-    {
-        var semanticModel = context.SemanticModel;
 
-        if (attributeSyntax.ArgumentList is { Arguments: [{ Expression: TypeOfExpressionSyntax typeOfExpressionSyntax }] })
-        {
-            return semanticModel.GetTypeInfo(typeOfExpressionSyntax.Type).Type;
-        }
-
-        return null;
-    }
 }
