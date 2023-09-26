@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Transformers;
@@ -13,7 +14,11 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Transformers;
 public static class JsonSerializerContextTransformer
 {
     private const string JsonSerializableAttribute = "System.Text.Json.Serialization.JsonSerializableAttribute";
-    private const string JsonPolymorphicAttribute = "System.Text.Json.Serialization.JsonPolymorphicAttribute";
+
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
+    private const string RealJsonPolymorphicAttribute = "System.Text.Json.Serialization.JsonPolymorphicAttribute";
+
+    private const string JsonPolymorphicAttribute = "JsonPolymorphicAttribute";
     private const string JsonDerivedTypeAttribute = "System.Text.Json.Serialization.JsonDerivedTypeAttribute";
 
     public static ResultWithDiagnostics<JsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
@@ -79,7 +84,4 @@ public static class JsonSerializerContextTransformer
             )
             .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
     }
-
-
-
 }
