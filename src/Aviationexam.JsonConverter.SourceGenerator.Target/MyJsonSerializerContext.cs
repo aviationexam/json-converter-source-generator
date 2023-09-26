@@ -10,4 +10,8 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Target;
 [JsonSerializable(typeof(BaseContract))]
 public partial class MyJsonSerializerContext : JsonSerializerContext
 {
+    static MyJsonSerializerContext()
+    {
+        UsePolymorphicConverters(s_defaultOptions.Converters);
+    }
 }
