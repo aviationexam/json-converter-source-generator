@@ -10,7 +10,7 @@ public static class JsonDerivedTypeAttributeParser
     {
         var arguments = attributeData.ConstructorArguments;
 
-        ITypeSymbol? targetType = null;
+        ITypeSymbol? targetType;
         string? discriminator = null;
         if (arguments is [var typeArgument])
         {
@@ -22,6 +22,11 @@ public static class JsonDerivedTypeAttributeParser
             discriminator = GetDiscriminatorSymbol(discriminatorArgument);
         }
         else
+        {
+            return null;
+        }
+
+        if (targetType is null)
         {
             return null;
         }

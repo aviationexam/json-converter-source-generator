@@ -44,7 +44,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
 
                 i.AddSource(
                     $"{fileName}.g.cs",
-                    SourceText.From(manifestResourceInfo, Encoding.UTF8)
+                    SourceText.From(manifestResourceInfo, Encoding.UTF8, canBeEmbedded: true)
                 );
             }
         });

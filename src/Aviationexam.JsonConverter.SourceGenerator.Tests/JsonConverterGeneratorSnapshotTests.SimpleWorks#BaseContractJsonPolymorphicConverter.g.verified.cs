@@ -8,6 +8,6 @@ internal class BaseContractJsonPolymorphicConverter : PolymorphicJsonConvertor<A
     protected override ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
 
     protected override Type GetTypeForDiscriminator(string discriminator) => discriminator switch {
-        _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null);
+        _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 }
