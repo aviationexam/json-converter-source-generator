@@ -1,6 +1,7 @@
 ﻿using H.Generators;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
@@ -28,6 +29,24 @@ public static class JsonPolymorphicConverterGenerator
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
 
+        const string prefix = "        ";
+
+        var derivedTypeStringBuilder = new StringBuilder();
+        foreach (var derivedType in derivedTypes)
+        {
+            derivedTypeStringBuilder.Append(prefix);
+
+            var discriminator = derivedType.Discriminator;
+            if (discriminator is null)
+            {
+                discriminator = derivedType.TargetType.Name;
+            }
+
+            derivedTypeStringBuilder.Append($"\"{discriminator}\" => typeof({derivedType.TargetType.ToDisplayString(NamespaceFormat)}),");
+
+            derivedTypeStringBuilder.AppendLine();
+        }
+
         return new FileWithName(
             $"{generateTame}.g.cs",
             // language=cs
@@ -44,6 +63,7 @@ public static class JsonPolymorphicConverterGenerator
                       string discriminator
                   ) => discriminator switch
                   {
+              {{derivedTypeStringBuilder}}
                       _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
               }

@@ -19,11 +19,16 @@ public class JsonConverterGeneratorSnapshotTests
 
         [JsonPolymorphic]
         [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        [JsonDerivedType(typeof(AnotherLeafContract))]
         public abstract class BaseContract
         {
         }
 
-        public abstract class LeafContract : BaseContract
+        public sealed class LeafContract : BaseContract
+        {
+        }
+
+        public sealed class AnotherLeafContract : BaseContract
         {
         }
 
