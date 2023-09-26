@@ -8,7 +8,7 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Target.Tests;
 public class BaseContractSerializationTests
 {
     [Theory]
-    [MemberData(nameof(BaseContractData))]
+    [MemberData(nameof(BaseJsonContractData))]
     public void DeserializeBaseContractWorks(string json, Type targetType)
     {
         var baseContract = JsonSerializer.Deserialize(json, MyJsonSerializerContext.Default.BaseContract);
@@ -28,73 +28,123 @@ public class BaseContractSerializationTests
         }
     }
 
-    public static IEnumerable<object[]> BaseContractData()
+    [Theory]
+    [MemberData(nameof(LeafContractData))]
+    public void SerializeBaseContractWorks(BaseContract contract, string expectedJson)
+    {
+        var json = JsonSerializer.Serialize(contract, MyJsonSerializerContext.Default.BaseContract);
+
+        Assert.Equal(expectedJson, json);
+    }
+
+    public static IEnumerable<object[]> BaseJsonContractData()
     {
         yield return new object[]
         {
+            // language=json
             """
             {
                 "$type": "LeafContract",
-                "BaseProperty": 1,
-                "LeafProperty": 2
+                "baseProperty": 1,
+                "leafProperty": 2
             }
             """,
             typeof(LeafContract),
         };
         yield return new object[]
         {
+            // language=json
             """
             {
-                "BaseProperty": 1,
+                "baseProperty": 1,
                 "$type": "LeafContract",
-                "LeafProperty": 2
+                "leafProperty": 2
             }
             """,
             typeof(LeafContract),
         };
         yield return new object[]
         {
+            // language=json
             """
             {
-                "BaseProperty": 1,
-                "LeafProperty": 2
-                "$type": "LeafContract",
+                "baseProperty": 1,
+                "leafProperty": 2,
+                "$type": "LeafContract"
             }
             """,
             typeof(LeafContract),
         };
         yield return new object[]
         {
+            // language=json
             """
             {
                 "$type": "AnotherLeafContract",
-                "BaseProperty": 1,
-                "AnotherLeafProperty": 2
+                "baseProperty": 1,
+                "anotherLeafProperty": 2
             }
             """,
             typeof(AnotherLeafContract),
         };
         yield return new object[]
         {
+            // language=json
             """
             {
-                "BaseProperty": 1,
+                "baseProperty": 1,
                 "$type": "AnotherLeafContract",
-                "AnotherLeafProperty": 2
+                "anotherLeafProperty": 2
             }
             """,
             typeof(AnotherLeafContract),
         };
         yield return new object[]
         {
+            // language=json
             """
             {
-                "BaseProperty": 1,
-                "AnotherLeafProperty": 2
-                "$type": "AnotherLeafContract",
+                "baseProperty": 1,
+                "anotherLeafProperty": 2,
+                "$type": "AnotherLeafContract"
             }
             """,
             typeof(AnotherLeafContract),
+        };
+    }
+
+    public static IEnumerable<object[]> LeafContractData()
+    {
+        yield return new object[]
+        {
+            new LeafContract
+            {
+                BaseProperty = 1,
+                LeafProperty = 2
+            },
+            // language=json
+            """
+            {
+              "$type": "LeafContract",
+              "leafProperty": 2,
+              "baseProperty": 1
+            }
+            """
+        };
+        yield return new object[]
+        {
+            new AnotherLeafContract
+            {
+                BaseProperty = 1,
+                AnotherLeafProperty = 2
+            },
+            // language=json
+            """
+            {
+              "anotherLeafProperty": 2,
+              "baseProperty": 1
+            }
+            """
         };
     }
 }
