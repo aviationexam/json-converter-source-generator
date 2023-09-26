@@ -49,6 +49,7 @@ public static class JsonPolymorphicConverterGenerator
             $"{converterName}.g.cs",
             // language=cs
             $$"""
+              #nullable enable
               using System;
 
               namespace {{targetNamespace}};
