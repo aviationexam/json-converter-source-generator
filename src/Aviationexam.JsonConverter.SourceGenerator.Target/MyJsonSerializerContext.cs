@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Target;
@@ -14,4 +15,8 @@ public partial class MyJsonSerializerContext : JsonSerializerContext
     {
         UsePolymorphicConverters(s_defaultOptions.Converters);
     }
+
+    static partial void UsePolymorphicConverters(
+        ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
+    );
 }

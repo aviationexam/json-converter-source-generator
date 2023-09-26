@@ -48,7 +48,7 @@ public static class JsonSerializerContextGenerator
                       {{string.Join("\n        ", converters.Select(x => $"new {x}(),"))}}
                   };
 
-                  protected static void UsePolymorphicConverters(
+                  static partial void UsePolymorphicConverters(
                       ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
                   )
                   {
