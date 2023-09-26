@@ -82,6 +82,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
         diagnostics = resultObject.Diagnostics.Concat(diagnostics).ToImmutableArray();
 
         var files = new List<FileWithName>();
+        var converters = new List<string>();
 
         foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
         {
@@ -110,7 +111,18 @@ public class JsonConverterGenerator : IIncrementalGenerator
             files.Add(JsonPolymorphicConverterGenerator.Generate(
                 jsonSerializableConfiguration,
                 jsonPolymorphicConfiguration,
-                derivedTypes
+                derivedTypes,
+                out var converterName
+            ));
+
+            converters.Add(converterName);
+        }
+
+        if (converters.Any())
+        {
+            files.Add(JsonSerializerContextGenerator.Generate(
+                context.JsonSerializerContextClassType,
+                converters
             ));
         }
 
