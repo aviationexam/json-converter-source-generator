@@ -11,7 +11,7 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Filters;
 public static class JsonSerializerContextConfigurationFilter
 {
     public static ResultWithDiagnostics<JsonSerializerContextConfiguration> FilterJsonSerializerContextConfiguration(
-        ResultWithDiagnostics<JsonSerializerContextWithContextDataConfiguration> x, CancellationToken cancellationToken
+        ResultWithDiagnostics<JsonSerializerContextConfiguration> x, CancellationToken cancellationToken
     )
     {
         if (
@@ -44,9 +44,9 @@ public static class JsonSerializerContextConfigurationFilter
                 JsonSerializableCollection = filteredJsonSerializableCollection.ToImmutableArray().AsEquatableArray()
             };
 
-            return filteredConfiguration.ToResultWithDiagnostics<JsonSerializerContextConfiguration>(x.Diagnostics);
+            return filteredConfiguration.ToResultWithDiagnostics(x.Diagnostics);
         }
 
-        return x.Result.ToResultWithDiagnostics<JsonSerializerContextConfiguration>(x.Diagnostics);
+        return x.Result.ToResultWithDiagnostics(x.Diagnostics);
     }
 }
