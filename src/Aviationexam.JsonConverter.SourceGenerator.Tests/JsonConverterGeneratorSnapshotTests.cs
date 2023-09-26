@@ -17,7 +17,7 @@ public class JsonConverterGeneratorSnapshotTests
 
         namespace ApplicationNamespace;
 
-        [JsonPolymorphic()]
+        [JsonPolymorphic]
         [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
         public abstract class BaseContract
         {
