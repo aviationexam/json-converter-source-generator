@@ -37,18 +37,19 @@ public static class JsonSerializerContextGenerator
             $"{jsonSerializerContextClassType.Name}.g.cs",
             // language=cs
             $$"""
+              #nullable enable
               using System.Collections.Generic;
 
               namespace {{targetNamespace}};
 
               {{classAccessibility}} partial class {{jsonSerializerContextClassType.Name}}
               {
-                  protected static IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
+                  public static IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
                   {
                       {{string.Join("\n        ", converters.Select(x => $"new {x}(),"))}}
                   };
 
-                  static partial void UsePolymorphicConverters(
+                  public static void UsePolymorphicConverters(
                       ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
                   )
                   {
