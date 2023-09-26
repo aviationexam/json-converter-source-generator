@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" PrivateAssets="all" />
@@ -24,9 +24,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
+
   <ItemGroup>
     <ProjectReference Include="..\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="JsonConverterGeneratorSnapshotTests.*.g.verified.cs">
+      <DependentUpon>JsonConverterGeneratorSnapshotTests.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
