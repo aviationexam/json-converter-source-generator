@@ -109,7 +109,9 @@ public class JsonConverterGenerator : IIncrementalGenerator
 
         if (context.JsonSerializableCollection.IsEmpty)
         {
-            return new EquatableArray<FileWithName>().ToResultWithDiagnostics(resultObject.Diagnostics);
+            return ImmutableArray<FileWithName>.Empty
+                .AsEquatableArray()
+                .ToResultWithDiagnostics(resultObject.Diagnostics);
         }
 
         var diagnostics = ImmutableArray<Diagnostic>.Empty;
