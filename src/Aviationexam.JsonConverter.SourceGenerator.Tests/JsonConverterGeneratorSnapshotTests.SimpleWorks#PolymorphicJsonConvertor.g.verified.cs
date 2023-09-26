@@ -1,4 +1,6 @@
 ﻿//HintName: PolymorphicJsonConvertor.g.cs
+// ReSharper disable once RedundantNullableDirective
+#nullable enable
 using System;
 using System.Text;
 using System.Text.Json;

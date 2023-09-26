@@ -41,7 +41,7 @@ public static class JsonPolymorphicConverterGenerator
                   protected override ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
 
                   protected override Type GetTypeForDiscriminator(string discriminator) => discriminator switch {
-                    _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null);
+                      _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null);
                   };
               }
               """
