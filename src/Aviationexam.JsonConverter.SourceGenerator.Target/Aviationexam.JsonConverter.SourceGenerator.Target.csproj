@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference
-      Include="..\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj"
-      OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>

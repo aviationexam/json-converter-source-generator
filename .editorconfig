@@ -9,11 +9,13 @@ trim_trailing_whitespace = true
 charset = utf-8
 indent_style = space
 indent_size = 2
+max_line_length = 120
 
 [*.cs]
 charset = utf-8
 indent_style = space
 indent_size = 4
+max_line_length = 120
 
 csharp_space_after_cast = true
 dotnet_sort_system_directives_first = false
