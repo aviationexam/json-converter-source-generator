@@ -1,4 +1,5 @@
 using H.Generators;
+using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,9 +19,9 @@ internal static class JsonPolymorphicConverterGenerator
     )
     {
         var jsonSerializableAttributeTypeArgument = jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument;
-        converterName = $"{jsonSerializableAttributeTypeArgument.Name}JsonPolymorphicConverter";
+        converterName = GenerateConverterName(jsonSerializableAttributeTypeArgument);
 
-        var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
+        var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonConverterGenerator.NamespaceFormatWithGenericArguments);
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
 
@@ -99,5 +100,30 @@ internal static class JsonPolymorphicConverterGenerator
               }
               """
         );
+    }
+
+    private static string GenerateConverterName(ITypeSymbol jsonSerializableAttributeTypeArgument)
+    {
+        var sourceTypeName = jsonSerializableAttributeTypeArgument.Name;
+
+        if (jsonSerializableAttributeTypeArgument is INamedTypeSymbol { TypeArguments: { Length: > 0 } typeArguments })
+        {
+            var sourceTypeNameStringBuilder = new StringBuilder(sourceTypeName);
+            sourceTypeNameStringBuilder.Append("Of");
+
+            for (var i = 0; i < typeArguments.Length; i++)
+            {
+                sourceTypeNameStringBuilder.Append(typeArguments[i].Name);
+
+                if (i + 1 < typeArguments.Length)
+                {
+                    sourceTypeNameStringBuilder.Append("And");
+                }
+            }
+
+            sourceTypeName = sourceTypeNameStringBuilder.ToString();
+        }
+
+        return $"{sourceTypeName}JsonPolymorphicConverter";
     }
 }

@@ -25,6 +25,12 @@ public class JsonConverterGenerator : IIncrementalGenerator
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces
     );
 
+    internal static readonly SymbolDisplayFormat NamespaceFormatWithGenericArguments = new(
+        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
+    );
+
     public void Initialize(
         IncrementalGeneratorInitializationContext context
     )
