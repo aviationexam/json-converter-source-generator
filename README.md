@@ -12,17 +12,40 @@
 </ItemGroup>
 ```
 
-## How to configure library
-
-```xml
-<PropertyGroup Label="Configure JsonConverter">
-
-</PropertyGroup>
-```
-
 ## How to use library
 
 ```cs
-using Aviationexam.JsonConverter.SourceGenerator;
+// file=contracts.cs
+using Aviationexam.JsonConverter.Attributes;
 
+[JsonPolymorphic]
+[JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+[JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
+public abstract class BaseContract
+{
+    public int BaseProperty { get; set; }
+}
+public sealed class LeafContract : BaseContract
+{
+    public int LeafProperty { get; set; }
+}
+public sealed class AnotherLeafContract : BaseContract
+{
+    public int AnotherLeafProperty { get; set; }
+}
+
+// file=MyJsonSerializerContext.cs
+using System.Text.Json.Serialization;
+
+[JsonSerializable(typeof(BaseContract))] // this line is neccesary, generator searches for JsonSerializableAttribute with argument type decorated by JsonPolymorphicAttribute
+[JsonSerializable(typeof(LeafContract))] // notice, it's necessary to specify leaf types
+[JsonSerializable(typeof(AnotherLeafContract))]
+public partial class MyJsonSerializerContext : JsonSerializerContext
+{
+    static MyJsonSerializerContext()
+    {
+        // register generated converters to options
+        UsePolymorphicConverters(s_defaultOptions.Converters);
+    }
+}
 ```
