@@ -95,7 +95,8 @@ public class JsonConverterGeneratorSnapshotTests
         namespace ApplicationNamespace.Contracts;
 
         [JsonPolymorphic(TypeDiscriminatorPropertyName = "myCustomDiscriminator")]
-        [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        [JsonDerivedType(typeof(IntLeafContract), typeDiscriminator: nameof(IntLeafContract))]
+        [JsonDerivedType(typeof(StringLeafContract), typeDiscriminator: nameof(StringLeafContract))]
         public abstract class BaseContract<T>
         {
         }
