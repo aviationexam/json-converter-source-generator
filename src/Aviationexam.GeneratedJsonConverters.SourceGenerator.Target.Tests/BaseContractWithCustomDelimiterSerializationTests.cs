@@ -1,10 +1,10 @@
-using Aviationexam.JsonConverter.SourceGenerator.Target.ContractWithCustomDelimiter;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Target.Tests;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public class BaseContractWithCustomDelimiterSerializationTests
 {

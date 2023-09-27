@@ -3,26 +3,26 @@
 
 namespace ApplicationNamespace;
 
-internal class BaseContractJsonPolymorphicConverter : Aviationexam.JsonConverter.SourceGenerator.PolymorphicJsonConvertor<ApplicationNamespace.Contracts.BaseContract>
+internal class BaseContractJsonPolymorphicConverter : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<ApplicationNamespace.Contracts.BaseContract>
 {
     protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "myCustomDiscriminator"u8;
 
     protected override System.Type GetTypeForDiscriminator(
-        Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct discriminator
+        Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
     ) => discriminator switch
     {
-        Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string> { Value: "LeafContract" } => typeof(ApplicationNamespace.Contracts.LeafContract),
+        Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "LeafContract" } => typeof(ApplicationNamespace.Contracts.LeafContract),
 
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct GetDiscriminatorForType(
+    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
         System.Type type
     )
     {
         if (type == typeof(ApplicationNamespace.Contracts.LeafContract))
         {
-            return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string>("LeafContract");
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("LeafContract");
         }
 
         throw new System.ArgumentOutOfRangeException(nameof(type), type, null);

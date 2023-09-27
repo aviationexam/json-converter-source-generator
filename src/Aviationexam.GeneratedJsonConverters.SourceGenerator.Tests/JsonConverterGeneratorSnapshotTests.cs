@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Tests;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 [UsesVerify]
 public class JsonConverterGeneratorSnapshotTests
@@ -14,7 +14,7 @@ public class JsonConverterGeneratorSnapshotTests
     public Task SimpleWorks() => TestHelper.Verify(
         // ReSharper disable once HeapView.ObjectAllocation
         """
-        using Aviationexam.JsonConverter.Attributes;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
 
         namespace ApplicationNamespace.Contracts;
 
@@ -58,7 +58,7 @@ public class JsonConverterGeneratorSnapshotTests
     public Task CustomDiscriminatorWorks() => TestHelper.Verify(
         // ReSharper disable once HeapView.ObjectAllocation
         """
-        using Aviationexam.JsonConverter.Attributes;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
 
         namespace ApplicationNamespace.Contracts;
 

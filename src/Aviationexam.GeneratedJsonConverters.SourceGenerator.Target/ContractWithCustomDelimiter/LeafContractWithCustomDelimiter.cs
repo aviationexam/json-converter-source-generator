@@ -1,4 +1,4 @@
-namespace Aviationexam.JsonConverter.SourceGenerator.Target.ContractWithCustomDelimiter;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 
 public sealed class LeafContractWithCustomDelimiter : BaseContractWithCustomDelimiter
 {

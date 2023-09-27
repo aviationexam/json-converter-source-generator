@@ -1,6 +1,6 @@
-using Aviationexam.JsonConverter.Attributes;
+using Aviationexam.GeneratedJsonConverters.Attributes;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Target.ContractWithCustomDelimiter;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 
 [JsonPolymorphic(TypeDiscriminatorPropertyName = "myCustomDelimiter")]
 [JsonDerivedType(typeof(LeafContractWithCustomDelimiter), typeDiscriminator: nameof(LeafContractWithCustomDelimiter))]

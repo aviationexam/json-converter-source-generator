@@ -1,8 +1,8 @@
-using Aviationexam.JsonConverter.SourceGenerator.Target.Contracts;
-using Aviationexam.JsonConverter.SourceGenerator.Target.ContractWithCustomDelimiter;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System.Text.Json.Serialization;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Target;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 
 [JsonSourceGenerationOptions(
     WriteIndented = true,

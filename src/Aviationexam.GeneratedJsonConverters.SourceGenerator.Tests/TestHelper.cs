@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using VerifyXunit;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Tests;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 public static class TestHelper
 {

@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
 using VerifyTests;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Tests;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 public static class ModuleInitializer
 {

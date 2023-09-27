@@ -1,7 +1,7 @@
 ﻿//HintName: JsonPolymorphicAttribute.g.cs
 #nullable enable
 
-namespace Aviationexam.JsonConverter.Attributes;
+namespace Aviationexam.GeneratedJsonConverters.Attributes;
 
 /// <summary>
 /// This is a copy of System.Text.Json.Serialization.JsonPolymorphicAttribute.

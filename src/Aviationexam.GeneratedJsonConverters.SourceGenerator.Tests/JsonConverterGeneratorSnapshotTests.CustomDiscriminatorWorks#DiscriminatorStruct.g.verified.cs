@@ -3,7 +3,7 @@
 
 #nullable enable
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters;
 
 internal readonly struct DiscriminatorStruct<T> : IDiscriminatorStruct
 {

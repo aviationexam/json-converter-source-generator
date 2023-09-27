@@ -1,10 +1,10 @@
-using Aviationexam.JsonConverter.SourceGenerator.Target.Contracts;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Target.Tests;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public class BaseContractSerializationTests
 {
