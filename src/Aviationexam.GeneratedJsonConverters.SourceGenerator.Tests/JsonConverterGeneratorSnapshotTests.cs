@@ -115,6 +115,7 @@ public class JsonConverterGeneratorSnapshotTests
         namespace ApplicationNamespace;
 
         [JsonSerializable(typeof(BaseContract<int>))]
+        [JsonSerializable(typeof(BaseContract<int>))] // test that duplicated attribute does not kill generator
         [JsonSerializable(typeof(BaseContract<string>))]
         [JsonSerializable(typeof(IntLeafContract))]
         [JsonSerializable(typeof(StringLeafContract))]
