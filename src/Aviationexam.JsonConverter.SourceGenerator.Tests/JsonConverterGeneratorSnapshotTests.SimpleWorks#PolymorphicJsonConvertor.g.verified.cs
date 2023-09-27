@@ -73,10 +73,13 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
         foreach (var p in typeInfo.Properties)
         {
-            if (p.Get is null) continue;
+            if (p.Get is null)
+            {
+                continue;
+            }
 
             writer.WritePropertyName(p.Name);
-            JsonSerializer.Serialize(writer, p.Get(value), options);
+            JsonSerializer.Serialize(writer, p.Get(value), p.PropertyType, options);
         }
 
         writer.WriteEndObject();
