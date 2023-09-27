@@ -37,6 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="DiscriminatorStruct.cs" />
+    <EmbeddedResource Include="IDiscriminatorStruct.cs" />
     <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
   </ItemGroup>
 
