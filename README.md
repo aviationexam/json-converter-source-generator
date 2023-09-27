@@ -1,9 +1,9 @@
 [![Build Status](https://github.com/aviationexam/json-converter-source-generator/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/aviationexam/json-converter-source-generator/actions/workflows/build.yml)
-[![NuGet](https://img.shields.io/nuget/v/Aviationexam.JsonConverter.SourceGenerator.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Aviationexam.JsonConverter.SourceGenerator/)
-[![MyGet](https://img.shields.io/myget/json-converter-source-generator/vpre/Aviationexam.JsonConverter.SourceGenerator?label=MyGet)](https://www.myget.org/feed/json-converter-source-generator/package/nuget/Aviationexam.JsonConverter.SourceGenerator)
-[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Faviationexam%2Fjson-converter-source-generator%2Fshield%2FAviationexam.JsonConverter.SourceGenerator%2Flatest&label=Aviationexam.JsonConverter.SourceGenerator)](https://f.feedz.io/aviationexam/json-converter-source-generator/packages/Aviationexam.JsonConverter.SourceGenerator/latest/download)
+[![NuGet](https://img.shields.io/nuget/v/Aviationexam.GeneratedJsonConverters.SourceGenerator.svg?style=flat-square&label=nuget)](https://www.nuget.org/packages/Aviationexam.GeneratedJsonConverters.SourceGenerator/)
+[![MyGet](https://img.shields.io/myget/json-converter-source-generator/vpre/Aviationexam.GeneratedJsonConverters.SourceGenerator?label=MyGet)](https://www.myget.org/feed/json-converter-source-generator/package/nuget/Aviationexam.GeneratedJsonConverters.SourceGenerator)
+[![feedz.io](https://img.shields.io/badge/endpoint.svg?url=https%3A%2F%2Ff.feedz.io%2Faviationexam%2Fjson-converter-source-generator%2Fshield%2FAviationexam.GeneratedJsonConverters.SourceGenerator%2Flatest&label=Aviationexam.GeneratedJsonConverters.SourceGenerator)](https://f.feedz.io/aviationexam/json-converter-source-generator/packages/Aviationexam.GeneratedJsonConverters.SourceGenerator/latest/download)
 
-# Aviationexam.JsonConverter.SourceGenerator
+# Aviationexam.GeneratedJsonConverters.SourceGenerator
 
 Motivation for this library are polymorphic contracts with discriminator property not present as first property.
 
@@ -20,7 +20,7 @@ is deserialized correctly into `AnotherLeafContract` using this library.
 ## Install
 ```xml
 <ItemGroup>
-    <PackageReference Include="Aviationexam.JsonConverter.SourceGenerator" Version="0.1.0" PrivateAssets="all" />
+    <PackageReference Include="Aviationexam.GeneratedJsonConverters.SourceGenerator" Version="0.1.0" PrivateAssets="all" />
 </ItemGroup>
 ```
 
@@ -28,9 +28,9 @@ is deserialized correctly into `AnotherLeafContract` using this library.
 
 ```cs
 // file=contracts.cs
-using Aviationexam.JsonConverter.Attributes;
+using Aviationexam.GeneratedJsonConverters.Attributes;
 
-[JsonPolymorphic] // notice, that attributes are from `Aviationexam.JsonConverter.Attributes` namespace, not `System.Text.Json.Serialization`
+[JsonPolymorphic] // notice, that attributes are from `Aviationexam.GeneratedJsonConverters.Attributes` namespace, not `System.Text.Json.Serialization`
 [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
 [JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
 public abstract class BaseContract
