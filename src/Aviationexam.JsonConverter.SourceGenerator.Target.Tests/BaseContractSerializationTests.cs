@@ -11,7 +11,10 @@ public class BaseContractSerializationTests
     [MemberData(nameof(BaseJsonContractData))]
     public void DeserializeBaseContractWorks(string json, Type targetType)
     {
-        var baseContract = JsonSerializer.Deserialize(json, MyJsonSerializerContext.Default.BaseContract);
+        var baseContract = JsonSerializer.Deserialize<BaseContract>(
+            json,
+            MyJsonSerializerContext.Default.Options
+        );
 
         Assert.NotNull(baseContract);
         Assert.Equal(1, baseContract.BaseProperty);
@@ -32,7 +35,10 @@ public class BaseContractSerializationTests
     [MemberData(nameof(LeafContractData))]
     public void SerializeBaseContractWorks(BaseContract contract, string expectedJson)
     {
-        var json = JsonSerializer.Serialize(contract, MyJsonSerializerContext.Default.BaseContract);
+        var json = JsonSerializer.Serialize(
+            contract,
+            MyJsonSerializerContext.Default.Options
+        );
 
         Assert.Equal(expectedJson, json);
     }
@@ -80,7 +86,7 @@ public class BaseContractSerializationTests
             // language=json
             """
             {
-                "$type": "AnotherLeafContract",
+                "$type": 2,
                 "baseProperty": 1,
                 "anotherLeafProperty": 2
             }
@@ -93,7 +99,7 @@ public class BaseContractSerializationTests
             """
             {
                 "baseProperty": 1,
-                "$type": "AnotherLeafContract",
+                "$type": 2,
                 "anotherLeafProperty": 2
             }
             """,
@@ -106,7 +112,7 @@ public class BaseContractSerializationTests
             {
                 "baseProperty": 1,
                 "anotherLeafProperty": 2,
-                "$type": "AnotherLeafContract"
+                "$type": 2
             }
             """,
             typeof(AnotherLeafContract),
@@ -141,6 +147,7 @@ public class BaseContractSerializationTests
             // language=json
             """
             {
+              "$type": 2,
               "anotherLeafProperty": 2,
               "baseProperty": 1
             }
