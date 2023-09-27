@@ -4,6 +4,6 @@
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
 
-public interface IDiscriminatorStruct
+internal interface IDiscriminatorStruct
 {
 }

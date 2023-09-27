@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
-public static class JsonSerializerContextGenerator
+internal static class JsonSerializerContextGenerator
 {
     public static FileWithName Generate(
         ISymbol jsonSerializerContextClassType,

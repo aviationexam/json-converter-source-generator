@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
 
-public static class JsonDerivedTypeAttributeParser
+internal static class JsonDerivedTypeAttributeParser
 {
     public static JsonDerivedTypeConfiguration? Parse(
         AttributeData attributeData

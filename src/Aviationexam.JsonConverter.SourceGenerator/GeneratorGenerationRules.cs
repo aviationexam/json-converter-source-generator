@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
 
-public static class GeneratorGenerationRules
+internal static class GeneratorGenerationRules
 {
     public static readonly DiagnosticDescriptor UnableToParseAttribute = new(
         $"{JsonConverterGenerator.Id}_0001",

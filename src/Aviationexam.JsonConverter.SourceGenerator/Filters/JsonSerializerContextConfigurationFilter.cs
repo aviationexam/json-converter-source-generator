@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Filters;
 
-public static class JsonSerializerContextConfigurationFilter
+internal static class JsonSerializerContextConfigurationFilter
 {
     public static ResultWithDiagnostics<JsonSerializerContextConfiguration> FilterJsonSerializerContextConfiguration(
         ResultWithDiagnostics<JsonSerializerContextConfiguration> x, CancellationToken cancellationToken

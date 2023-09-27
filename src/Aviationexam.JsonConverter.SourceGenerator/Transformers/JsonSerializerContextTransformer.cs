@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Transformers;
 
-public static class JsonSerializerContextTransformer
+internal static class JsonSerializerContextTransformer
 {
     private const string JsonSerializableAttribute = "System.Text.Json.Serialization.JsonSerializableAttribute";
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
-public static class JsonPolymorphicConverterGenerator
+internal static class JsonPolymorphicConverterGenerator
 {
     private const string DefaultTypeDiscriminatorPropertyName = "$type";
 
