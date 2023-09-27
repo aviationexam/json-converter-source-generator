@@ -11,7 +11,7 @@ public static class JsonDerivedTypeAttributeParser
         var arguments = attributeData.ConstructorArguments;
 
         ITypeSymbol? targetType;
-        string? discriminator = null;
+        IDiscriminatorStruct? discriminator = null;
         if (arguments is [var typeArgument])
         {
             targetType = GetTargetTypeSymbol(typeArgument);
@@ -47,16 +47,16 @@ public static class JsonDerivedTypeAttributeParser
         return null;
     }
 
-    private static string? GetDiscriminatorSymbol(TypedConstant typedConstant)
+    private static IDiscriminatorStruct? GetDiscriminatorSymbol(TypedConstant typedConstant)
     {
         if (typedConstant is { Kind: TypedConstantKind.Primitive, Value: string discriminator })
         {
-            return discriminator;
+            return new DiscriminatorStruct<string>(discriminator);
         }
 
         if (typedConstant is { Kind: TypedConstantKind.Primitive, Value: int intDiscriminator })
         {
-            return intDiscriminator.ToString();
+            return new DiscriminatorStruct<int>(intDiscriminator);
         }
 
         return null;

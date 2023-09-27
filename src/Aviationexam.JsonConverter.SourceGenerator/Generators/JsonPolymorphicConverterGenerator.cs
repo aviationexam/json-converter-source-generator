@@ -1,4 +1,5 @@
 ﻿using H.Generators;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,6 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 public static class JsonPolymorphicConverterGenerator
 {
     private const string DefaultTypeDiscriminatorPropertyName = "$type";
-
 
     public static FileWithName Generate(
         JsonSerializableConfiguration jsonSerializableConfiguration,
@@ -35,11 +35,18 @@ public static class JsonPolymorphicConverterGenerator
             var discriminator = derivedType.Discriminator;
             if (discriminator is null)
             {
-                discriminator = derivedType.TargetType.Name;
+                discriminator = new DiscriminatorStruct<string> { Value = derivedType.TargetType.Name };
             }
 
+            var discriminatorCase = discriminator switch
+            {
+                DiscriminatorStruct<string> discriminatorString => $"DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
+                DiscriminatorStruct<int> discriminatorInt => $"DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
+                _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+            };
+
             derivedTypeStringBuilder.Append(
-                $"\"{discriminator}\" => typeof({derivedType.TargetType.ToDisplayString(JsonConverterGenerator.NamespaceFormat)}),"
+                $"{discriminatorCase} => typeof({derivedType.TargetType.ToDisplayString(JsonConverterGenerator.NamespaceFormat)}),"
             );
 
             derivedTypeStringBuilder.AppendLine();
@@ -59,7 +66,7 @@ public static class JsonPolymorphicConverterGenerator
                   protected override ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
 
                   protected override Type GetTypeForDiscriminator(
-                      string discriminator
+                      IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
               {{derivedTypeStringBuilder}}
