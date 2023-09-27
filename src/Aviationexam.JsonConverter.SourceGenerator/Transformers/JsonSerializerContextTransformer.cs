@@ -18,8 +18,12 @@ public static class JsonSerializerContextTransformer
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private const string RealJsonPolymorphicAttribute = "System.Text.Json.Serialization.JsonPolymorphicAttribute";
 
-    private const string JsonPolymorphicAttribute = "JsonPolymorphicAttribute";
-    private const string JsonDerivedTypeAttribute = "System.Text.Json.Serialization.JsonDerivedTypeAttribute";
+    private const string JsonPolymorphicAttribute = "Aviationexam.JsonConverter.Attributes.JsonPolymorphicAttribute";
+
+    [SuppressMessage("ReSharper", "UnusedMember.Local")]
+    private const string RealJsonDerivedTypeAttribute = "System.Text.Json.Serialization.JsonDerivedTypeAttribute";
+
+    private const string JsonDerivedTypeAttribute = "Aviationexam.JsonConverter.Attributes.JsonDerivedTypeAttribute";
 
     public static ResultWithDiagnostics<JsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
         GeneratorSyntaxContext context,
