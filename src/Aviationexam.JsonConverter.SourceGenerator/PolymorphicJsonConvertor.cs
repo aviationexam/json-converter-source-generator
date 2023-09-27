@@ -1,5 +1,7 @@
 ﻿// ReSharper disable once RedundantNullableDirective
+
 #nullable enable
+
 using System;
 using System.Text;
 using System.Text.Json;
@@ -21,9 +23,18 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
 
         var discriminatorPropertyName = GetDiscriminatorPropertyName();
 
-        var typeDiscriminator = jsonDocument.RootElement
-            .GetProperty(discriminatorPropertyName)
-            .GetString();
+        var discriminatorProperty = jsonDocument.RootElement
+            .GetProperty(discriminatorPropertyName);
+
+        string? typeDiscriminator = null;
+        if (discriminatorProperty.ValueKind is JsonValueKind.String)
+        {
+            typeDiscriminator = discriminatorProperty.GetString();
+        }
+        else if (discriminatorProperty.ValueKind is JsonValueKind.Number)
+        {
+            typeDiscriminator = discriminatorProperty.GetInt32().ToString();
+        }
 
         if (typeDiscriminator is null)
         {

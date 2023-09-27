@@ -54,6 +54,11 @@ public static class JsonDerivedTypeAttributeParser
             return discriminator;
         }
 
+        if (typedConstant is { Kind: TypedConstantKind.Primitive, Value: int intDiscriminator })
+        {
+            return intDiscriminator.ToString();
+        }
+
         return null;
     }
 }
