@@ -9,13 +9,15 @@ using System.Text.Json.Serialization;
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
 
-internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
+internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T : class
 {
     private readonly Type _polymorphicType = typeof(T);
 
     protected abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
-    protected abstract Type GetTypeForDiscriminator(string discriminator);
+    protected abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
+
+    protected abstract IDiscriminatorStruct GetDiscriminatorForType(Type type);
 
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

@@ -27,10 +27,13 @@ public static class JsonPolymorphicConverterGenerator
 
         const string prefix = "        ";
 
-        var derivedTypeStringBuilder = new StringBuilder();
+        var typeForDiscriminatorStringBuilder = new StringBuilder();
+        var discriminatorForTypeStringBuilder = new StringBuilder();
         foreach (var derivedType in derivedTypes)
         {
-            derivedTypeStringBuilder.Append(prefix);
+            typeForDiscriminatorStringBuilder.Append(prefix);
+
+            var fullTargetType = derivedType.TargetType.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
 
             var discriminator = derivedType.Discriminator;
             if (discriminator is null)
@@ -38,18 +41,33 @@ public static class JsonPolymorphicConverterGenerator
                 discriminator = new DiscriminatorStruct<string> { Value = derivedType.TargetType.Name };
             }
 
-            var discriminatorCase = discriminator switch
+            var (typeForDiscriminatorCase, discriminatorForTypeCase) = discriminator switch
             {
-                DiscriminatorStruct<string> discriminatorString => $"DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
-                DiscriminatorStruct<int> discriminatorInt => $"DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
+                DiscriminatorStruct<string> discriminatorString => (
+                    $"DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
+                    $"    return new DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
+                ),
+                DiscriminatorStruct<int> discriminatorInt => (
+                    $"DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
+                    $"    return new DiscriminatorStruct<int>({discriminatorInt.Value});"
+                ),
                 _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
             };
 
-            derivedTypeStringBuilder.Append(
-                $"{discriminatorCase} => typeof({derivedType.TargetType.ToDisplayString(JsonConverterGenerator.NamespaceFormat)}),"
+            typeForDiscriminatorStringBuilder.Append(
+                $"{typeForDiscriminatorCase} => typeof({fullTargetType}),"
             );
 
-            derivedTypeStringBuilder.AppendLine();
+            typeForDiscriminatorStringBuilder.AppendLine();
+
+            discriminatorForTypeStringBuilder.Append(prefix);
+            discriminatorForTypeStringBuilder.AppendLine($"if (type == typeof({fullTargetType}))");
+            discriminatorForTypeStringBuilder.Append(prefix);
+            discriminatorForTypeStringBuilder.AppendLine("{");
+            discriminatorForTypeStringBuilder.Append(prefix);
+            discriminatorForTypeStringBuilder.AppendLine(discriminatorForTypeCase);
+            discriminatorForTypeStringBuilder.Append(prefix);
+            discriminatorForTypeStringBuilder.AppendLine("}");
         }
 
         return new FileWithName(
@@ -69,9 +87,15 @@ public static class JsonPolymorphicConverterGenerator
                       IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
-              {{derivedTypeStringBuilder}}
+              {{typeForDiscriminatorStringBuilder}}
                       _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
+
+                  protected override IDiscriminatorStruct GetDiscriminatorForType(Type type)
+                  {
+              {{discriminatorForTypeStringBuilder}}
+                      throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                  }
               }
               """
         );
