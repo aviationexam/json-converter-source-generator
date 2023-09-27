@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
 
-public static class JsonSerializableAttributeParser
+internal static class JsonSerializableAttributeParser
 {
     public static ITypeSymbol? Parse(
         GeneratorSyntaxContext context, AttributeSyntax attributeSyntax

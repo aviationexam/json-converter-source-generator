@@ -57,6 +57,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
 
             i.GenerateJsonPolymorphicAttribute();
             i.GenerateJsonDerivedTypeAttribute();
+            //i.GenerateIDiscriminatorStruct();
         });
 
         context.SyntaxProvider.CreateSyntaxProvider(

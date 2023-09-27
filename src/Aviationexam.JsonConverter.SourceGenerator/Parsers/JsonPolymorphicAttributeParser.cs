@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
 
-public static class JsonPolymorphicAttributeParser
+internal static class JsonPolymorphicAttributeParser
 {
     public static JsonPolymorphicConfiguration? Parse(
         AttributeData attributeData

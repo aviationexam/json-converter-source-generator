@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
-public static class JsonPolymorphicAttributeGenerator
+internal static class JsonPolymorphicAttributeGenerator
 {
     public static void GenerateJsonPolymorphicAttribute(
         this IncrementalGeneratorPostInitializationContext initializationContext

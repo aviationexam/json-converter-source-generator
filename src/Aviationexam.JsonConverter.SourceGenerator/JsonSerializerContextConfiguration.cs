@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
 
-public record JsonSerializerContextConfiguration(
+internal record JsonSerializerContextConfiguration(
     ISymbol JsonSerializerContextClassType,
     INamedTypeSymbol JsonPolymorphicAttributeSymbol,
     INamedTypeSymbol JsonDerivedTypeAttributeSymbol,

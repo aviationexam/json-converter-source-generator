@@ -2,7 +2,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
-public static class JsonDerivedTypeAttributeGenerator
+internal static class JsonDerivedTypeAttributeGenerator
 {
     public static void GenerateJsonDerivedTypeAttribute(
         this IncrementalGeneratorPostInitializationContext initializationContext
