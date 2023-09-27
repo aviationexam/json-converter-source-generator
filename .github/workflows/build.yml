@@ -19,7 +19,7 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       - uses: actions/checkout@v4
-      - name: Retore
+      - name: Restore
         run: dotnet restore --nologo
       - name: Build
         run: dotnet build --no-restore --nologo --configuration Release
@@ -36,7 +36,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-      - name: Retore
+      - name: Restore
         run: dotnet restore --nologo
       - name: .Net Format
         run: dotnet format --no-restore --verify-no-changes -v diag
