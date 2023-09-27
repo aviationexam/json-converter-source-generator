@@ -91,6 +91,8 @@ public class JsonConverterGenerator : IIncrementalGenerator
         var files = new List<FileWithName>();
         var converters = new List<string>();
 
+        var convertersTargetNamespace = context.JsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
+
         foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
         {
             var attributes = jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument.GetAttributes();
@@ -116,6 +118,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
             }
 
             files.Add(JsonPolymorphicConverterGenerator.Generate(
+                convertersTargetNamespace,
                 jsonSerializableConfiguration,
                 jsonPolymorphicConfiguration,
                 derivedTypes,
@@ -129,6 +132,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
         {
             files.Add(JsonSerializerContextGenerator.Generate(
                 context.JsonSerializerContextClassType,
+                convertersTargetNamespace,
                 converters
             ));
         }

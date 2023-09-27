@@ -10,6 +10,7 @@ public static class JsonPolymorphicConverterGenerator
     private const string DefaultTypeDiscriminatorPropertyName = "$type";
 
     public static FileWithName Generate(
+        string targetNamespace,
         JsonSerializableConfiguration jsonSerializableConfiguration,
         JsonPolymorphicConfiguration? jsonPolymorphicConfiguration,
         IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes,
@@ -20,8 +21,6 @@ public static class JsonPolymorphicConverterGenerator
         converterName = $"{jsonSerializableAttributeTypeArgument.Name}JsonPolymorphicConverter";
 
         var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
-
-        var targetNamespace = jsonSerializableAttributeTypeArgument.ContainingNamespace.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
 
@@ -44,12 +43,12 @@ public static class JsonPolymorphicConverterGenerator
             var (typeForDiscriminatorCase, discriminatorForTypeCase) = discriminator switch
             {
                 DiscriminatorStruct<string> discriminatorString => (
-                    $"DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
-                    $"    return new DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
+                    $"Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
+                    $"    return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
                 ),
                 DiscriminatorStruct<int> discriminatorInt => (
-                    $"DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
-                    $"    return new DiscriminatorStruct<int>({discriminatorInt.Value});"
+                    $"Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
+                    $"    return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<int>({discriminatorInt.Value});"
                 ),
                 _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
             };
@@ -75,26 +74,27 @@ public static class JsonPolymorphicConverterGenerator
             // language=cs
             $$"""
               #nullable enable
-              using System;
 
               namespace {{targetNamespace}};
 
-              internal class {{converterName}} : PolymorphicJsonConvertor<{{fullName}}>
+              internal class {{converterName}} : Aviationexam.JsonConverter.SourceGenerator.PolymorphicJsonConvertor<{{fullName}}>
               {
-                  protected override ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
+                  protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
 
-                  protected override Type GetTypeForDiscriminator(
-                      IDiscriminatorStruct discriminator
+                  protected override System.Type GetTypeForDiscriminator(
+                      Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
               {{typeForDiscriminatorStringBuilder}}
-                      _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+                      _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
 
-                  protected override IDiscriminatorStruct GetDiscriminatorForType(Type type)
+                  protected override Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct GetDiscriminatorForType(
+                      System.Type type
+                  )
                   {
               {{discriminatorForTypeStringBuilder}}
-                      throw new ArgumentOutOfRangeException(nameof(type), type, null);
+                      throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
                   }
               }
               """

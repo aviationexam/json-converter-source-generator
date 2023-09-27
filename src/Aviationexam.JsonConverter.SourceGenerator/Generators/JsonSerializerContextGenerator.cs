@@ -10,6 +10,7 @@ public static class JsonSerializerContextGenerator
 {
     public static FileWithName Generate(
         ISymbol jsonSerializerContextClassType,
+        string convertersTargetNamespace,
         IReadOnlyCollection<string> converters
     )
     {
@@ -38,19 +39,18 @@ public static class JsonSerializerContextGenerator
             // language=cs
             $$"""
               #nullable enable
-              using System.Collections.Generic;
 
               namespace {{targetNamespace}};
 
               {{classAccessibility}} partial class {{jsonSerializerContextClassType.Name}}
               {
-                  public static IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
+                  public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
                   {
-                      {{string.Join("\n        ", converters.Select(x => $"new {x}(),"))}}
+                      {{string.Join("\n        ", converters.Select(x => $"new {convertersTargetNamespace}.{x}(),"))}}
                   };
 
                   public static void UsePolymorphicConverters(
-                      ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
+                      System.Collections.Generic.ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
                   )
                   {
                       foreach (var converter in GetPolymorphicConverters())
