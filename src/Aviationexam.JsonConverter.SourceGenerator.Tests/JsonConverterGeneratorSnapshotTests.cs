@@ -53,4 +53,36 @@ public class JsonConverterGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task CustomDiscriminatorWorks() => TestHelper.Verify(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.JsonConverter.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [JsonPolymorphic(TypeDiscriminatorPropertyName = "myCustomDiscriminator")]
+        [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        public abstract class BaseContract
+        {
+        }
+
+        public sealed class LeafContract : BaseContract
+        {
+        }
+        """,
+        """
+        using ApplicationNamespace.Contracts;
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        [JsonSerializable(typeof(BaseContract))]
+        [JsonSerializable(typeof(LeafContract))]
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
 }
