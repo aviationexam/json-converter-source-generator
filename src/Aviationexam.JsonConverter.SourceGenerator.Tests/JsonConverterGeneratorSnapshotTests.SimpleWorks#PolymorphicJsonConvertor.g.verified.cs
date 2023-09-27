@@ -1,6 +1,8 @@
 ﻿//HintName: PolymorphicJsonConvertor.g.cs
 // ReSharper disable once RedundantNullableDirective
+
 #nullable enable
+
 using System;
 using System.Text;
 using System.Text.Json;
@@ -8,13 +10,15 @@ using System.Text.Json.Serialization;
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
 
-internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
+internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T : class
 {
     private readonly Type _polymorphicType = typeof(T);
 
     protected abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
-    protected abstract Type GetTypeForDiscriminator(string discriminator);
+    protected abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
+
+    protected abstract IDiscriminatorStruct GetDiscriminatorForType(Type type);
 
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
@@ -22,9 +26,18 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
 
         var discriminatorPropertyName = GetDiscriminatorPropertyName();
 
-        var typeDiscriminator = jsonDocument.RootElement
-            .GetProperty(discriminatorPropertyName)
-            .GetString();
+        var discriminatorProperty = jsonDocument.RootElement
+            .GetProperty(discriminatorPropertyName);
+
+        IDiscriminatorStruct? typeDiscriminator = null;
+        if (discriminatorProperty.ValueKind is JsonValueKind.String)
+        {
+            typeDiscriminator = new DiscriminatorStruct<string>(discriminatorProperty.GetString()!);
+        }
+        else if (discriminatorProperty.ValueKind is JsonValueKind.Number)
+        {
+            typeDiscriminator = new DiscriminatorStruct<int>(discriminatorProperty.GetInt32());
+        }
 
         if (typeDiscriminator is null)
         {
@@ -40,18 +53,32 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        if (RemoveThisFromOptions(options).GetConverter(_polymorphicType) is not JsonConverter<T> converter)
+        var instanceType = value.GetType();
+
+        writer.WriteStartObject();
+
+        var discriminatorPropertyName = GetDiscriminatorPropertyName();
+        var discriminatorValue = GetDiscriminatorForType(instanceType);
+
+        if (discriminatorValue is DiscriminatorStruct<string> discriminatorString)
         {
-            throw new JsonException($"Missing default converter for type {_polymorphicType}");
+            writer.WriteString(discriminatorPropertyName, discriminatorString.Value);
+        }
+        else if (discriminatorValue is DiscriminatorStruct<int> discriminatorInt)
+        {
+            writer.WriteNumber(discriminatorPropertyName, discriminatorInt.Value);
         }
 
-        converter.Write(writer, value, options);
-    }
+        var typeInfo = options.GetTypeInfo(instanceType);
 
-    private JsonSerializerOptions RemoveThisFromOptions(JsonSerializerOptions options)
-    {
-        JsonSerializerOptions newOptions = new(options);
-        newOptions.Converters.Remove(this);
-        return newOptions;
+        foreach (var p in typeInfo.Properties)
+        {
+            if (p.Get is null) continue;
+
+            writer.WritePropertyName(p.Name);
+            JsonSerializer.Serialize(writer, p.Get(value), options);
+        }
+
+        writer.WriteEndObject();
     }
 }

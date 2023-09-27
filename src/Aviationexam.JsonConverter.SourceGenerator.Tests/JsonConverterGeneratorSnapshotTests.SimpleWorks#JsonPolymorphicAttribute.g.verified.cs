@@ -1,9 +1,11 @@
 ﻿//HintName: JsonPolymorphicAttribute.g.cs
 #nullable enable
 
+namespace Aviationexam.JsonConverter.Attributes;
+
 /// <summary>
 /// This is a copy of System.Text.Json.Serialization.JsonPolymorphicAttribute.
-/// It's purpose is to hijack this attribute to silence System.Text.Json.Serialization.Metadata.PolymorphicTypeResolver{ThrowHelper.ThrowNotSupportedException_BaseConverterDoesNotSupportMetadata}
+/// It's purpose is to replace this attribute to silence System.Text.Json.Serialization.Metadata.PolymorphicTypeResolver{ThrowHelper.ThrowNotSupportedException_BaseConverterDoesNotSupportMetadata}
 ///
 /// When placed on a type, indicates that the type should be serialized polymorphically.
 /// </summary>

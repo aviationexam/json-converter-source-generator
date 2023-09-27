@@ -17,9 +17,9 @@ public class JsonConverterGeneratorSnapshotTests
 
         namespace ApplicationNamespace;
 
-        [JsonPolymorphic]
-        [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
-        [JsonDerivedType(typeof(AnotherLeafContract))]
+        [Aviationexam.JsonConverter.Attributes.JsonPolymorphic]
+        [Aviationexam.JsonConverter.Attributes.JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        [Aviationexam.JsonConverter.Attributes.JsonDerivedType(typeof(AnotherLeafContract))]
         public abstract class BaseContract
         {
         }
@@ -33,6 +33,8 @@ public class JsonConverterGeneratorSnapshotTests
         }
 
         [JsonSerializable(typeof(BaseContract))]
+        [JsonSerializable(typeof(LeafContract))]
+        [JsonSerializable(typeof(AnotherLeafContract))]
         public partial class MyJsonSerializerContext : JsonSerializerContext
         {
         }
