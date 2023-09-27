@@ -19,13 +19,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\release.yml = .github\workflows\release.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator", "src\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj", "{026690F8-2C9D-4D94-8437-FE9B85007212}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.GeneratedJsonConverters.SourceGenerator", "src\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj", "{026690F8-2C9D-4D94-8437-FE9B85007212}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator.Tests", "src\Aviationexam.JsonConverter.SourceGenerator.Tests\Aviationexam.JsonConverter.SourceGenerator.Tests.csproj", "{D7B44284-0307-4FB0-89D4-C7ABC00BA467}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests", "src\Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests\Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests.csproj", "{D7B44284-0307-4FB0-89D4-C7ABC00BA467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator.Target", "src\Aviationexam.JsonConverter.SourceGenerator.Target\Aviationexam.JsonConverter.SourceGenerator.Target.csproj", "{76849788-E61C-4367-BE57-B9A4F5A0D158}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.GeneratedJsonConverters.SourceGenerator.Target", "src\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj", "{76849788-E61C-4367-BE57-B9A4F5A0D158}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.JsonConverter.SourceGenerator.Target.Tests", "src\Aviationexam.JsonConverter.SourceGenerator.Target.Tests\Aviationexam.JsonConverter.SourceGenerator.Target.Tests.csproj", "{B86C004E-145E-4952-A427-9048B5418A0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests", "src\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj", "{B86C004E-145E-4952-A427-9048B5418A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
