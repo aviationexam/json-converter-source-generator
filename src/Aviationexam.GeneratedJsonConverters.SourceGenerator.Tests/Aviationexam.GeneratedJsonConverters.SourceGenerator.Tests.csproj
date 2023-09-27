@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>11.0</LangVersion>
     <Nullable>enable</Nullable>
-    <ProjectName>Aviationexam.JsonConverter.SourceGenerator.Tests</ProjectName>
+    <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests</ProjectName>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aviationexam.JsonConverter.SourceGenerator\Aviationexam.JsonConverter.SourceGenerator.csproj" />
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" />
   </ItemGroup>
 
   <ItemGroup>
