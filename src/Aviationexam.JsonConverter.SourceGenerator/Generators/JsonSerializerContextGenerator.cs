@@ -1,4 +1,4 @@
-﻿using H.Generators;
+using H.Generators;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;

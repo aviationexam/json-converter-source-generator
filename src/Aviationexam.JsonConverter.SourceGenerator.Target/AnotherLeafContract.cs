@@ -1,4 +1,4 @@
-﻿namespace Aviationexam.JsonConverter.SourceGenerator.Target;
+namespace Aviationexam.JsonConverter.SourceGenerator.Target;
 
 public sealed class AnotherLeafContract : BaseContract
 {

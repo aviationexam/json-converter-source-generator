@@ -1,4 +1,4 @@
-﻿using Aviationexam.JsonConverter.Attributes;
+using Aviationexam.JsonConverter.Attributes;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Target;
 

@@ -1,4 +1,4 @@
-﻿// ReSharper disable once RedundantNullableDirective
+// ReSharper disable once RedundantNullableDirective
 
 #nullable enable
 

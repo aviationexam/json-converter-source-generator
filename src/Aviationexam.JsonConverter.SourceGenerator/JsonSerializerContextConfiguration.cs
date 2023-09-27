@@ -1,4 +1,4 @@
-﻿using H.Generators.Extensions;
+using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 
 namespace Aviationexam.JsonConverter.SourceGenerator;
