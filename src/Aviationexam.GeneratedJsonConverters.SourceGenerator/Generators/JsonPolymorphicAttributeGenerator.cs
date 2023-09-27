@@ -1,6 +1,6 @@
 using Microsoft.CodeAnalysis;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
 internal static class JsonPolymorphicAttributeGenerator
 {
@@ -14,7 +14,7 @@ internal static class JsonPolymorphicAttributeGenerator
         $$"""
         #nullable enable
 
-        namespace Aviationexam.JsonConverter.Attributes;
+        namespace Aviationexam.GeneratedJsonConverters.Attributes;
 
         /// <summary>
         /// This is a copy of System.Text.Json.Serialization.JsonPolymorphicAttribute.

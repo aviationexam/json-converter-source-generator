@@ -1,8 +1,8 @@
-using Aviationexam.JsonConverter.SourceGenerator.Generators;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Microsoft.CodeAnalysis;
 using System.Linq;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
 internal static class JsonPolymorphicAttributeParser
 {

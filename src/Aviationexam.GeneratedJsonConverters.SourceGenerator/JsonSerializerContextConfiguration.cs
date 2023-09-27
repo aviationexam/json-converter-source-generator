@@ -1,7 +1,7 @@
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record JsonSerializerContextConfiguration(
     ISymbol JsonSerializerContextClassType,

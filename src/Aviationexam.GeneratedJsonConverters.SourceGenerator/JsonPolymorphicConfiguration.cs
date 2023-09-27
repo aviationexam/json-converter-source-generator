@@ -1,4 +1,4 @@
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record JsonPolymorphicConfiguration(
     string DiscriminatorPropertyName

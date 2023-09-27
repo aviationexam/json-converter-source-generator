@@ -6,7 +6,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Filters;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 
 internal static class JsonSerializerContextConfigurationFilter
 {

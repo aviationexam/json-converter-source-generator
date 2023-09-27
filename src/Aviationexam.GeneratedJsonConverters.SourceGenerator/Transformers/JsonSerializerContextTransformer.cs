@@ -1,4 +1,4 @@
-using Aviationexam.JsonConverter.SourceGenerator.Parsers;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
@@ -9,7 +9,7 @@ using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Transformers;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 
 internal static class JsonSerializerContextTransformer
 {
@@ -18,12 +18,12 @@ internal static class JsonSerializerContextTransformer
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private const string RealJsonPolymorphicAttribute = "System.Text.Json.Serialization.JsonPolymorphicAttribute";
 
-    private const string JsonPolymorphicAttribute = "Aviationexam.JsonConverter.Attributes.JsonPolymorphicAttribute";
+    private const string JsonPolymorphicAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.JsonPolymorphicAttribute";
 
     [SuppressMessage("ReSharper", "UnusedMember.Local")]
     private const string RealJsonDerivedTypeAttribute = "System.Text.Json.Serialization.JsonDerivedTypeAttribute";
 
-    private const string JsonDerivedTypeAttribute = "Aviationexam.JsonConverter.Attributes.JsonDerivedTypeAttribute";
+    private const string JsonDerivedTypeAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedTypeAttribute";
 
     public static ResultWithDiagnostics<JsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
         GeneratorSyntaxContext context,

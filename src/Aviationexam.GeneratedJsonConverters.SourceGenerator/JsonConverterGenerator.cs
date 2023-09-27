@@ -1,7 +1,7 @@
-using Aviationexam.JsonConverter.SourceGenerator.Filters;
-using Aviationexam.JsonConverter.SourceGenerator.Generators;
-using Aviationexam.JsonConverter.SourceGenerator.Parsers;
-using Aviationexam.JsonConverter.SourceGenerator.Transformers;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 [Generator]
 public class JsonConverterGenerator : IIncrementalGenerator
@@ -57,7 +57,6 @@ public class JsonConverterGenerator : IIncrementalGenerator
 
             i.GenerateJsonPolymorphicAttribute();
             i.GenerateJsonDerivedTypeAttribute();
-            //i.GenerateIDiscriminatorStruct();
         });
 
         context.SyntaxProvider.CreateSyntaxProvider(

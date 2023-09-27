@@ -1,6 +1,6 @@
 using Microsoft.CodeAnalysis;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
 internal static class JsonDerivedTypeAttributeParser
 {

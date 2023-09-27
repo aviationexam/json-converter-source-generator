@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
 internal static class JsonSerializerContextGenerator
 {

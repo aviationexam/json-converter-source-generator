@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
 internal static class JsonPolymorphicConverterGenerator
 {
@@ -43,12 +43,12 @@ internal static class JsonPolymorphicConverterGenerator
             var (typeForDiscriminatorCase, discriminatorForTypeCase) = discriminator switch
             {
                 DiscriminatorStruct<string> discriminatorString => (
-                    $"Aviationexam.GeneratedJsonConverters.SourceGenerator.DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.SourceGenerator.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
+                    $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
+                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
                 ),
                 DiscriminatorStruct<int> discriminatorInt => (
-                    $"Aviationexam.GeneratedJsonConverters.SourceGenerator.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.SourceGenerator.DiscriminatorStruct<int>({discriminatorInt.Value});"
+                    $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
+                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});"
                 ),
                 _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
             };
@@ -77,19 +77,19 @@ internal static class JsonPolymorphicConverterGenerator
 
               namespace {{targetNamespace}};
 
-              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.SourceGenerator.PolymorphicJsonConvertor<{{fullName}}>
+              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{fullName}}>
               {
                   protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
 
                   protected override System.Type GetTypeForDiscriminator(
-                      Aviationexam.GeneratedJsonConverters.SourceGenerator.IDiscriminatorStruct discriminator
+                      Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
               {{typeForDiscriminatorStringBuilder}}
                       _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
 
-                  protected override Aviationexam.GeneratedJsonConverters.SourceGenerator.IDiscriminatorStruct GetDiscriminatorForType(
+                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
                       System.Type type
                   )
                   {

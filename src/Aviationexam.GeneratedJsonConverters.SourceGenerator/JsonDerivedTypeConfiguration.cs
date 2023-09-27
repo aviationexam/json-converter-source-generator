@@ -1,6 +1,6 @@
 using Microsoft.CodeAnalysis;
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record JsonDerivedTypeConfiguration(
     ITypeSymbol TargetType,

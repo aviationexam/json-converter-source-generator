@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters;
 
 internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T : class
 {

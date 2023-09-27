@@ -1,6 +1,6 @@
 using Microsoft.CodeAnalysis;
 
-namespace Aviationexam.JsonConverter.SourceGenerator;
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal static class GeneratorGenerationRules
 {
@@ -8,7 +8,7 @@ internal static class GeneratorGenerationRules
         $"{JsonConverterGenerator.Id}_0001",
         "Unable to parse marking attribute",
         "Unable to parse marking attribute {0}",
-        "Aviationexam.Core.Common.GeneratedGenericProxy",
+        "Aviationexam.GeneratedJsonConverters.SourceGenerator",
         DiagnosticSeverity.Error,
         true
     );
