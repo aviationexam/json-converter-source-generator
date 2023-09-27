@@ -135,7 +135,7 @@ public class BaseContractSerializationTests
               "leafProperty": 2,
               "baseProperty": 1
             }
-            """
+            """.Replace("\r\n", Environment.NewLine)
         };
         yield return new object[]
         {
@@ -151,7 +151,7 @@ public class BaseContractSerializationTests
               "anotherLeafProperty": 2,
               "baseProperty": 1
             }
-            """
+            """.Replace("\r\n", Environment.NewLine)
         };
     }
 }
