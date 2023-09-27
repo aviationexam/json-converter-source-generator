@@ -1,4 +1,5 @@
 using Aviationexam.JsonConverter.SourceGenerator.Target.Contracts;
+using Aviationexam.JsonConverter.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System.Text.Json.Serialization;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Target;
@@ -11,6 +12,8 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Target;
 [JsonSerializable(typeof(BaseContract))]
 [JsonSerializable(typeof(LeafContract))]
 [JsonSerializable(typeof(AnotherLeafContract))]
+[JsonSerializable(typeof(BaseContractWithCustomDelimiter))]
+[JsonSerializable(typeof(LeafContractWithCustomDelimiter))]
 public partial class MyJsonSerializerContext : JsonSerializerContext
 {
     static MyJsonSerializerContext()

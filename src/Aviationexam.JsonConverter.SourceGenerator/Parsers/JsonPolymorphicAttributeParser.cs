@@ -1,4 +1,6 @@
+using Aviationexam.JsonConverter.SourceGenerator.Generators;
 using Microsoft.CodeAnalysis;
+using System.Linq;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Parsers;
 
@@ -8,14 +10,17 @@ internal static class JsonPolymorphicAttributeParser
         AttributeData attributeData
     )
     {
-        var arguments = attributeData.ConstructorArguments;
-
-        if (arguments is [var typedConstant])
-        {
-            if (typedConstant is { Kind: TypedConstantKind.Primitive, Value: string discriminatorPropertyName })
+        if (
+            attributeData.NamedArguments
+                .Where(x => x.Key == JsonPolymorphicAttributeGenerator.TypeDiscriminatorPropertyNamePropertyName)
+                .Select(x => x.Value).SingleOrDefault() is
             {
-                return new JsonPolymorphicConfiguration(discriminatorPropertyName);
-            }
+                Kind: TypedConstantKind.Primitive,
+                Value: string discriminatorPropertyName
+            } typedConstant
+        )
+        {
+            return new JsonPolymorphicConfiguration(discriminatorPropertyName);
         }
 
         return null;

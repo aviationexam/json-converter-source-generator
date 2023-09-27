@@ -4,12 +4,14 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Generators;
 
 internal static class JsonPolymorphicAttributeGenerator
 {
+    public const string TypeDiscriminatorPropertyNamePropertyName = "TypeDiscriminatorPropertyName";
+
     public static void GenerateJsonPolymorphicAttribute(
         this IncrementalGeneratorPostInitializationContext initializationContext
     ) => initializationContext.AddSource(
         "JsonPolymorphicAttribute.g.cs",
         // language=cs
-        """
+        $$"""
         #nullable enable
 
         namespace Aviationexam.JsonConverter.Attributes;
@@ -27,7 +29,7 @@ internal static class JsonPolymorphicAttributeGenerator
             /// Gets or sets a custom type discriminator property name for the polymorhic type.
             /// Uses the default '$type' property name if left unset.
             /// </summary>
-            public string? TypeDiscriminatorPropertyName { get; set; }
+            public string? {{TypeDiscriminatorPropertyNamePropertyName}} { get; set; }
 
             /// <summary>
             /// Gets or sets the behavior when serializing an undeclared derived runtime type.
