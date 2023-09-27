@@ -5,6 +5,18 @@
 
 # Aviationexam.JsonConverter.SourceGenerator
 
+Motivation for this library are polymorphic contracts with discriminator property not present as first property.
+
+i.e. this JSON
+```json
+{
+    "baseProperty": 1,
+    "$type": 2,
+    "anotherLeafProperty": 2
+}
+```
+is deserialized correctly into `AnotherLeafContract` using this library.
+
 ## Install
 ```xml
 <ItemGroup>
@@ -18,7 +30,7 @@
 // file=contracts.cs
 using Aviationexam.JsonConverter.Attributes;
 
-[JsonPolymorphic]
+[JsonPolymorphic] // notice, that attributes are from `Aviationexam.JsonConverter.Attributes` namespace, not `System.Text.Json.Serialization`
 [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
 [JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
 public abstract class BaseContract
