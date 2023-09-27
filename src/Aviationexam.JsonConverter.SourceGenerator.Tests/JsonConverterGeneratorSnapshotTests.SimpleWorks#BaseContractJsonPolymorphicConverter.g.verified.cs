@@ -1,34 +1,40 @@
 ﻿//HintName: BaseContractJsonPolymorphicConverter.g.cs
 #nullable enable
-using System;
 
 namespace ApplicationNamespace;
 
-internal class BaseContractJsonPolymorphicConverter : PolymorphicJsonConvertor<ApplicationNamespace.BaseContract>
+internal class BaseContractJsonPolymorphicConverter : Aviationexam.JsonConverter.SourceGenerator.PolymorphicJsonConvertor<ApplicationNamespace.Contracts.BaseContract>
 {
-    protected override ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
+    protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
 
-    protected override Type GetTypeForDiscriminator(
-        IDiscriminatorStruct discriminator
+    protected override System.Type GetTypeForDiscriminator(
+        Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct discriminator
     ) => discriminator switch
     {
-        DiscriminatorStruct<string> { Value: "LeafContract" } => typeof(ApplicationNamespace.LeafContract),
-        DiscriminatorStruct<string> { Value: "AnotherLeafContract" } => typeof(ApplicationNamespace.AnotherLeafContract),
+        Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string> { Value: "LeafContract" } => typeof(ApplicationNamespace.Contracts.LeafContract),
+        Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<int> { Value: 2 } => typeof(ApplicationNamespace.Contracts.AnotherLeafContract),
+        Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string> { Value: "AnonymousLeafContract" } => typeof(ApplicationNamespace.Contracts.AnonymousLeafContract),
 
-        _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+        _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override IDiscriminatorStruct GetDiscriminatorForType(Type type)
+    protected override Aviationexam.JsonConverter.SourceGenerator.IDiscriminatorStruct GetDiscriminatorForType(
+        System.Type type
+    )
     {
-        if (type == typeof(ApplicationNamespace.LeafContract))
+        if (type == typeof(ApplicationNamespace.Contracts.LeafContract))
         {
-            return new DiscriminatorStruct<string>("LeafContract");
+            return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string>("LeafContract");
         }
-        if (type == typeof(ApplicationNamespace.AnotherLeafContract))
+        if (type == typeof(ApplicationNamespace.Contracts.AnotherLeafContract))
         {
-            return new DiscriminatorStruct<string>("AnotherLeafContract");
+            return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<int>(2);
+        }
+        if (type == typeof(ApplicationNamespace.Contracts.AnonymousLeafContract))
+        {
+            return new Aviationexam.JsonConverter.SourceGenerator.DiscriminatorStruct<string>("AnonymousLeafContract");
         }
 
-        throw new ArgumentOutOfRangeException(nameof(type), type, null);
+        throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
     }
 }

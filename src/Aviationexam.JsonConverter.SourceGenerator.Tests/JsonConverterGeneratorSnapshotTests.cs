@@ -12,14 +12,16 @@ public class JsonConverterGeneratorSnapshotTests
 
     [Fact]
     public Task SimpleWorks() => TestHelper.Verify(
+        // ReSharper disable once HeapView.ObjectAllocation
         """
-        using System.Text.Json.Serialization;
+        using Aviationexam.JsonConverter.Attributes;
 
-        namespace ApplicationNamespace;
+        namespace ApplicationNamespace.Contracts;
 
-        [Aviationexam.JsonConverter.Attributes.JsonPolymorphic]
-        [Aviationexam.JsonConverter.Attributes.JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
-        [Aviationexam.JsonConverter.Attributes.JsonDerivedType(typeof(AnotherLeafContract))]
+        [JsonPolymorphic]
+        [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        [JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
+        [JsonDerivedType(typeof(AnonymousLeafContract))]
         public abstract class BaseContract
         {
         }
@@ -32,9 +34,20 @@ public class JsonConverterGeneratorSnapshotTests
         {
         }
 
+        public sealed class AnonymousLeafContract : BaseContract
+        {
+        }
+        """,
+        """
+        using ApplicationNamespace.Contracts;
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
         [JsonSerializable(typeof(BaseContract))]
         [JsonSerializable(typeof(LeafContract))]
         [JsonSerializable(typeof(AnotherLeafContract))]
+        [JsonSerializable(typeof(AnonymousLeafContract))]
         public partial class MyJsonSerializerContext : JsonSerializerContext
         {
         }

@@ -1,6 +1,6 @@
 using Aviationexam.JsonConverter.Attributes;
 
-namespace Aviationexam.JsonConverter.SourceGenerator.Target;
+namespace Aviationexam.JsonConverter.SourceGenerator.Target.Contracts;
 
 [JsonPolymorphic]
 [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
