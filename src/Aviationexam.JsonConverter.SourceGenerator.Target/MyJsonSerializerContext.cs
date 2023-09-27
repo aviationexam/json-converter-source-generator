@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Aviationexam.JsonConverter.SourceGenerator.Target;
@@ -9,14 +8,12 @@ namespace Aviationexam.JsonConverter.SourceGenerator.Target;
     GenerationMode = JsonSourceGenerationMode.Default
 )]
 [JsonSerializable(typeof(BaseContract))]
+[JsonSerializable(typeof(LeafContract))]
+[JsonSerializable(typeof(AnotherLeafContract))]
 public partial class MyJsonSerializerContext : JsonSerializerContext
 {
     static MyJsonSerializerContext()
     {
         UsePolymorphicConverters(s_defaultOptions.Converters);
     }
-
-    static partial void UsePolymorphicConverters(
-        ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
-    );
 }
