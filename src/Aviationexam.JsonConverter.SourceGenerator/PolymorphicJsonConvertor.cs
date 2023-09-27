@@ -28,14 +28,14 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
         var discriminatorProperty = jsonDocument.RootElement
             .GetProperty(discriminatorPropertyName);
 
-        string? typeDiscriminator = null;
+        IDiscriminatorStruct? typeDiscriminator = null;
         if (discriminatorProperty.ValueKind is JsonValueKind.String)
         {
-            typeDiscriminator = discriminatorProperty.GetString();
+            typeDiscriminator = new DiscriminatorStruct<string>(discriminatorProperty.GetString()!);
         }
         else if (discriminatorProperty.ValueKind is JsonValueKind.Number)
         {
-            typeDiscriminator = discriminatorProperty.GetInt32().ToString();
+            typeDiscriminator = new DiscriminatorStruct<int>(discriminatorProperty.GetInt32());
         }
 
         if (typeDiscriminator is null)
@@ -52,18 +52,35 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        if (RemoveThisFromOptions(options).GetConverter(_polymorphicType) is not JsonConverter<T> converter)
+        var instanceType = value.GetType();
+
+        writer.WriteStartObject();
+
+        var discriminatorPropertyName = GetDiscriminatorPropertyName();
+        var discriminatorValue = GetDiscriminatorForType(instanceType);
+
+        if (discriminatorValue is DiscriminatorStruct<string> discriminatorString)
         {
-            throw new JsonException($"Missing default converter for type {_polymorphicType}");
+            writer.WriteString(discriminatorPropertyName, discriminatorString.Value);
+        }
+        else if (discriminatorValue is DiscriminatorStruct<int> discriminatorInt)
+        {
+            writer.WriteNumber(discriminatorPropertyName, discriminatorInt.Value);
         }
 
-        converter.Write(writer, value, options);
-    }
+        var typeInfo = options.GetTypeInfo(instanceType);
 
-    private JsonSerializerOptions RemoveThisFromOptions(JsonSerializerOptions options)
-    {
-        JsonSerializerOptions newOptions = new(options);
-        newOptions.Converters.Remove(this);
-        return newOptions;
+        foreach (var p in typeInfo.Properties)
+        {
+            if (p.Get is null)
+            {
+                continue;
+            }
+
+            writer.WritePropertyName(p.Name);
+            JsonSerializer.Serialize(writer, p.Get(value), p.PropertyType, options);
+        }
+
+        writer.WriteEndObject();
     }
 }
