@@ -10,7 +10,7 @@ namespace Aviationexam.GeneratedJsonConverters.Attributes;
 /// When placed on a type declaration, indicates that the specified subtype should be opted into polymorphic serialization.
 /// </summary>
 [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface, AllowMultiple = true, Inherited = false)]
-public class JsonDerivedTypeAttribute : System.Text.Json.Serialization.JsonAttribute
+internal class JsonDerivedTypeAttribute : System.Text.Json.Serialization.JsonAttribute
 {
     /// <summary>
     /// Initializes a new attribute with specified parameters.
