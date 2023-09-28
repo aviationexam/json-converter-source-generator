@@ -17,8 +17,6 @@
     <PackageLicense>MIT</PackageLicense>
     <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DevelopmentDependency>true</DevelopmentDependency>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <IncludeBuildOutput>false</IncludeBuildOutput>
