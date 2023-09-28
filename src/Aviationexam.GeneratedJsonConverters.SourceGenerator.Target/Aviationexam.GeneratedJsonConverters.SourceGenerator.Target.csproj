@@ -8,6 +8,8 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
+  <Import Project="..\WarningConfiguration.targets" />
+
   <ItemGroup>
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>

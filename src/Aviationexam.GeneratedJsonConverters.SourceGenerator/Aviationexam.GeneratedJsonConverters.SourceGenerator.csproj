@@ -17,8 +17,6 @@
     <PackageLicense>MIT</PackageLicense>
     <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <IncludeSymbols>true</IncludeSymbols>
-    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <DevelopmentDependency>true</DevelopmentDependency>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <IncludeBuildOutput>false</IncludeBuildOutput>
@@ -44,17 +42,5 @@
     <EmbeddedResource Include="IDiscriminatorStruct.cs" />
     <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
-  </PropertyGroup>
-
-  <Target Name="_AddAnalyzersToOutput">
-    <Message Importance="High" Text="$(MSBuildProjectDirectory)\$(OutputPath)" />
-
-    <ItemGroup>
-      <TfmSpecificPackageFile Include="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" PackagePath="analyzers/dotnet/cs" />
-    </ItemGroup>
-  </Target>
 
 </Project>
