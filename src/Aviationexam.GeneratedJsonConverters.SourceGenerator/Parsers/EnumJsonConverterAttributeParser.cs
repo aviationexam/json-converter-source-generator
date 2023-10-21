@@ -2,7 +2,7 @@ using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Runtime.CompilerServices;
+using System.Collections.Immutable;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
@@ -30,7 +30,7 @@ internal static class EnumJsonConverterAttributeParser
                     {
                         EnumJsonConverterAttributeGenerator.DeserializationStrategyPropertyName => jsonConverterConfiguration with
                         {
-                            DeserializationStrategy = ParseEnum<EnumDeserializationStrategy>(expression),
+                            DeserializationStrategies = ParseEnumAsArray<EnumDeserializationStrategy>(expression),
                         },
                         EnumJsonConverterAttributeGenerator.SerializationStrategyPropertyName => jsonConverterConfiguration with
                         {
@@ -49,8 +49,39 @@ internal static class EnumJsonConverterAttributeParser
         return jsonConverterConfiguration;
     }
 
-    private static TEnum ParseEnum<TEnum>(ExpressionSyntax expressionSyntax)
-        where TEnum : Enum
+    private static ImmutableArray<TEnum> ParseEnumAsArray<TEnum>(
+        ExpressionSyntax expressionSyntax
+    ) where TEnum : Enum
+    {
+        if (expressionSyntax is MemberAccessExpressionSyntax)
+        {
+            return new ImmutableArray<TEnum>
+            {
+                ParseEnum<TEnum>(expressionSyntax),
+            };
+        }
+
+        if (
+            expressionSyntax is BinaryExpressionSyntax
+            {
+                Left: var leftExpression,
+                Right: var rightExpression
+            }
+        )
+        {
+            return new ImmutableArray<TEnum>
+            {
+                ParseEnum<TEnum>(leftExpression),
+                ParseEnum<TEnum>(rightExpression),
+            };
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(expressionSyntax), expressionSyntax, $"Not supported expression syntax {expressionSyntax.ToFullString()}");
+    }
+
+    private static TEnum ParseEnum<TEnum>(
+        ExpressionSyntax expressionSyntax
+    ) where TEnum : Enum
     {
         if (
             expressionSyntax is MemberAccessExpressionSyntax
@@ -65,46 +96,6 @@ internal static class EnumJsonConverterAttributeParser
             return (TEnum) Enum.Parse(typeof(TEnum), enumName);
         }
 
-        if (
-            expressionSyntax is BinaryExpressionSyntax
-            {
-                Left: var leftExpression,
-                Right: var rightExpression
-            }
-        )
-        {
-            var leftEnum = ParseEnum<TEnum>(leftExpression);
-            var rightEnum = ParseEnum<TEnum>(rightExpression);
-
-            return Type.GetTypeCode(typeof(TEnum)) switch
-            {
-                TypeCode.SByte => EnumBinaryOr<TEnum, sbyte>(leftEnum, rightEnum, (x, y) => (sbyte) (x | y)),
-                TypeCode.Int16 => EnumBinaryOr<TEnum, short>(leftEnum, rightEnum, (x, y) => (short) (x | y)),
-                TypeCode.Int32 => EnumBinaryOr<TEnum, int>(leftEnum, rightEnum, (x, y) => x | y),
-                TypeCode.Byte => EnumBinaryOr<TEnum, byte>(leftEnum, rightEnum, (x, y) => (byte) (x | y)),
-                TypeCode.UInt16 => EnumBinaryOr<TEnum, ushort>(leftEnum, rightEnum, (x, y) => (ushort) (x | y)),
-                TypeCode.UInt32 => EnumBinaryOr<TEnum, uint>(leftEnum, rightEnum, (x, y) => x | y),
-                TypeCode.Int64 => EnumBinaryOr<TEnum, long>(leftEnum, rightEnum, (x, y) => x | y),
-                TypeCode.UInt64 => EnumBinaryOr<TEnum, long>(leftEnum, rightEnum, (x, y) => x | y),
-                _ => EnumBinaryOr<TEnum, int>(leftEnum, rightEnum, (x, y) => x | y),
-            };
-        }
-
         throw new ArgumentOutOfRangeException(nameof(expressionSyntax), expressionSyntax, $"Not supported expression syntax {expressionSyntax.ToFullString()}");
-    }
-
-    private static TEnum EnumBinaryOr<TEnum, TBackingType>(
-        TEnum left,
-        TEnum right,
-        Func<TBackingType, TBackingType, TBackingType> merge
-    )
-        where TBackingType : struct
-    {
-        var backingLeft = Unsafe.As<TEnum, TBackingType>(ref left);
-        var backingRight = Unsafe.As<TEnum, TBackingType>(ref right);
-
-        var result = merge(backingLeft, backingRight);
-
-        return Unsafe.As<TBackingType, TEnum>(ref result);
     }
 }

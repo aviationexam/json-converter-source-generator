@@ -1,12 +1,15 @@
+using System;
+using System.Collections.Immutable;
+
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal sealed record EnumJsonConverterConfiguration(
     EnumSerializationStrategy SerializationStrategy,
-    EnumDeserializationStrategy DeserializationStrategy
+    ImmutableArray<EnumDeserializationStrategy> DeserializationStrategies
 )
 {
     public static EnumJsonConverterConfiguration Empty => new(
         EnumSerializationStrategy.ProjectDefault,
-        EnumDeserializationStrategy.ProjectDefault
+        Array.Empty<EnumDeserializationStrategy>().ToImmutableArray()
     );
 };

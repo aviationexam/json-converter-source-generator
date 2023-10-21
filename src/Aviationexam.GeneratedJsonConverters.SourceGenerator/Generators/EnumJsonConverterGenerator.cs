@@ -88,6 +88,9 @@ internal static class EnumJsonConverterGenerator
 
               internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<{{fullName}}, {{backingType}}>
               {
+                  protected override EnumDeserializationStrategy DeserializationStrategy { get; }
+
+                  protected override EnumSerializationStrategy SerializationStrategy { get; }
               }
               """
         );
