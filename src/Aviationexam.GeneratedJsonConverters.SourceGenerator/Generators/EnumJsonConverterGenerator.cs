@@ -1,6 +1,7 @@
 ﻿using H.Generators;
 using Microsoft.CodeAnalysis;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
@@ -78,6 +79,25 @@ internal static class EnumJsonConverterGenerator
             return null;
         }
 
+        var serializationStrategy = enumJsonConverterConfiguration.SerializationStrategy;
+        if (serializationStrategy == EnumSerializationStrategy.ProjectDefault)
+        {
+            serializationStrategy = enumJsonConverterOptions.DefaultEnumSerializationStrategy;
+        }
+
+        var deserializationStrategies = enumJsonConverterConfiguration.DeserializationStrategies;
+        if (deserializationStrategies.IsEmpty)
+        {
+            deserializationStrategies = enumJsonConverterOptions.DefaultEnumDeserializationStrategies;
+        }
+
+        var deserializationStrategy = string.Join(
+            " | ",
+            deserializationStrategies.Select(
+                x => $"Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.{x}"
+            )
+        );
+
         return new FileWithName(
             $"{converterName}.g.cs",
             // language=cs
@@ -88,9 +108,9 @@ internal static class EnumJsonConverterGenerator
 
               internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<{{fullName}}, {{backingType}}>
               {
-                  protected override EnumDeserializationStrategy DeserializationStrategy { get; }
+                  protected override EnumDeserializationStrategy DeserializationStrategy => {{deserializationStrategy}};
 
-                  protected override EnumSerializationStrategy SerializationStrategy { get; }
+                  protected override EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
               }
               """
         );
