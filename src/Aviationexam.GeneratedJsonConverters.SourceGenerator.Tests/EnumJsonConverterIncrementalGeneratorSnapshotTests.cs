@@ -12,7 +12,6 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     [Fact]
     public Task EmptyWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(string.Empty);
 
-
     [Fact]
     public Task SimpleWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
@@ -39,6 +38,62 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
         {
             C,
             D,
+        }
+        """,
+        """
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
+
+    [Fact]
+    public Task EnumWithConfigurationWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter(
+            SerializationStrategy = EnumSerializationStrategy.BackingType,
+            DeserializationStrategy = EnumDeserializationStrategy.UseBackingType
+        )]
+        public enum EBackingEnum
+        {
+            A,
+            B,
+        }
+
+        [EnumJsonConverter(
+            SerializationStrategy = EnumSerializationStrategy.FirstEnumName,
+            DeserializationStrategy = EnumDeserializationStrategy.UseEnumName
+        )]
+        public enum EPropertyEnum
+        {
+            C,
+            D,
+        }
+
+        [EnumJsonConverter(
+            SerializationStrategy = EnumSerializationStrategy.FirstEnumName,
+            DeserializationStrategy = EnumDeserializationStrategy.UseBackingType | EnumDeserializationStrategy.UseEnumName
+        )]
+        public enum EPropertyWithBackingEnum
+        {
+            E,
+            F,
         }
         """,
         """

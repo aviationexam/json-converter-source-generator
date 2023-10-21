@@ -112,41 +112,19 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         {
             var convertersTargetNamespace = context.EnumSymbol.ContainingNamespace.ToDisplayString(NamespaceFormat);
 
-            if (context.EnumJsonConverterConfiguration is { } enumJsonConverterConfiguration)
+            if (context.EnumJsonConverterConfiguration is not null)
             {
-                /*
-                var attributes = enumJsonConverterConfiguration.JsonSerializableAttributeTypeArgument.GetAttributes();
-
-                JsonPolymorphicConfiguration? jsonPolymorphicConfiguration = null;
-                var derivedTypes = new List<JsonDerivedTypeConfiguration>();
-                foreach (var attribute in attributes)
-                {
-                    if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonPolymorphicAttributeSymbol))
-                    {
-                        jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
-                    }
-
-                    if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol))
-                    {
-                        var jsonDerivedTypeConfiguration = JsonDerivedTypeAttributeParser.Parse(attribute);
-
-                        if (jsonDerivedTypeConfiguration is not null)
-                        {
-                            derivedTypes.Add(jsonDerivedTypeConfiguration);
-                        }
-                    }
-                }
-
-                files.Add(JsonPolymorphicConverterGenerator.Generate(
+                files.Add(EnumJsonConverterGenerator.Generate(
+                    enumJsonConverterOptions,
                     convertersTargetNamespace,
-                    jsonSerializableConfiguration,
-                    jsonPolymorphicConfiguration,
-                    derivedTypes,
+                    context,
                     out var converterName
                 ));
 
-                converters.Add(converterName);
-                */
+                converters.Add(new JsonConverter(
+                    convertersTargetNamespace,
+                    converterName
+                ));
             }
         }
 
