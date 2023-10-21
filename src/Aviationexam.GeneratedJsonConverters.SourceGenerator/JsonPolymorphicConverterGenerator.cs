@@ -49,17 +49,17 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
         context.SyntaxProvider.CreateSyntaxProvider(
                 predicate: static (node, _) => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 },
-                transform: JsonSerializerContextTransformer.GetJsonSerializerContextClassDeclarationSyntax
+                transform: PolymorphicJsonSerializerContextTransformer.GetJsonSerializerContextClassDeclarationSyntax
             )
             .Where(x => !x.Result.JsonSerializableCollection.IsEmpty)
-            .Select(JsonSerializerContextConfigurationFilter.FilterJsonSerializerContextConfiguration)
+            .Select(PolymorphicJsonSerializerContextConfigurationFilter.FilterJsonSerializerContextConfiguration)
             .SelectAndReportExceptions(GetSourceCode, context, Id)
             .SelectAndReportDiagnostics(context)
             .AddSource(context);
     }
 
     private static ResultWithDiagnostics<EquatableArray<FileWithName>> GetSourceCode(
-        ResultWithDiagnostics<JsonSerializerContextConfiguration> resultObject,
+        ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration> resultObject,
         CancellationToken cancellationToken
     )
     {

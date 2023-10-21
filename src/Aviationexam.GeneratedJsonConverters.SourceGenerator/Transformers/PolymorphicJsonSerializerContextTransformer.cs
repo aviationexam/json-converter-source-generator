@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 
-internal static class JsonSerializerContextTransformer
+internal static class PolymorphicJsonSerializerContextTransformer
 {
     private const string JsonSerializableAttribute = "System.Text.Json.Serialization.JsonSerializableAttribute";
 
@@ -26,7 +26,7 @@ internal static class JsonSerializerContextTransformer
 
     private const string JsonDerivedTypeAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedTypeAttribute";
 
-    public static ResultWithDiagnostics<JsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
+    public static ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
         GeneratorSyntaxContext context,
         CancellationToken cancellationToken
     )
@@ -79,7 +79,7 @@ internal static class JsonSerializerContextTransformer
             }
         }
 
-        return new JsonSerializerContextConfiguration(
+        return new PolymorphicJsonSerializerContextConfiguration(
                 jsonSerializerContextClassType,
                 jsonPolymorphicAttributeSymbol!,
                 jsonDerivedTypeAttributeSymbol!,
