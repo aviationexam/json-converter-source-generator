@@ -4,7 +4,7 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal static class GeneratorGenerationRules
 {
-    public static readonly DiagnosticDescriptor UnableToParseAttribute = new(
+    public static readonly DiagnosticDescriptor PolymorphicJsonUnableToParseAttribute = new(
         $"{JsonPolymorphicConverterIncrementalGenerator.Id}_0001",
         "Unable to parse marking attribute",
         "Unable to parse marking attribute {0}",

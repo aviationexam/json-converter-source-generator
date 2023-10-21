@@ -57,7 +57,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
                 var attributeContainingTypeSymbol = attributeSymbol.ContainingType;
 
-                // Is the attribute the [GenerateProxy] attribute?
+                // Is the attribute the [JsonSerializable] attribute?
                 if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, jsonSerializableAttributeSymbol))
                 {
                     var jsonSerializableAttributeTypeArgument = JsonSerializableAttributeParser.Parse(context, attributeSyntax);
@@ -65,7 +65,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
                     if (jsonSerializableAttributeTypeArgument is null)
                     {
                         diagnostics.Add(
-                            Diagnostic.Create(GeneratorGenerationRules.UnableToParseAttribute, attributeSyntax.GetLocation(), attributeSyntax.ToFullString())
+                            Diagnostic.Create(GeneratorGenerationRules.PolymorphicJsonUnableToParseAttribute, attributeSyntax.GetLocation(), attributeSyntax.ToFullString())
                         );
 
                         continue;
