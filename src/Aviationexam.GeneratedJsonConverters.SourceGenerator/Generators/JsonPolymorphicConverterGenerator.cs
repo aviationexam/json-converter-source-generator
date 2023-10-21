@@ -21,7 +21,7 @@ internal static class JsonPolymorphicConverterGenerator
         var jsonSerializableAttributeTypeArgument = jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument;
         converterName = GenerateConverterName(jsonSerializableAttributeTypeArgument);
 
-        var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonConverterGenerator.NamespaceFormatWithGenericArguments);
+        var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
 
@@ -33,7 +33,7 @@ internal static class JsonPolymorphicConverterGenerator
         {
             typeForDiscriminatorStringBuilder.Append(prefix);
 
-            var fullTargetType = derivedType.TargetType.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
+            var fullTargetType = derivedType.TargetType.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
 
             var discriminator = derivedType.Discriminator;
             if (discriminator is null)

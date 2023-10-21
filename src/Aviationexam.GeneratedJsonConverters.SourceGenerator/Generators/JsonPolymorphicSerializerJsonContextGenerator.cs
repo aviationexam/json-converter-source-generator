@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
-internal static class JsonSerializerContextGenerator
+internal static class JsonPolymorphicSerializerJsonContextGenerator
 {
     public static FileWithName Generate(
         ISymbol jsonSerializerContextClassType,
@@ -32,7 +32,7 @@ internal static class JsonSerializerContextGenerator
             classAccessibility = $"{classAccessibility} sealed";
         }
 
-        var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonConverterGenerator.NamespaceFormat);
+        var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
 
         return new FileWithName(
             $"{jsonSerializerContextClassType.Name}.g.cs",

@@ -35,7 +35,7 @@ public static class TestHelper
         );
 
         // Create an instance of our EnumGenerator incremental source generator
-        var generator = new JsonConverterGenerator();
+        var generator = new JsonPolymorphicConverterIncrementalGenerator();
 
         // The GeneratorDriver is used to run our generator against a compilation
         GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);

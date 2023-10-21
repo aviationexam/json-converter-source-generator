@@ -1,4 +1,4 @@
-using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
+﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
@@ -16,7 +16,7 @@ using System.Threading;
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 [Generator]
-public class JsonConverterGenerator : IIncrementalGenerator
+public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerator
 {
     public const string Id = "AVI_JC";
 
@@ -136,7 +136,7 @@ public class JsonConverterGenerator : IIncrementalGenerator
 
         if (converters.Any())
         {
-            files.Add(JsonSerializerContextGenerator.Generate(
+            files.Add(JsonPolymorphicSerializerJsonContextGenerator.Generate(
                 context.JsonSerializerContextClassType,
                 convertersTargetNamespace,
                 converters
