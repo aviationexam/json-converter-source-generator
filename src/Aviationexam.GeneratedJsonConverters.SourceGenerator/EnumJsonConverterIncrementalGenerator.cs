@@ -112,12 +112,13 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         {
             var convertersTargetNamespace = context.EnumSymbol.ContainingNamespace.ToDisplayString(NamespaceFormat);
 
-            if (context.EnumJsonConverterConfiguration is not null)
+            if (context.EnumJsonConverterConfiguration is { } enumJsonConverterConfiguration && context.EnumSymbol is INamedTypeSymbol {} enumSymbol)
             {
                 files.Add(EnumJsonConverterGenerator.Generate(
                     enumJsonConverterOptions,
                     convertersTargetNamespace,
-                    context,
+                    enumJsonConverterConfiguration,
+                    enumSymbol,
                     out var converterName
                 ));
 

@@ -9,21 +9,27 @@ internal static class EnumJsonConverterGenerator
     public static FileWithName Generate(
         EnumJsonConverterOptions enumJsonConverterOptions,
         string targetNamespace,
-        EnumJsonSerializerContextConfiguration context,
+        EnumJsonConverterConfiguration enumJsonConverterConfiguration,
+        INamedTypeSymbol enumSymbol,
         out string converterName
     )
     {
-        converterName = GenerateConverterName(context.EnumSymbol);
+        converterName = GenerateConverterName(enumSymbol);
 
-        var fullName = context.EnumSymbol.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
+        var fullName = enumSymbol.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
 
         const string prefix = "        ";
 
         var typeForDiscriminatorStringBuilder = new StringBuilder();
         var discriminatorForTypeStringBuilder = new StringBuilder();
-        /*
-        foreach (var derivedType in derivedTypes)
+
+        foreach (var typeMember in enumSymbol.GetMembers().OfType<IFieldSymbol>())
         {
+            var stringEnumValue = typeMember.Name;
+            var constantValue = typeMember.ConstantValue;
+
+
+            /*
             typeForDiscriminatorStringBuilder.Append(prefix);
 
             var fullTargetType = derivedType.TargetType.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
@@ -61,8 +67,8 @@ internal static class EnumJsonConverterGenerator
             discriminatorForTypeStringBuilder.AppendLine(discriminatorForTypeCase);
             discriminatorForTypeStringBuilder.Append(prefix);
             discriminatorForTypeStringBuilder.AppendLine("}");
+            */
         }
-        */
 
         return new FileWithName(
             $"{converterName}.g.cs",
