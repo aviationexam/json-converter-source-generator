@@ -5,7 +5,7 @@ using Xunit;
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 [UsesVerify]
-public class JsonConverterGeneratorSnapshotTests
+public class JsonPolymorphicConverterGeneratorSnapshotTests
 {
     [Fact]
     public Task EmptyWorks() => TestHelper.Verify(string.Empty);
