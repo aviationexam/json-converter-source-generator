@@ -42,6 +42,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             {
                 "EnumSerializationStrategy",
                 "EnumDeserializationStrategy",
+                "EnumJsonConvertor",
             });
 
             i.GenerateDisableEnumJsonConverterAttribute();

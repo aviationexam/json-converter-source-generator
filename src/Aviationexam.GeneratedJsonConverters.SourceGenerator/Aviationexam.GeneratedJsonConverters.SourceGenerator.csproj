@@ -40,6 +40,7 @@
   <ItemGroup>
     <EmbeddedResource Include="EnumSerializationStrategy.cs" />
     <EmbeddedResource Include="EnumDeserializationStrategy.cs" />
+    <EmbeddedResource Include="EnumJsonConvertor.cs" />
     <EmbeddedResource Include="DiscriminatorStruct.cs" />
     <EmbeddedResource Include="IDiscriminatorStruct.cs" />
     <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
