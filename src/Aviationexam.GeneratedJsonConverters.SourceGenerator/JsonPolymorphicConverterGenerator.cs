@@ -1,4 +1,5 @@
-﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
+﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
@@ -6,11 +7,9 @@ using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
@@ -18,7 +17,7 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 [Generator]
 public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerator
 {
-    public const string Id = "AVI_JC";
+    public const string Id = "AVI_JPC";
 
     internal static readonly SymbolDisplayFormat NamespaceFormat = new(
         globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
@@ -37,29 +36,12 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
     {
         context.RegisterPostInitializationOutput(i =>
         {
-            var type = GetType();
-            var generatorNamespace = type.Namespace!;
-
-            var manifestResourceNames = type.Assembly.GetManifestResourceNames();
-
-            foreach (var manifestResourceName in manifestResourceNames)
+            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>(new[]
             {
-                i.CancellationToken.ThrowIfCancellationRequested();
-
-                var fileName = manifestResourceName[(generatorNamespace.Length + 1)..^3];
-
-                var manifestResourceInfo = type.Assembly.GetManifestResourceStream(manifestResourceName);
-
-                if (manifestResourceInfo is null)
-                {
-                    continue;
-                }
-
-                i.AddSource(
-                    $"{fileName}.g.cs",
-                    SourceText.From(manifestResourceInfo, Encoding.UTF8, canBeEmbedded: true)
-                );
-            }
+                "DiscriminatorStruct",
+                "IDiscriminatorStruct",
+                "PolymorphicJsonConvertor",
+            });
 
             i.GenerateJsonPolymorphicAttribute();
             i.GenerateJsonDerivedTypeAttribute();
