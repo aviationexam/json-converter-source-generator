@@ -13,9 +13,9 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 public static class TestHelper
 {
-    public static Task Verify(
+    public static Task Verify<TIncrementalGenerator>(
         [StringSyntax("csharp")] params string[] source
-    )
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new()
     {
         // Parse the provided string into a C# syntax tree
         var syntaxTrees = source.Select(x => CSharpSyntaxTree.ParseText(x)).ToArray();
@@ -35,7 +35,7 @@ public static class TestHelper
         );
 
         // Create an instance of our EnumGenerator incremental source generator
-        var generator = new JsonPolymorphicConverterIncrementalGenerator();
+        var generator = new TIncrementalGenerator();
 
         // The GeneratorDriver is used to run our generator against a compilation
         GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
