@@ -30,8 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="JsonConverterGeneratorSnapshotTests.*.g.verified.cs">
-      <DependentUpon>JsonConverterGeneratorSnapshotTests.cs</DependentUpon>
+    <None Update="JsonPolymorphicConverterGeneratorSnapshotTests.*.g.verified.cs">
+      <DependentUpon>JsonPolymorphicConverterGeneratorSnapshotTests.cs</DependentUpon>
     </None>
   </ItemGroup>
 
