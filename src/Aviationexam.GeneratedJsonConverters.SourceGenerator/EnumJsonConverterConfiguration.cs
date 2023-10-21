@@ -1,8 +1,12 @@
-using H.Generators.Extensions;
-using Microsoft.CodeAnalysis;
-
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal sealed record EnumJsonConverterConfiguration(
-    ITypeSymbol JsonSerializableAttributeTypeArgument
-);
+    EnumSerializationStrategy SerializationStrategy,
+    EnumDeserializationStrategy DeserializationStrategy
+)
+{
+    public static EnumJsonConverterConfiguration Empty => new(
+        EnumSerializationStrategy.ProjectDefault,
+        EnumDeserializationStrategy.ProjectDefault
+    );
+};

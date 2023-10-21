@@ -103,9 +103,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         var enumJsonConverterOptions = tuple.EnumJsonConverterOptions;
         var contexts = resultObject.Result;
 
-        var diagnostics = ImmutableArray<Diagnostic>.Empty;
-
-        diagnostics = resultObject.Diagnostics.Concat(diagnostics).ToImmutableArray();
+        var diagnostics = resultObject.Diagnostics;
 
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();
@@ -117,40 +115,37 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             if (context.EnumJsonConverterConfiguration is { } enumJsonConverterConfiguration)
             {
                 /*
-                foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
+                var attributes = enumJsonConverterConfiguration.JsonSerializableAttributeTypeArgument.GetAttributes();
+
+                JsonPolymorphicConfiguration? jsonPolymorphicConfiguration = null;
+                var derivedTypes = new List<JsonDerivedTypeConfiguration>();
+                foreach (var attribute in attributes)
                 {
-                    var attributes = jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument.GetAttributes();
-
-                    JsonPolymorphicConfiguration? jsonPolymorphicConfiguration = null;
-                    var derivedTypes = new List<JsonDerivedTypeConfiguration>();
-                    foreach (var attribute in attributes)
+                    if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonPolymorphicAttributeSymbol))
                     {
-                        if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonPolymorphicAttributeSymbol))
-                        {
-                            jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
-                        }
-
-                        if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol))
-                        {
-                            var jsonDerivedTypeConfiguration = JsonDerivedTypeAttributeParser.Parse(attribute);
-
-                            if (jsonDerivedTypeConfiguration is not null)
-                            {
-                                derivedTypes.Add(jsonDerivedTypeConfiguration);
-                            }
-                        }
+                        jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
                     }
 
-                    files.Add(JsonPolymorphicConverterGenerator.Generate(
-                        convertersTargetNamespace,
-                        jsonSerializableConfiguration,
-                        jsonPolymorphicConfiguration,
-                        derivedTypes,
-                        out var converterName
-                    ));
+                    if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol))
+                    {
+                        var jsonDerivedTypeConfiguration = JsonDerivedTypeAttributeParser.Parse(attribute);
 
-                    converters.Add(converterName);
+                        if (jsonDerivedTypeConfiguration is not null)
+                        {
+                            derivedTypes.Add(jsonDerivedTypeConfiguration);
+                        }
+                    }
                 }
+
+                files.Add(JsonPolymorphicConverterGenerator.Generate(
+                    convertersTargetNamespace,
+                    jsonSerializableConfiguration,
+                    jsonPolymorphicConfiguration,
+                    derivedTypes,
+                    out var converterName
+                ));
+
+                converters.Add(converterName);
                 */
             }
         }
