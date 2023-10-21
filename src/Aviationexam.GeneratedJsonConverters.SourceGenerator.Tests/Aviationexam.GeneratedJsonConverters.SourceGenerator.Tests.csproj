@@ -33,6 +33,9 @@
     <None Update="JsonPolymorphicConverterGeneratorSnapshotTests.*.g.verified.cs">
       <DependentUpon>JsonPolymorphicConverterGeneratorSnapshotTests.cs</DependentUpon>
     </None>
+    <None Update="EnumJsonConverterIncrementalGeneratorSnapshotTests.*.g.verified.cs">
+      <DependentUpon>EnumJsonConverterIncrementalGeneratorSnapshotTests.cs</DependentUpon>
+    </None>
   </ItemGroup>
 
 </Project>
