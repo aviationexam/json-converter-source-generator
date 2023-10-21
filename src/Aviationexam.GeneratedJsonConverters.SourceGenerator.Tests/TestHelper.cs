@@ -1,3 +1,4 @@
+using H.Generators.Tests.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
@@ -14,6 +15,14 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 public static class TestHelper
 {
     public static Task Verify<TIncrementalGenerator>(
+        [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => Verify<TIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(),
+        source
+    );
+
+    public static Task Verify<TIncrementalGenerator>(
+        DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
         [StringSyntax("csharp")] params string[] source
     ) where TIncrementalGenerator : class, IIncrementalGenerator, new()
     {
@@ -38,7 +47,10 @@ public static class TestHelper
         var generator = new TIncrementalGenerator();
 
         // The GeneratorDriver is used to run our generator against a compilation
-        GeneratorDriver driver = CSharpGeneratorDriver.Create(generator);
+        GeneratorDriver driver = CSharpGeneratorDriver.Create(
+            new[] { generator.AsSourceGenerator() },
+            optionsProvider: analyzerConfigOptionsProvider
+        );
 
         // Run the source generator!
         driver = driver.RunGenerators(compilation);

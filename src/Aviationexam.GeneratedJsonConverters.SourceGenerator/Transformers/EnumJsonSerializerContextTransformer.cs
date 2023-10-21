@@ -26,7 +26,7 @@ internal static class EnumJsonSerializerContextTransformer
 
         var diagnostics = new List<Diagnostic>();
 
-        var jsonSerializerContextEnumType = context.SemanticModel.GetDeclaredSymbol(
+        var enumSymbol = context.SemanticModel.GetDeclaredSymbol(
             enumDeclarationSyntax
         ) ?? throw new NullReferenceException(nameof(enumDeclarationSyntax));
 
@@ -57,7 +57,7 @@ internal static class EnumJsonSerializerContextTransformer
         if (ignoreEnum)
         {
             return new EnumJsonSerializerContextConfiguration(
-                    jsonSerializerContextEnumType,
+                    enumSymbol,
                     enumJsonConverterConfiguration
                 )
                 .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
@@ -100,13 +100,13 @@ internal static class EnumJsonSerializerContextTransformer
                 Diagnostic.Create(
                     GeneratorGenerationRules.EnumWithoutJsonConverterConfiguration,
                     enumDeclarationSyntax.GetLocation(),
-                    jsonSerializerContextEnumType.ToDisplayString()
+                    enumSymbol.ToDisplayString()
                 )
             );
         }
 
         return new EnumJsonSerializerContextConfiguration(
-                jsonSerializerContextEnumType,
+                enumSymbol,
                 enumJsonConverterConfiguration
             )
             .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
