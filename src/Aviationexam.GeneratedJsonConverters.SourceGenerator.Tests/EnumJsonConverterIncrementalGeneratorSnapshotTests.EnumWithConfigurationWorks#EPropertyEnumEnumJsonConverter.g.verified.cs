@@ -3,6 +3,6 @@
 
 namespace ApplicationNamespace.Contracts;
 
-internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<ApplicationNamespace.Contracts.EPropertyEnum>
+internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<ApplicationNamespace.Contracts.EPropertyEnum, System.Int32>
 {
 }
