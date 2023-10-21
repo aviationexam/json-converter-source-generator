@@ -1,5 +1,6 @@
 ﻿using H.Generators;
 using Microsoft.CodeAnalysis;
+using System;
 using System.Text;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
@@ -85,7 +86,7 @@ internal static class EnumJsonConverterGenerator
 
               namespace {{targetNamespace}};
 
-              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<{{fullName}}>
+              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<{{fullName}}, {{backingType}}>
               {
               }
               """
