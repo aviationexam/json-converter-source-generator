@@ -77,7 +77,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         diagnostics = resultObject.Diagnostics.Concat(diagnostics).ToImmutableArray();
 
         var files = new List<FileWithName>();
-        var converters = new List<string>();
+        var converters = new List<JsonConverter>();
 
         var convertersTargetNamespace = context.JsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
 
@@ -113,7 +113,10 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 out var converterName
             ));
 
-            converters.Add(converterName);
+            converters.Add(new JsonConverter(
+                convertersTargetNamespace,
+                converterName
+            ));
         }
 
         if (converters.Any())
@@ -121,7 +124,6 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
                 EJsonConverterType.Polymorphic,
                 context.JsonSerializerContextClassType,
-                convertersTargetNamespace,
                 converters
             ));
         }

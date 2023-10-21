@@ -11,8 +11,7 @@ internal static class JsonConvertersSerializerJsonContextGenerator
     public static FileWithName Generate(
         EJsonConverterType converterType,
         ISymbol jsonSerializerContextClassType,
-        string convertersTargetNamespace,
-        IReadOnlyCollection<string> converters
+        IReadOnlyCollection<JsonConverter> converters
     )
     {
         var classAccessibility = jsonSerializerContextClassType.DeclaredAccessibility switch
@@ -34,21 +33,39 @@ internal static class JsonConvertersSerializerJsonContextGenerator
         }
 
         var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
+
+        return Generate(
+            converterType,
+            new JsonSerializerContext(
+                classAccessibility,
+                targetNamespace,
+                jsonSerializerContextClassType.Name
+            ),
+            converters
+        );
+    }
+
+    public static FileWithName Generate(
+        EJsonConverterType converterType,
+        JsonSerializerContext jsonSerializerContext,
+        IReadOnlyCollection<JsonConverter> converters
+    )
+    {
         var converterTypeString = converterType.ToString();
 
         return new FileWithName(
-            $"{jsonSerializerContextClassType.Name}.g.cs",
+            $"{jsonSerializerContext.ClassName}.g.cs",
             // language=cs
             $$"""
               #nullable enable
 
-              namespace {{targetNamespace}};
+              namespace {{jsonSerializerContext.Namespace}};
 
-              {{classAccessibility}} partial class {{jsonSerializerContextClassType.Name}}
+              {{jsonSerializerContext.ClassAccessibility}} partial class {{jsonSerializerContext.ClassName}}
               {
                   public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> Get{{converterTypeString}}Converters() => new System.Text.Json.Serialization.JsonConverter[]
                   {
-                      {{string.Join("\n        ", converters.Select(x => $"new {convertersTargetNamespace}.{x}(),"))}}
+                      {{string.Join("\n        ", converters.Select(x => $"new {x.Namespace}.{x.ClassName}(),"))}}
                   };
 
                   public static void Use{{converterTypeString}}Converters(
