@@ -6,7 +6,7 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
 internal static class EnumJsonConverterGenerator
 {
-    public static FileWithName Generate(
+    public static FileWithName? Generate(
         EnumJsonConverterOptions enumJsonConverterOptions,
         string targetNamespace,
         EnumJsonConverterConfiguration enumJsonConverterConfiguration,
@@ -23,10 +23,12 @@ internal static class EnumJsonConverterGenerator
         var typeForDiscriminatorStringBuilder = new StringBuilder();
         var discriminatorForTypeStringBuilder = new StringBuilder();
 
+        Type? backingType = null;
         foreach (var typeMember in enumSymbol.GetMembers().OfType<IFieldSymbol>())
         {
             var stringEnumValue = typeMember.Name;
-            var constantValue = typeMember.ConstantValue;
+            var constantValue = typeMember.ConstantValue ?? throw new NullReferenceException(nameof(typeMember.ConstantValue));
+            backingType = constantValue.GetType();
 
 
             /*
@@ -68,6 +70,11 @@ internal static class EnumJsonConverterGenerator
             discriminatorForTypeStringBuilder.Append(prefix);
             discriminatorForTypeStringBuilder.AppendLine("}");
             */
+        }
+
+        if (backingType is null)
+        {
+            return null;
         }
 
         return new FileWithName(
