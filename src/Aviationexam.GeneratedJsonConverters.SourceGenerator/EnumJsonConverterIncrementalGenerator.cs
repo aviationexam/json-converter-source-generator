@@ -61,12 +61,21 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 : null,
             x.GlobalOptions.TryGetValue($"{Id}_DefaultEnumSerializationStrategy", out var defaultEnumSerializationStrategyString)
             && Enum.TryParse<EnumSerializationStrategy>(defaultEnumSerializationStrategyString, out var defaultEnumSerializationStrategy)
+            && defaultEnumSerializationStrategy != EnumSerializationStrategy.ProjectDefault
                 ? defaultEnumSerializationStrategy
                 : DefaultEnumSerializationStrategy,
             x.GlobalOptions.TryGetValue($"{Id}_DefaultEnumDeserializationStrategy", out var defaultEnumDeserializationStrategyString)
-            && Enum.TryParse<EnumDeserializationStrategy>(defaultEnumDeserializationStrategyString, out var defaultEnumDeserializationStrategy)
-                ? defaultEnumDeserializationStrategy
-                : DefaultEnumDeserializationStrategy
+            && defaultEnumDeserializationStrategyString.Split(
+                new[] { '|' }, StringSplitOptions.RemoveEmptyEntries
+            ) is { } defaultEnumDeserializationStrategiesString
+            && defaultEnumDeserializationStrategiesString.Select(s =>
+                Enum.TryParse<EnumDeserializationStrategy>(s, out var defaultEnumDeserializationStrategy)
+                    ? defaultEnumDeserializationStrategy
+                    : EnumDeserializationStrategy.ProjectDefault
+            ).ToArray() is { } defaultEnumDeserializationStrategies
+            && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
+                ? defaultEnumDeserializationStrategies.ToImmutableArray()
+                : new ImmutableArray<EnumDeserializationStrategy> { DefaultEnumDeserializationStrategy }
         ));
 
         context.SyntaxProvider.CreateSyntaxProvider(

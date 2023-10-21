@@ -1,7 +1,9 @@
-﻿namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
+﻿using System.Collections.Immutable;
+
+namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record EnumJsonConverterOptions(
     JsonSerializerContext? DefaultJsonSerializerContext,
     EnumSerializationStrategy DefaultEnumSerializationStrategy,
-    EnumDeserializationStrategy DefaultEnumDeserializationStrategy
+    ImmutableArray<EnumDeserializationStrategy> DefaultEnumDeserializationStrategies
 );
