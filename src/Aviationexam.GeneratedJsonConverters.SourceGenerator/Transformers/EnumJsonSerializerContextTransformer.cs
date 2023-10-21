@@ -54,55 +54,49 @@ internal static class EnumJsonSerializerContextTransformer
             }
         }
 
-        if (ignoreEnum)
+        if (!ignoreEnum)
         {
-            return new EnumJsonSerializerContextConfiguration(
-                    enumSymbol,
-                    enumJsonConverterConfiguration
-                )
-                .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
-        }
-
-        foreach (var attributeListSyntax in enumDeclarationSyntax.AttributeLists)
-        {
-            foreach (var attributeSyntax in attributeListSyntax.Attributes)
+            foreach (var attributeListSyntax in enumDeclarationSyntax.AttributeLists)
             {
-                if (context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
+                foreach (var attributeSyntax in attributeListSyntax.Attributes)
                 {
-                    // weird, we couldn't get the symbol, ignore it
-                    continue;
-                }
-
-                var attributeContainingTypeSymbol = attributeSymbol.ContainingType;
-
-                // Is the attribute the [EnumJsonConverter] attribute?
-                if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, enumJsonConverterAttributeSymbol))
-                {
-                    enumJsonConverterConfiguration = EnumJsonConverterAttributeParser.Parse(context, attributeSyntax);
-
-                    if (enumJsonConverterConfiguration is null)
+                    if (context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
                     {
-                        diagnostics.Add(
-                            Diagnostic.Create(
-                                GeneratorGenerationRules.EnumJsonUnableToParseAttribute,
-                                attributeSyntax.GetLocation(),
-                                attributeSyntax.ToFullString()
-                            )
-                        );
+                        // weird, we couldn't get the symbol, ignore it
+                        continue;
+                    }
+
+                    var attributeContainingTypeSymbol = attributeSymbol.ContainingType;
+
+                    // Is the attribute the [EnumJsonConverter] attribute?
+                    if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, enumJsonConverterAttributeSymbol))
+                    {
+                        enumJsonConverterConfiguration = EnumJsonConverterAttributeParser.Parse(context, attributeSyntax);
+
+                        if (enumJsonConverterConfiguration is null)
+                        {
+                            diagnostics.Add(
+                                Diagnostic.Create(
+                                    GeneratorGenerationRules.EnumJsonUnableToParseAttribute,
+                                    attributeSyntax.GetLocation(),
+                                    attributeSyntax.ToFullString()
+                                )
+                            );
+                        }
                     }
                 }
             }
-        }
 
-        if (enumJsonConverterConfiguration is null)
-        {
-            diagnostics.Add(
-                Diagnostic.Create(
-                    GeneratorGenerationRules.EnumWithoutJsonConverterConfiguration,
-                    enumDeclarationSyntax.GetLocation(),
-                    enumSymbol.ToDisplayString()
-                )
-            );
+            if (enumJsonConverterConfiguration is null)
+            {
+                diagnostics.Add(
+                    Diagnostic.Create(
+                        GeneratorGenerationRules.EnumWithoutJsonConverterConfiguration,
+                        enumDeclarationSyntax.GetLocation(),
+                        enumSymbol.ToDisplayString()
+                    )
+                );
+            }
         }
 
         return new EnumJsonSerializerContextConfiguration(
