@@ -118,7 +118,8 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
         if (converters.Any())
         {
-            files.Add(JsonPolymorphicSerializerJsonContextGenerator.Generate(
+            files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
+                EJsonConverterType.Polymorphic,
                 context.JsonSerializerContextClassType,
                 convertersTargetNamespace,
                 converters

@@ -6,9 +6,10 @@ using System.Linq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
-internal static class JsonPolymorphicSerializerJsonContextGenerator
+internal static class JsonConvertersSerializerJsonContextGenerator
 {
     public static FileWithName Generate(
+        EJsonConverterType converterType,
         ISymbol jsonSerializerContextClassType,
         string convertersTargetNamespace,
         IReadOnlyCollection<string> converters
@@ -33,6 +34,7 @@ internal static class JsonPolymorphicSerializerJsonContextGenerator
         }
 
         var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
+        var converterTypeString = converterType.ToString();
 
         return new FileWithName(
             $"{jsonSerializerContextClassType.Name}.g.cs",
@@ -44,16 +46,16 @@ internal static class JsonPolymorphicSerializerJsonContextGenerator
 
               {{classAccessibility}} partial class {{jsonSerializerContextClassType.Name}}
               {
-                  public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
+                  public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> Get{{converterTypeString}}Converters() => new System.Text.Json.Serialization.JsonConverter[]
                   {
                       {{string.Join("\n        ", converters.Select(x => $"new {convertersTargetNamespace}.{x}(),"))}}
                   };
 
-                  public static void UsePolymorphicConverters(
+                  public static void Use{{converterTypeString}}Converters(
                       System.Collections.Generic.ICollection<System.Text.Json.Serialization.JsonConverter> optionsConverters
                   )
                   {
-                      foreach (var converter in GetPolymorphicConverters())
+                      foreach (var converter in Get{{converterTypeString}}Converters())
                       {
                           optionsConverters.Add(converter);
                       }
