@@ -126,6 +126,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 context is
                 {
                     EnumJsonConverterConfiguration: { } enumJsonConverterConfiguration,
+                    EnumMemberAttributeSymbol: { } enumMemberAttributeSymbol,
                     EnumSymbol: INamedTypeSymbol enumSymbol
                 }
             )
@@ -135,6 +136,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                     convertersTargetNamespace,
                     enumJsonConverterConfiguration,
                     enumSymbol,
+                    enumMemberAttributeSymbol,
                     out var converterName
                 );
 

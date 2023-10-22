@@ -1,6 +1,8 @@
 ﻿using H.Generators;
 using Microsoft.CodeAnalysis;
 using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 
@@ -8,11 +10,15 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
 internal static class EnumJsonConverterGenerator
 {
+    private const string MethodPrefix = "    ";
+    private const string Prefix = "    ";
+
     public static FileWithName? Generate(
         EnumJsonConverterOptions enumJsonConverterOptions,
         string targetNamespace,
         EnumJsonConverterConfiguration enumJsonConverterConfiguration,
         INamedTypeSymbol enumSymbol,
+        INamedTypeSymbol enumMemberAttributeSymbol,
         out string converterName
     )
     {
@@ -20,15 +26,13 @@ internal static class EnumJsonConverterGenerator
 
         var fullName = enumSymbol.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
 
-        const string prefix = "        ";
-
-        var typeForDiscriminatorStringBuilder = new StringBuilder();
-        var discriminatorForTypeStringBuilder = new StringBuilder();
-
         var enumTypeCode = BackingTypeToTypeCode(
             enumSymbol.EnumUnderlyingType
             ?? throw new ArgumentNullException(nameof(enumSymbol.EnumUnderlyingType))
         );
+
+        var backingTypeSerialization = new Dictionary<string, object>();
+        var backingTypeDeserialization = new Dictionary<object, string>();
 
         Type? backingType = null;
         foreach (var typeMember in enumSymbol.GetMembers().OfType<IFieldSymbol>())
@@ -37,6 +41,11 @@ internal static class EnumJsonConverterGenerator
             var constantValue = typeMember.ConstantValue ?? throw new NullReferenceException(nameof(typeMember.ConstantValue));
             backingType = constantValue.GetType();
 
+            if (!backingTypeDeserialization.ContainsKey(constantValue))
+            {
+                backingTypeDeserialization.Add(constantValue, typeMember.Name);
+            }
+            backingTypeSerialization.Add(typeMember.Name, constantValue);
 
             /*
             typeForDiscriminatorStringBuilder.Append(prefix);
@@ -103,6 +112,9 @@ internal static class EnumJsonConverterGenerator
             )
         );
 
+        var toEnumFromString = GenerateToEnumFromString(deserializationStrategies);
+        var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
+
         return new FileWithName(
             $"{converterName}.g.cs",
             // language=cs
@@ -118,10 +130,71 @@ internal static class EnumJsonConverterGenerator
                   protected override Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy DeserializationStrategy => {{deserializationStrategy}};
 
                   protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
+
+                  protected override T ToEnum(
+                      ReadOnlySpan<byte> enumName
+                  ){{toEnumFromString}}
+
+                  protected override T ToEnum(
+                      TBackingType numericValue
+                  ){{toEnumFromBackingType}}
               }
               """
         );
     }
+
+    private static string GenerateToEnumFromString(
+        ImmutableArray<EnumDeserializationStrategy> enumDeserializationStrategies
+    )
+    {
+        if (enumDeserializationStrategies.Any(x => x == EnumDeserializationStrategy.UseEnumName))
+        {
+        }
+
+        return GenerateToEnumException("enum name");
+    }
+
+    private static string GenerateToEnumFromBackingType(
+        ImmutableArray<EnumDeserializationStrategy> enumDeserializationStrategies,
+        string enumFullName,
+        IDictionary<object, string> backingTypeDeserialization
+    )
+    {
+        if (enumDeserializationStrategies.Any(x => x == EnumDeserializationStrategy.UseBackingType))
+        {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine(" => numericValue switch");
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.AppendLine("{");
+
+            foreach (var mapping in backingTypeDeserialization)
+            {
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.Append(mapping.Key);
+                stringBuilder.Append(" => ");
+                stringBuilder.Append(enumFullName);
+                stringBuilder.Append(".");
+                stringBuilder.Append(mapping.Value);
+                stringBuilder.AppendLine(",");
+            }
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append("};");
+
+            return stringBuilder.ToString();
+        }
+
+        return GenerateToEnumException("backing type");
+    }
+
+    private static string GenerateToEnumException(
+        string source
+        // language=cs
+    ) => $"""
+           => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from {source}");
+          """;
 
     private static TypeCode BackingTypeToTypeCode(
         INamedTypeSymbol namedTypeSymbol

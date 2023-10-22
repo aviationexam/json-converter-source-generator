@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
 using VerifyXunit;
@@ -36,6 +37,7 @@ public static class TestHelper
             references: new[]
                 {
                     typeof(object).Assembly.Location,
+                    typeof(EnumMemberAttribute).Assembly.Location,
                 }
                 .Union(GetLocationWithDependencies(typeof(JsonSerializer)))
                 .Distinct()

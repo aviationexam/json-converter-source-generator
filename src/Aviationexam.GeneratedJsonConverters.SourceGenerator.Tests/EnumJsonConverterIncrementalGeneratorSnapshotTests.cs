@@ -80,7 +80,7 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
             SerializationStrategy = EnumSerializationStrategy.FirstEnumName,
             DeserializationStrategy = EnumDeserializationStrategy.UseEnumName
         )]
-        public enum EPropertyEnum
+        public enum EPropertyEnum : byte
         {
             C,
             D,
@@ -119,6 +119,7 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
         """
         using Aviationexam.GeneratedJsonConverters;
         using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
 
         namespace ApplicationNamespace.Contracts;
 

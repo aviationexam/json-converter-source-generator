@@ -13,6 +13,7 @@ internal static class EnumJsonSerializerContextTransformer
 {
     private const string DisableEnumJsonConverterAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.DisableEnumJsonConverterAttribute";
     private const string EnumJsonConverterAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.EnumJsonConverterAttribute";
+    private const string EnumMemberAttribute = "System.Runtime.Serialization.EnumMemberAttribute";
 
     public static ResultWithDiagnostics<EnumJsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
         GeneratorSyntaxContext context,
@@ -23,6 +24,7 @@ internal static class EnumJsonSerializerContextTransformer
 
         var disableEnumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(DisableEnumJsonConverterAttribute);
         var enumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumJsonConverterAttribute);
+        var enumMemberAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumMemberAttribute);
 
         var diagnostics = new List<Diagnostic>();
 
@@ -101,6 +103,7 @@ internal static class EnumJsonSerializerContextTransformer
 
         return new EnumJsonSerializerContextConfiguration(
                 enumSymbol,
+                enumMemberAttributeSymbol,
                 enumJsonConverterConfiguration
             )
             .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
