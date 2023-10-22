@@ -75,7 +75,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             ).ToArray() is { } defaultEnumDeserializationStrategies
             && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
                 ? defaultEnumDeserializationStrategies.ToImmutableArray()
-                : new ImmutableArray<EnumDeserializationStrategy> { DefaultEnumDeserializationStrategy }
+                : new[] { DefaultEnumDeserializationStrategy }.ToImmutableArray()
         ));
 
         context.SyntaxProvider.CreateSyntaxProvider(

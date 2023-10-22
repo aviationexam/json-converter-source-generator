@@ -55,10 +55,10 @@ internal static class EnumJsonConverterAttributeParser
     {
         if (expressionSyntax is MemberAccessExpressionSyntax)
         {
-            return new ImmutableArray<TEnum>
+            return new[]
             {
                 ParseEnum<TEnum>(expressionSyntax),
-            };
+            }.ToImmutableArray();
         }
 
         if (
@@ -69,11 +69,11 @@ internal static class EnumJsonConverterAttributeParser
             }
         )
         {
-            return new ImmutableArray<TEnum>
+            return new[]
             {
                 ParseEnum<TEnum>(leftExpression),
                 ParseEnum<TEnum>(rightExpression),
-            };
+            }.ToImmutableArray();
         }
 
         throw new ArgumentOutOfRangeException(nameof(expressionSyntax), expressionSyntax, $"Not supported expression syntax {expressionSyntax.ToFullString()}");

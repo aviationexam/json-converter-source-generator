@@ -8,4 +8,7 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
     where T : struct, Enum
     where TBackingType : struct
 {
+    protected abstract EnumDeserializationStrategy DeserializationStrategy { get; }
+
+    protected abstract EnumSerializationStrategy SerializationStrategy { get; }
 }
