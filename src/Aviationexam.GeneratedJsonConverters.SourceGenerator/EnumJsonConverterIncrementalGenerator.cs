@@ -26,12 +26,6 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces
     );
 
-    internal static readonly SymbolDisplayFormat NamespaceFormatWithGenericArguments = new(
-        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
-        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
-        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
-    );
-
     public void Initialize(
         IncrementalGeneratorInitializationContext context
     )
@@ -50,21 +44,21 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         });
 
         var enumJsonConverterOptions = context.AnalyzerConfigOptionsProvider.Select((x, _) => new EnumJsonConverterOptions(
-            x.GlobalOptions.TryGetValue($"{Id}_DefaultJsonSerializerContext_ClassAccessibility", out var defaultJsonSerializerContextClassAccessibility)
-            && x.GlobalOptions.TryGetValue($"{Id}_DefaultJsonSerializerContext_Namespace", out var defaultJsonSerializerContextNamespace)
-            && x.GlobalOptions.TryGetValue($"{Id}_DefaultJsonSerializerContext_ClassName", out var defaultJsonSerializerContextClassName)
+            x.GetGlobalOption("DefaultJsonSerializerContext_ClassAccessibility", Id) is { } defaultJsonSerializerContextClassAccessibility
+            && x.GetGlobalOption("DefaultJsonSerializerContext_Namespace", Id) is { } defaultJsonSerializerContextNamespace
+            && x.GetGlobalOption("DefaultJsonSerializerContext_ClassName", Id) is { } defaultJsonSerializerContextClassName
                 ? new JsonSerializerContext(
                     defaultJsonSerializerContextClassAccessibility,
                     defaultJsonSerializerContextNamespace,
                     defaultJsonSerializerContextClassName
                 )
                 : null,
-            x.GlobalOptions.TryGetValue($"{Id}_DefaultEnumSerializationStrategy", out var defaultEnumSerializationStrategyString)
+            x.GetGlobalOption("DefaultEnumSerializationStrategy", Id) is { } defaultEnumSerializationStrategyString
             && Enum.TryParse<EnumSerializationStrategy>(defaultEnumSerializationStrategyString, out var defaultEnumSerializationStrategy)
             && defaultEnumSerializationStrategy != EnumSerializationStrategy.ProjectDefault
                 ? defaultEnumSerializationStrategy
                 : DefaultEnumSerializationStrategy,
-            x.GlobalOptions.TryGetValue($"{Id}_DefaultEnumDeserializationStrategy", out var defaultEnumDeserializationStrategyString)
+            x.GetGlobalOption("DefaultEnumDeserializationStrategy", Id) is { } defaultEnumDeserializationStrategyString
             && defaultEnumDeserializationStrategyString.Split(
                 new[] { '|' }, StringSplitOptions.RemoveEmptyEntries
             ) is { } defaultEnumDeserializationStrategiesString

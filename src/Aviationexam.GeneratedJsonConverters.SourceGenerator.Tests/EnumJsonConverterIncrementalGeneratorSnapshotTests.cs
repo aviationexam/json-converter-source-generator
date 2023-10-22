@@ -16,9 +16,9 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     public Task SimpleWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
-            ["AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
         }),
         // ReSharper disable once HeapView.ObjectAllocation
         """
@@ -55,9 +55,9 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     public Task EnumWithConfigurationWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
-            ["AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
         }),
         // ReSharper disable once HeapView.ObjectAllocation
         """
@@ -111,9 +111,9 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     public Task EnumWithEnumMemberWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
-            ["AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
-            ["AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
         }),
         // ReSharper disable once HeapView.ObjectAllocation
         """
