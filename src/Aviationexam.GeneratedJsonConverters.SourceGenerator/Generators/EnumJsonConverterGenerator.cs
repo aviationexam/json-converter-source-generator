@@ -25,6 +25,11 @@ internal static class EnumJsonConverterGenerator
         var typeForDiscriminatorStringBuilder = new StringBuilder();
         var discriminatorForTypeStringBuilder = new StringBuilder();
 
+        var enumTypeCode = BackingTypeToTypeCode(
+            enumSymbol.EnumUnderlyingType
+            ?? throw new ArgumentNullException(nameof(enumSymbol.EnumUnderlyingType))
+        );
+
         Type? backingType = null;
         foreach (var typeMember in enumSymbol.GetMembers().OfType<IFieldSymbol>())
         {
@@ -108,13 +113,30 @@ internal static class EnumJsonConverterGenerator
 
               internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.EnumJsonConvertor<{{fullName}}, {{backingType}}>
               {
-                  protected override EnumDeserializationStrategy DeserializationStrategy => {{deserializationStrategy}};
+                  protected override System.TypeCode BackingTypeTypeCode => System.TypeCode.{{enumTypeCode}};
 
-                  protected override EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
+                  protected override Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy DeserializationStrategy => {{deserializationStrategy}};
+
+                  protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
               }
               """
         );
     }
+
+    private static TypeCode BackingTypeToTypeCode(
+        INamedTypeSymbol namedTypeSymbol
+    ) => namedTypeSymbol.SpecialType switch
+    {
+        SpecialType.System_SByte => TypeCode.SByte,
+        SpecialType.System_Byte => TypeCode.Byte,
+        SpecialType.System_Int16 => TypeCode.Int16,
+        SpecialType.System_UInt16 => TypeCode.UInt16,
+        SpecialType.System_Int32 => TypeCode.Int32,
+        SpecialType.System_UInt32 => TypeCode.UInt32,
+        SpecialType.System_Int64 => TypeCode.Int64,
+        SpecialType.System_UInt64 => TypeCode.UInt64,
+        _ => throw new ArgumentOutOfRangeException(nameof(namedTypeSymbol.SpecialType), namedTypeSymbol.SpecialType, "Not expected special type"),
+    };
 
     private static string GenerateConverterName(
         ISymbol enumSymbol
