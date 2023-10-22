@@ -13,7 +13,21 @@ internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConver
 
     protected override T ToEnum(
         ReadOnlySpan<byte> enumName
-    ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from enum name");
+    )
+    {
+        if (enumName.SequenceEqual("C"u8))
+        {
+            return ApplicationNamespace.Contracts.EPropertyEnum.C;
+        }
+        if (enumName.SequenceEqual("D"u8))
+        {
+            return ApplicationNamespace.Contracts.EPropertyEnum.D;
+        }
+
+        var stringValue = System.Text.Encoding.UTF8.GetString(enumName.ToArray());
+
+        throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EPropertyEnum'");
+    }
 
     protected override T ToEnum(
         TBackingType numericValue

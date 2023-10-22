@@ -21,5 +21,6 @@ internal class EBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonConvert
     {
         0 => ApplicationNamespace.Contracts.EBackingEnum.A,
         1 => ApplicationNamespace.Contracts.EBackingEnum.B,
+        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum 'ApplicationNamespace.Contracts.EBackingEnum'"),
     };
 }

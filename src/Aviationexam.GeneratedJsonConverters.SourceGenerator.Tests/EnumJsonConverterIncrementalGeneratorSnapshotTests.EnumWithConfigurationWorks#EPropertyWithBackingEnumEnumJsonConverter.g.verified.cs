@@ -13,7 +13,21 @@ internal class EPropertyWithBackingEnumEnumJsonConverter : Aviationexam.Generate
 
     protected override T ToEnum(
         ReadOnlySpan<byte> enumName
-    ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from enum name");
+    )
+    {
+        if (enumName.SequenceEqual("E"u8))
+        {
+            return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E;
+        }
+        if (enumName.SequenceEqual("F"u8))
+        {
+            return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F;
+        }
+
+        var stringValue = System.Text.Encoding.UTF8.GetString(enumName.ToArray());
+
+        throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EPropertyWithBackingEnum'");
+    }
 
     protected override T ToEnum(
         TBackingType numericValue
@@ -21,5 +35,6 @@ internal class EPropertyWithBackingEnumEnumJsonConverter : Aviationexam.Generate
     {
         0 => ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E,
         1 => ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F,
+        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum 'ApplicationNamespace.Contracts.EPropertyWithBackingEnum'"),
     };
 }

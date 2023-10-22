@@ -17,7 +17,7 @@ internal static class JsonPolymorphicAttributeParser
             {
                 Kind: TypedConstantKind.Primitive,
                 Value: string discriminatorPropertyName
-            } typedConstant
+            }
         )
         {
             return new JsonPolymorphicConfiguration(discriminatorPropertyName);

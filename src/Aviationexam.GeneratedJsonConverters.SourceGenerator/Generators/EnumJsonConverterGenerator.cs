@@ -1,4 +1,5 @@
-﻿using H.Generators;
+﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
+using H.Generators;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
@@ -34,10 +35,12 @@ internal static class EnumJsonConverterGenerator
         var backingTypeSerialization = new Dictionary<string, object>();
         var backingTypeDeserialization = new Dictionary<object, string>();
 
+        var fieldNameSerialization = new Dictionary<string, string>();
+        var fieldNameDeserialization = new Dictionary<string, string>();
+
         Type? backingType = null;
         foreach (var typeMember in enumSymbol.GetMembers().OfType<IFieldSymbol>())
         {
-            var stringEnumValue = typeMember.Name;
             var constantValue = typeMember.ConstantValue ?? throw new NullReferenceException(nameof(typeMember.ConstantValue));
             backingType = constantValue.GetType();
 
@@ -45,7 +48,33 @@ internal static class EnumJsonConverterGenerator
             {
                 backingTypeDeserialization.Add(constantValue, typeMember.Name);
             }
-            backingTypeSerialization.Add(typeMember.Name, constantValue);
+
+            if (!backingTypeSerialization.ContainsKey(typeMember.Name))
+            {
+                backingTypeSerialization.Add(typeMember.Name, constantValue);
+            }
+
+            var fieldName = typeMember.Name;
+            var enumMember = typeMember.GetAttributes().Where(
+                    x => SymbolEqualityComparer.Default.Equals(x.AttributeClass, enumMemberAttributeSymbol)
+                )
+                .Select(EnumMemberAttributeParser.Parse)
+                .SingleOrDefault();
+
+            if (enumMember is not null)
+            {
+                fieldName = enumMember;
+            }
+
+            if (!fieldNameDeserialization.ContainsKey(fieldName))
+            {
+                fieldNameDeserialization.Add(fieldName, typeMember.Name);
+            }
+
+            if (!fieldNameSerialization.ContainsKey(typeMember.Name))
+            {
+                fieldNameSerialization.Add(typeMember.Name, fieldName);
+            }
 
             /*
             typeForDiscriminatorStringBuilder.Append(prefix);
@@ -112,7 +141,7 @@ internal static class EnumJsonConverterGenerator
             )
         );
 
-        var toEnumFromString = GenerateToEnumFromString(deserializationStrategies);
+        var toEnumFromString = GenerateToEnumFromString(deserializationStrategies, fullName, fieldNameDeserialization);
         var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
 
         return new FileWithName(
@@ -144,11 +173,71 @@ internal static class EnumJsonConverterGenerator
     }
 
     private static string GenerateToEnumFromString(
-        ImmutableArray<EnumDeserializationStrategy> enumDeserializationStrategies
+        ImmutableArray<EnumDeserializationStrategy> enumDeserializationStrategies,
+        string enumFullName,
+        IDictionary<string, string> backingTypeDeserialization
     )
     {
         if (enumDeserializationStrategies.Any(x => x == EnumDeserializationStrategy.UseEnumName))
         {
+            const string propertyName = "enumName";
+
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine();
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.AppendLine("{");
+
+            foreach (var mapping in backingTypeDeserialization)
+            {
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.Append($"if ({propertyName}.SequenceEqual(\"");
+                stringBuilder.Append(mapping.Key);
+                stringBuilder.AppendLine("\"u8))");
+
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.AppendLine("{");
+
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.Append("return ");
+                stringBuilder.Append(enumFullName);
+                stringBuilder.Append(".");
+                stringBuilder.Append(mapping.Value);
+                stringBuilder.AppendLine(";");
+
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Prefix);
+                stringBuilder.AppendLine("}");
+            }
+
+            stringBuilder.AppendLine();
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Prefix);
+            stringBuilder.AppendLine(
+                // language=cs
+                $"""
+                var stringValue = System.Text.Encoding.UTF8.GetString({propertyName}.ToArray());
+                """
+            );
+            stringBuilder.AppendLine();
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Prefix);
+            stringBuilder.AppendLine(
+                // language=cs
+                $$"""
+                throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum '{{enumFullName}}'");
+                """
+            );
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append("}");
+
+            return stringBuilder.ToString();
         }
 
         return GenerateToEnumException("enum name");
@@ -179,6 +268,16 @@ internal static class EnumJsonConverterGenerator
                 stringBuilder.Append(mapping.Value);
                 stringBuilder.AppendLine(",");
             }
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Prefix);
+            stringBuilder.Append("_ => ");
+            stringBuilder.AppendLine(
+                // language=cs
+                $$"""
+                  throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum '{{enumFullName}}'"),
+                  """
+            );
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append("};");
