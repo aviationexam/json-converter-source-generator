@@ -12,7 +12,7 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 internal static class EnumJsonConverterGenerator
 {
     private const string MethodPrefix = "    ";
-    private const string Prefix = "    ";
+    private const string Indention = "    ";
 
     public static FileWithName? Generate(
         EnumJsonConverterOptions enumJsonConverterOptions,
@@ -75,46 +75,6 @@ internal static class EnumJsonConverterGenerator
             {
                 fieldNameSerialization.Add(typeMember.Name, fieldName);
             }
-
-            /*
-            typeForDiscriminatorStringBuilder.Append(prefix);
-
-            var fullTargetType = derivedType.TargetType.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
-
-            var discriminator = derivedType.Discriminator;
-            if (discriminator is null)
-            {
-                discriminator = new DiscriminatorStruct<string> { Value = derivedType.TargetType.Name };
-            }
-
-            var (typeForDiscriminatorCase, discriminatorForTypeCase) = discriminator switch
-            {
-                DiscriminatorStruct<string> discriminatorString => (
-                    $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
-                ),
-                DiscriminatorStruct<int> discriminatorInt => (
-                    $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});"
-                ),
-                _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
-            };
-
-            typeForDiscriminatorStringBuilder.Append(
-                $"{typeForDiscriminatorCase} => typeof({fullTargetType}),"
-            );
-
-            typeForDiscriminatorStringBuilder.AppendLine();
-
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine($"if (type == typeof({fullTargetType}))");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("{");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine(discriminatorForTypeCase);
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("}");
-            */
         }
 
         if (backingType is null)
@@ -160,12 +120,12 @@ internal static class EnumJsonConverterGenerator
 
                   protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
 
-                  protected override T ToEnum(
-                      ReadOnlySpan<byte> enumName
+                  protected override {{fullName}} ToEnum(
+                      System.ReadOnlySpan<byte> enumName
                   ){{toEnumFromString}}
 
-                  protected override T ToEnum(
-                      TBackingType numericValue
+                  protected override {{fullName}} ToEnum(
+                      {{backingType}} numericValue
                   ){{toEnumFromBackingType}}
               }
               """
@@ -191,18 +151,18 @@ internal static class EnumJsonConverterGenerator
             foreach (var mapping in backingTypeDeserialization)
             {
                 stringBuilder.Append(MethodPrefix);
-                stringBuilder.Append(Prefix);
-                stringBuilder.Append($"if ({propertyName}.SequenceEqual(\"");
+                stringBuilder.Append(Indention);
+                stringBuilder.Append($"if (System.MemoryExtensions.SequenceEqual({propertyName}, \"");
                 stringBuilder.Append(mapping.Key);
                 stringBuilder.AppendLine("\"u8))");
 
                 stringBuilder.Append(MethodPrefix);
-                stringBuilder.Append(Prefix);
+                stringBuilder.Append(Indention);
                 stringBuilder.AppendLine("{");
 
                 stringBuilder.Append(MethodPrefix);
-                stringBuilder.Append(Prefix);
-                stringBuilder.Append(Prefix);
+                stringBuilder.Append(Indention);
+                stringBuilder.Append(Indention);
                 stringBuilder.Append("return ");
                 stringBuilder.Append(enumFullName);
                 stringBuilder.Append(".");
@@ -210,13 +170,13 @@ internal static class EnumJsonConverterGenerator
                 stringBuilder.AppendLine(";");
 
                 stringBuilder.Append(MethodPrefix);
-                stringBuilder.Append(Prefix);
+                stringBuilder.Append(Indention);
                 stringBuilder.AppendLine("}");
             }
 
             stringBuilder.AppendLine();
             stringBuilder.Append(MethodPrefix);
-            stringBuilder.Append(Prefix);
+            stringBuilder.Append(Indention);
             stringBuilder.AppendLine(
                 // language=cs
                 $"""
@@ -226,7 +186,7 @@ internal static class EnumJsonConverterGenerator
             stringBuilder.AppendLine();
 
             stringBuilder.Append(MethodPrefix);
-            stringBuilder.Append(Prefix);
+            stringBuilder.Append(Indention);
             stringBuilder.AppendLine(
                 // language=cs
                 $$"""
@@ -260,7 +220,7 @@ internal static class EnumJsonConverterGenerator
             foreach (var mapping in backingTypeDeserialization)
             {
                 stringBuilder.Append(MethodPrefix);
-                stringBuilder.Append(Prefix);
+                stringBuilder.Append(Indention);
                 stringBuilder.Append(mapping.Key);
                 stringBuilder.Append(" => ");
                 stringBuilder.Append(enumFullName);
@@ -270,7 +230,7 @@ internal static class EnumJsonConverterGenerator
             }
 
             stringBuilder.Append(MethodPrefix);
-            stringBuilder.Append(Prefix);
+            stringBuilder.Append(Indention);
             stringBuilder.Append("_ => ");
             stringBuilder.AppendLine(
                 // language=cs

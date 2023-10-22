@@ -11,12 +11,12 @@ internal class EBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonConvert
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.BackingType;
 
-    protected override T ToEnum(
-        ReadOnlySpan<byte> enumName
+    protected override ApplicationNamespace.Contracts.EBackingEnum ToEnum(
+        System.ReadOnlySpan<byte> enumName
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from enum name");
 
-    protected override T ToEnum(
-        TBackingType numericValue
+    protected override ApplicationNamespace.Contracts.EBackingEnum ToEnum(
+        System.Int32 numericValue
     ) => numericValue switch
     {
         0 => ApplicationNamespace.Contracts.EBackingEnum.A,

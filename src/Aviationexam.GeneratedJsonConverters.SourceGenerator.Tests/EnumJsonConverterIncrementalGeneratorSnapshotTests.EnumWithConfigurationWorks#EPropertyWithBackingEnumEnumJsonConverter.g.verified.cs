@@ -11,15 +11,15 @@ internal class EPropertyWithBackingEnumEnumJsonConverter : Aviationexam.Generate
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FirstEnumName;
 
-    protected override T ToEnum(
-        ReadOnlySpan<byte> enumName
+    protected override ApplicationNamespace.Contracts.EPropertyWithBackingEnum ToEnum(
+        System.ReadOnlySpan<byte> enumName
     )
     {
-        if (enumName.SequenceEqual("E"u8))
+        if (System.MemoryExtensions.SequenceEqual(enumName, "E"u8))
         {
             return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E;
         }
-        if (enumName.SequenceEqual("F"u8))
+        if (System.MemoryExtensions.SequenceEqual(enumName, "F"u8))
         {
             return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F;
         }
@@ -29,8 +29,8 @@ internal class EPropertyWithBackingEnumEnumJsonConverter : Aviationexam.Generate
         throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EPropertyWithBackingEnum'");
     }
 
-    protected override T ToEnum(
-        TBackingType numericValue
+    protected override ApplicationNamespace.Contracts.EPropertyWithBackingEnum ToEnum(
+        System.Int32 numericValue
     ) => numericValue switch
     {
         0 => ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E,
