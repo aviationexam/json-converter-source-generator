@@ -145,4 +145,82 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task ProjectConfigurationWorks_UseEnumName() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "FirstEnumName",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseEnumName",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            [EnumMember(Value = "C")]
+            A,
+            [EnumMember(Value = "D")]
+            B,
+        }
+        """
+    );
+
+    [Fact]
+    public Task ProjectConfigurationWorks_UseBackingType() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "BackingType",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseBackingType",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            [EnumMember(Value = "C")]
+            A,
+            [EnumMember(Value = "D")]
+            B,
+        }
+        """
+    );
+
+    [Fact]
+    public Task ProjectConfigurationWorks_UseBackingType_UseEnumName() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "BackingType",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseBackingType|UseEnumName",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            [EnumMember(Value = "C")]
+            A,
+            [EnumMember(Value = "D")]
+            B,
+        }
+        """
+    );
 }
