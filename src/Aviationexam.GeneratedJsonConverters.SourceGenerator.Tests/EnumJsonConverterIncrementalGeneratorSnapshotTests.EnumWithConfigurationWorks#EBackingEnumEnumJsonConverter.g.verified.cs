@@ -11,11 +11,11 @@ internal class EBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonConvert
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.BackingType;
 
-    protected override bool TryToEnum(
+    public override bool TryToEnum(
         System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EBackingEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from enum name");
 
-    protected override bool TryToEnum(
+    public override bool TryToEnum(
         System.Int32 numericValue, out ApplicationNamespace.Contracts.EBackingEnum value
     )
     {
@@ -29,7 +29,7 @@ internal class EBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonConvert
         return tryValue;
     }
 
-    protected override System.Int32 ToBackingType(
+    public override System.Int32 ToBackingType(
         ApplicationNamespace.Contracts.EBackingEnum value
     ) => value switch
     {
@@ -38,7 +38,7 @@ internal class EBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonConvert
         _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum 'ApplicationNamespace.Contracts.EBackingEnum'"),
     };
 
-    protected override System.ReadOnlySpan<byte> ToFirstEnumName(
+    public override System.ReadOnlySpan<byte> ToFirstEnumName(
         ApplicationNamespace.Contracts.EBackingEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to enum type");
 }
