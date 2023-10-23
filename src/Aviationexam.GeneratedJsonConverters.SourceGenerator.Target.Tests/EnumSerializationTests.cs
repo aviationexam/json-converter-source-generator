@@ -92,7 +92,7 @@ public class EnumSerializationTests
             MyJsonSerializerContext.Default.Options
         );
 
-        Assert.Equal(json, serializedValue);
+        Assert.Equal(json, serializedValue.ReplaceLineEndings("\n"));
     }
 
     [Theory]
@@ -122,7 +122,7 @@ public class EnumSerializationTests
             {
               "1": 2
             }
-            """,
+            """.ReplaceLineEndings("\n"),
         };
         yield return new object[]
         {
@@ -136,7 +136,7 @@ public class EnumSerializationTests
             {
               "D": 2
             }
-            """,
+            """.ReplaceLineEndings("\n"),
         };
     }
 }
