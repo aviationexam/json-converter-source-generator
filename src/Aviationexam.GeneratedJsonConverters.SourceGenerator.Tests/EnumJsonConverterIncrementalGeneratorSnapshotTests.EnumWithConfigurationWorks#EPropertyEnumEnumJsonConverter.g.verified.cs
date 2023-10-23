@@ -11,7 +11,7 @@ internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConver
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FirstEnumName;
 
-    protected override bool TryToEnum(
+    public override bool TryToEnum(
         System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EPropertyEnum value
     )
     {
@@ -30,15 +30,15 @@ internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConver
         return false;
     }
 
-    protected override bool TryToEnum(
+    public override bool TryToEnum(
         System.Byte numericValue, out ApplicationNamespace.Contracts.EPropertyEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from backing type");
 
-    protected override System.Byte ToBackingType(
+    public override System.Byte ToBackingType(
         ApplicationNamespace.Contracts.EPropertyEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to backing type");
 
-    protected override System.ReadOnlySpan<byte> ToFirstEnumName(
+    public override System.ReadOnlySpan<byte> ToFirstEnumName(
         ApplicationNamespace.Contracts.EPropertyEnum value
     ) => value switch
     {

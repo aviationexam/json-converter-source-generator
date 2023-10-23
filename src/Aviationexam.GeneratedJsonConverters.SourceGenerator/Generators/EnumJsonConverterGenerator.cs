@@ -129,19 +129,19 @@ internal static class EnumJsonConverterGenerator
 
                   protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
 
-                  protected override bool TryToEnum(
+                  public override bool TryToEnum(
                       System.ReadOnlySpan<byte> enumName, out {{fullName}} value
                   ){{toEnumFromString}}
 
-                  protected override bool TryToEnum(
+                  public override bool TryToEnum(
                       {{backingType}} numericValue, out {{fullName}} value
                   ){{toEnumFromBackingType}}
 
-                  protected override {{backingType}} ToBackingType(
+                  public override {{backingType}} ToBackingType(
                       {{fullName}} value
                   ){{toBackingTypeFromEnum}}
 
-                  protected override System.ReadOnlySpan<byte> ToFirstEnumName(
+                  public override System.ReadOnlySpan<byte> ToFirstEnumName(
                       {{fullName}} value
                   ){{toStringFromEnum}}
               }

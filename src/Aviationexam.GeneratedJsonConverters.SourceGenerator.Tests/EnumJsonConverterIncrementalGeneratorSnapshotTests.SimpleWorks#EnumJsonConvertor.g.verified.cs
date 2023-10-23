@@ -22,13 +22,13 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
 
     protected abstract EnumSerializationStrategy SerializationStrategy { get; }
 
-    protected abstract bool TryToEnum(ReadOnlySpan<byte> enumName, out T value);
+    public abstract bool TryToEnum(ReadOnlySpan<byte> enumName, out T value);
 
-    protected abstract bool TryToEnum(TBackingType numericValue, out T value);
+    public abstract bool TryToEnum(TBackingType numericValue, out T value);
 
-    protected abstract TBackingType ToBackingType(T value);
+    public abstract TBackingType ToBackingType(T value);
 
-    protected abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
+    public abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
 
     public override T Read(
         ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
