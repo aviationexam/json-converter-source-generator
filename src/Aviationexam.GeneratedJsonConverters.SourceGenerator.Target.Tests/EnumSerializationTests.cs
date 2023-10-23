@@ -1,5 +1,6 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
@@ -79,5 +80,50 @@ public class EnumSerializationTests
         );
 
         Assert.Equal(expectedValue, serializedValue);
+    }
+
+    [Theory]
+    [MemberData(nameof(EnumDictionaryData))]
+    public void SerializeEnumDictionaryWorks(Type type, object dictionary, string json)
+    {
+        var serializedValue = JsonSerializer.Serialize(
+            dictionary,
+            type,
+            MyJsonSerializerContext.Default.Options
+        );
+
+        Assert.Equal(json, serializedValue);
+    }
+
+    public static IEnumerable<object[]> EnumDictionaryData()
+    {
+        yield return new object[]
+        {
+            typeof(IReadOnlyDictionary<EBackingEnum, int>),
+            new Dictionary<EBackingEnum, int>
+            {
+                [EBackingEnum.B] = 2,
+            },
+            // language=json
+            """
+            {
+              "1": 2
+            }
+            """,
+        };
+        yield return new object[]
+        {
+            typeof(IReadOnlyDictionary<EConfiguredPropertyEnum, int>),
+            new Dictionary<EConfiguredPropertyEnum, int>
+            {
+                [EConfiguredPropertyEnum.B] = 2,
+            },
+            // language=json
+            """
+            {
+              "D": 2
+            }
+            """,
+        };
     }
 }
