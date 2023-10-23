@@ -189,7 +189,7 @@ internal static class EnumJsonConverterGenerator
                 stringBuilder.Append(MethodPrefix);
                 stringBuilder.Append(Indention);
                 stringBuilder.Append(Indention);
-                stringBuilder.Append("return true;");
+                stringBuilder.AppendLine("return true;");
 
                 stringBuilder.Append(MethodPrefix);
                 stringBuilder.Append(Indention);
@@ -197,6 +197,15 @@ internal static class EnumJsonConverterGenerator
             }
 
             stringBuilder.AppendLine();
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine(
+                // language=cs
+                $"""
+                value = default({enumFullName});
+                """
+            );
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
@@ -226,12 +235,17 @@ internal static class EnumJsonConverterGenerator
         {
             var stringBuilder = new StringBuilder();
 
+            stringBuilder.AppendLine();
             stringBuilder.Append(MethodPrefix);
             stringBuilder.AppendLine("{");
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
             stringBuilder.AppendLine("(var tryValue, value) = numericValue switch");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("{");
 
             foreach (var mapping in backingTypeDeserialization)
             {
@@ -253,7 +267,13 @@ internal static class EnumJsonConverterGenerator
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
-            stringBuilder.Append("};");
+            stringBuilder.AppendLine("};");
+
+            stringBuilder.AppendLine();
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("return tryValue;");
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append("}");
