@@ -25,7 +25,7 @@ internal static class EnumJsonConverterGenerator
     {
         converterName = GenerateConverterName(enumSymbol);
 
-        var fullName = enumSymbol.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
+        var fullName = enumSymbol.ToDisplayString(EnumJsonConverterIncrementalGenerator.NamespaceFormat);
 
         var enumTypeCode = BackingTypeToTypeCode(
             enumSymbol.EnumUnderlyingType
