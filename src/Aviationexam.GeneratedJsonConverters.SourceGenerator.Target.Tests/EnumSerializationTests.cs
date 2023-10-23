@@ -95,6 +95,19 @@ public class EnumSerializationTests
         Assert.Equal(json, serializedValue);
     }
 
+    [Theory]
+    [MemberData(nameof(EnumDictionaryData))]
+    public void DeserializeEnumDictionaryWorks(Type type, object dictionary, string json)
+    {
+        var deserializedDictionary = JsonSerializer.Deserialize(
+            json,
+            type,
+            MyJsonSerializerContext.Default.Options
+        );
+
+        Assert.Equal(dictionary, deserializedDictionary);
+    }
+
     public static IEnumerable<object[]> EnumDictionaryData()
     {
         yield return new object[]
