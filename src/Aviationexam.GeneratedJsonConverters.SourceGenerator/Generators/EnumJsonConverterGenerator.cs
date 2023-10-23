@@ -44,16 +44,6 @@ internal static class EnumJsonConverterGenerator
             var constantValue = typeMember.ConstantValue ?? throw new NullReferenceException(nameof(typeMember.ConstantValue));
             backingType = constantValue.GetType();
 
-            if (!backingTypeDeserialization.ContainsKey(constantValue))
-            {
-                backingTypeDeserialization.Add(constantValue, typeMember.Name);
-            }
-
-            if (!backingTypeSerialization.ContainsKey(typeMember.Name))
-            {
-                backingTypeSerialization.Add(typeMember.Name, constantValue);
-            }
-
             var fieldName = typeMember.Name;
             var enumMember = typeMember.GetAttributes().Where(
                     x => SymbolEqualityComparer.Default.Equals(x.AttributeClass, enumMemberAttributeSymbol)
@@ -71,9 +61,26 @@ internal static class EnumJsonConverterGenerator
                 fieldNameDeserialization.Add(fieldName, typeMember.Name);
             }
 
-            if (!fieldNameSerialization.ContainsKey(typeMember.Name))
+            if (
+                !fieldNameSerialization.ContainsKey(typeMember.Name)
+                && !backingTypeDeserialization.ContainsKey(constantValue)
+            )
             {
                 fieldNameSerialization.Add(typeMember.Name, fieldName);
+            }
+
+
+            if (
+                !backingTypeSerialization.ContainsKey(typeMember.Name)
+                && !backingTypeDeserialization.ContainsKey(constantValue)
+            )
+            {
+                backingTypeSerialization.Add(typeMember.Name, constantValue);
+            }
+
+            if (!backingTypeDeserialization.ContainsKey(constantValue))
+            {
+                backingTypeDeserialization.Add(constantValue, typeMember.Name);
             }
         }
 
