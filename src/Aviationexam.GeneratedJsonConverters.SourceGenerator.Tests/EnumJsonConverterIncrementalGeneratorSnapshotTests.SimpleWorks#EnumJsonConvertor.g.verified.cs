@@ -1,5 +1,6 @@
 ﻿//HintName: EnumJsonConvertor.g.cs
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -20,6 +21,10 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
     protected abstract T ToEnum(ReadOnlySpan<byte> enumName);
 
     protected abstract T ToEnum(TBackingType numericValue);
+
+    protected abstract TBackingType ToBackingType(T value);
+
+    protected abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
 
     public override T Read(
         ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
@@ -65,5 +70,69 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
+        if (SerializationStrategy is EnumSerializationStrategy.BackingType)
+        {
+            WriteAsBackingType(writer, value, options);
+        }
+        else if (SerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        {
+            WriteAsFirstEnumName(writer, value, options);
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(nameof(SerializationStrategy), SerializationStrategy, "Unknown serialization strategy");
+        }
+    }
+
+    private void WriteAsBackingType(
+        Utf8JsonWriter writer,
+        T value,
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+        JsonSerializerOptions options
+    )
+    {
+        var numericValue = ToBackingType(value);
+
+        switch (BackingTypeTypeCode)
+        {
+            case TypeCode.SByte:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, sbyte>(ref numericValue));
+                break;
+            case TypeCode.Byte:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, byte>(ref numericValue));
+                break;
+            case TypeCode.Int16:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, short>(ref numericValue));
+                break;
+            case TypeCode.UInt16:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, ushort>(ref numericValue));
+                break;
+            case TypeCode.Int32:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, int>(ref numericValue));
+                break;
+            case TypeCode.UInt32:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, uint>(ref numericValue));
+                break;
+            case TypeCode.Int64:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, long>(ref numericValue));
+                break;
+            case TypeCode.UInt64:
+                writer.WriteNumberValue(Unsafe.As<TBackingType, ulong>(ref numericValue));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}");
+        }
+    }
+
+    private void WriteAsFirstEnumName(
+        Utf8JsonWriter writer,
+        T value,
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+        JsonSerializerOptions options
+    )
+    {
+        var enumValue = ToFirstEnumName(value);
+
+        writer.WriteStringValue(enumValue);
     }
 }

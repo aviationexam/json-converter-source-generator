@@ -32,4 +32,17 @@ internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConver
     protected override ApplicationNamespace.Contracts.EPropertyEnum ToEnum(
         System.Byte numericValue
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from backing type");
+
+    protected override System.Byte ToBackingType(
+        ApplicationNamespace.Contracts.EPropertyEnum value
+    ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to backing type");
+
+    protected override System.ReadOnlySpan<byte> ToFirstEnumName(
+        ApplicationNamespace.Contracts.EPropertyEnum value
+    ) => value switch
+    {
+        ApplicationNamespace.Contracts.EPropertyEnum.C => "C"u8,
+        ApplicationNamespace.Contracts.EPropertyEnum.D => "D"u8,
+        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum 'ApplicationNamespace.Contracts.EPropertyEnum'"),
+    };
 }

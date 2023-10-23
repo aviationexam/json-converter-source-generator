@@ -103,6 +103,8 @@ internal static class EnumJsonConverterGenerator
 
         var toEnumFromString = GenerateToEnumFromString(deserializationStrategies, fullName, fieldNameDeserialization);
         var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
+        var toStringFromEnum = GenerateToStringFromEnum(serializationStrategy, fullName, fieldNameSerialization);
+        var toBackingTypeFromEnum = GenerateToBackingTypeFromEnum(serializationStrategy, fullName, backingTypeSerialization);
 
         return new FileWithName(
             $"{converterName}.g.cs",
@@ -127,6 +129,14 @@ internal static class EnumJsonConverterGenerator
                   protected override {{fullName}} ToEnum(
                       {{backingType}} numericValue
                   ){{toEnumFromBackingType}}
+
+                  protected override {{backingType}} ToBackingType(
+                      {{fullName}} value
+                  ){{toBackingTypeFromEnum}}
+
+                  protected override System.ReadOnlySpan<byte> ToFirstEnumName(
+                      {{fullName}} value
+                  ){{toStringFromEnum}}
               }
               """
         );
@@ -180,8 +190,8 @@ internal static class EnumJsonConverterGenerator
             stringBuilder.AppendLine(
                 // language=cs
                 $"""
-                var stringValue = System.Text.Encoding.UTF8.GetString({propertyName}.ToArray());
-                """
+                 var stringValue = System.Text.Encoding.UTF8.GetString({propertyName}.ToArray());
+                 """
             );
             stringBuilder.AppendLine();
 
@@ -190,8 +200,8 @@ internal static class EnumJsonConverterGenerator
             stringBuilder.AppendLine(
                 // language=cs
                 $$"""
-                throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum '{{enumFullName}}'");
-                """
+                  throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum '{{enumFullName}}'");
+                  """
             );
 
             stringBuilder.Append(MethodPrefix);
@@ -253,6 +263,103 @@ internal static class EnumJsonConverterGenerator
         // language=cs
     ) => $"""
            => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from {source}");
+          """;
+
+    private static string GenerateToStringFromEnum(
+        EnumSerializationStrategy enumSerializationStrategy,
+        string enumFullName,
+        IDictionary<string, string> backingTypeSerialization
+    )
+    {
+        if (enumSerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine(" => value switch");
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.AppendLine("{");
+
+            foreach (var mapping in backingTypeSerialization)
+            {
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Indention);
+                stringBuilder.Append(enumFullName);
+                stringBuilder.Append(".");
+                stringBuilder.Append(mapping.Key);
+                stringBuilder.Append(" => \"");
+                stringBuilder.Append(mapping.Value);
+                stringBuilder.AppendLine("\"u8,");
+            }
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append("_ => ");
+            stringBuilder.AppendLine(
+                // language=cs
+                $$"""
+                  throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum '{{enumFullName}}'"),
+                  """
+            );
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append("};");
+
+            return stringBuilder.ToString();
+        }
+
+        return GenerateFromEnumException("enum type");
+    }
+
+    private static string GenerateToBackingTypeFromEnum(
+        EnumSerializationStrategy enumSerializationStrategy,
+        string enumFullName,
+        IDictionary<string, object> backingTypeSerialization
+    )
+    {
+        if (enumSerializationStrategy is EnumSerializationStrategy.BackingType)
+        {
+            var stringBuilder = new StringBuilder();
+
+            stringBuilder.AppendLine(" => value switch");
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.AppendLine("{");
+
+            foreach (var mapping in backingTypeSerialization)
+            {
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Indention);
+                stringBuilder.Append(enumFullName);
+                stringBuilder.Append(".");
+                stringBuilder.Append(mapping.Key);
+                stringBuilder.Append(" => ");
+                stringBuilder.Append(mapping.Value);
+                stringBuilder.AppendLine(",");
+            }
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append("_ => ");
+            stringBuilder.AppendLine(
+                // language=cs
+                $$"""
+                  throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum '{{enumFullName}}'"),
+                  """
+            );
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append("};");
+
+            return stringBuilder.ToString();
+        }
+
+        return GenerateFromEnumException("backing type");
+    }
+
+    private static string GenerateFromEnumException(
+        string source
+        // language=cs
+    ) => $"""
+           => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to {source}");
           """;
 
     private static TypeCode BackingTypeToTypeCode(
