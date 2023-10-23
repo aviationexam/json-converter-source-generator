@@ -1,4 +1,8 @@
 ﻿//HintName: EnumJsonConvertor.g.cs
+// ReSharper disable once RedundantNullableDirective
+
+#nullable enable
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;

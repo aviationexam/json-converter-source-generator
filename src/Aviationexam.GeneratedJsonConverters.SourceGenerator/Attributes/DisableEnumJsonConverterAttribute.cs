@@ -1,6 +1,4 @@
-﻿//HintName: DisableEnumJsonConverterAttribute.g.cs
-#nullable enable
-
+﻿// ReSharper disable once CheckNamespace
 namespace Aviationexam.GeneratedJsonConverters.Attributes;
 
 /// <summary>

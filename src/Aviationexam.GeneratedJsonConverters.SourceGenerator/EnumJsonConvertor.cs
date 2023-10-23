@@ -1,4 +1,8 @@
-﻿using System;
+﻿// ReSharper disable once RedundantNullableDirective
+
+#nullable enable
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;

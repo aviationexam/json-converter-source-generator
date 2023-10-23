@@ -34,12 +34,12 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         {
             i.AddEmbeddedResources<EnumJsonConverterIncrementalGenerator>(new[]
             {
+                "Attributes.DisableEnumJsonConverterAttribute",
                 "EnumSerializationStrategy",
                 "EnumDeserializationStrategy",
                 "EnumJsonConvertor",
             });
 
-            i.GenerateDisableEnumJsonConverterAttribute();
             i.GenerateEnumJsonConverterAttribute();
         });
 
@@ -76,7 +76,6 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 predicate: static (node, _) => node is EnumDeclarationSyntax,
                 transform: EnumJsonSerializerContextTransformer.GetJsonSerializerContextClassDeclarationSyntax
             )
-            .Where(x => x.Result.EnumJsonConverterConfiguration is not null)
             .Collect()
             .Select((x, _) =>
             {

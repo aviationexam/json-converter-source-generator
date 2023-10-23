@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Attributes\DisableEnumJsonConverterAttribute.cs" />
     <EmbeddedResource Include="EnumSerializationStrategy.cs" />
     <EmbeddedResource Include="EnumDeserializationStrategy.cs" />
     <EmbeddedResource Include="EnumJsonConvertor.cs" />

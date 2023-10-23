@@ -223,4 +223,20 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task NotAnnotatedEnumReportingWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+
+        namespace ApplicationNamespace.Contracts;
+
+        public enum EMyEnum
+        {
+            A,
+            B,
+        }
+        """
+    );
 }
