@@ -147,6 +147,62 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     );
 
     [Fact]
+    public Task EnumWithDuplicatedFieldWorks_FirstEnumName() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "BackingType",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseBackingType|UseEnumName",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            [EnumMember(Value = "C")]
+            A = 0,
+            [EnumMember(Value = "D")]
+            B = 1,
+            [EnumMember(Value = "E")]
+            C = 1,
+        }
+        """
+    );
+
+    [Fact]
+    public Task EnumWithDuplicatedFieldWorks_BackingType() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "BackingType",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseBackingType|UseEnumName",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters;
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+        using System.Runtime.Serialization;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            [EnumMember(Value = "C")]
+            A = 0,
+            [EnumMember(Value = "D")]
+            B = 1,
+            [EnumMember(Value = "E")]
+            C = 1,
+        }
+        """
+    );
+
+    [Fact]
     public Task ProjectConfigurationWorks_UseEnumName() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {

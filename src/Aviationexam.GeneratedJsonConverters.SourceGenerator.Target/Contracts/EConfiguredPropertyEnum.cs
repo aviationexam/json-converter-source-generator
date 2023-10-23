@@ -11,6 +11,7 @@ public enum EConfiguredPropertyEnum
 {
     [EnumMember(Value = "C")]
     A,
+
     [EnumMember(Value = "D")]
     B,
 }
