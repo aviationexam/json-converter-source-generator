@@ -11,32 +11,38 @@ internal class EPropertyWithBackingEnumEnumJsonConverter : Aviationexam.Generate
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FirstEnumName;
 
-    protected override ApplicationNamespace.Contracts.EPropertyWithBackingEnum ToEnum(
-        System.ReadOnlySpan<byte> enumName
+    protected override bool TryToEnum(
+        System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EPropertyWithBackingEnum value
     )
     {
         if (System.MemoryExtensions.SequenceEqual(enumName, "E"u8))
         {
-            return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E;
+            value = ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E;
+            return true;
         }
         if (System.MemoryExtensions.SequenceEqual(enumName, "F"u8))
         {
-            return ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F;
+            value = ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F;
+            return true;
         }
 
-        var stringValue = System.Text.Encoding.UTF8.GetString(enumName.ToArray());
-
-        throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EPropertyWithBackingEnum'");
+        value = default(ApplicationNamespace.Contracts.EPropertyWithBackingEnum);
+        return false;
     }
 
-    protected override ApplicationNamespace.Contracts.EPropertyWithBackingEnum ToEnum(
-        System.Int32 numericValue
-    ) => numericValue switch
+    protected override bool TryToEnum(
+        System.Int32 numericValue, out ApplicationNamespace.Contracts.EPropertyWithBackingEnum value
+    )
     {
-        0 => ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E,
-        1 => ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F,
-        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum 'ApplicationNamespace.Contracts.EPropertyWithBackingEnum'"),
-    };
+        (var tryValue, value) = numericValue switch
+        {
+            0 => (true, ApplicationNamespace.Contracts.EPropertyWithBackingEnum.E),
+            1 => (true, ApplicationNamespace.Contracts.EPropertyWithBackingEnum.F),
+            _ => (false, default(ApplicationNamespace.Contracts.EPropertyWithBackingEnum)),
+        };
+
+        return tryValue;
+    }
 
     protected override System.Int32 ToBackingType(
         ApplicationNamespace.Contracts.EPropertyWithBackingEnum value
