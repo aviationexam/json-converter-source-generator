@@ -21,9 +21,9 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
 
     protected abstract EnumSerializationStrategy SerializationStrategy { get; }
 
-    protected abstract T ToEnum(ReadOnlySpan<byte> enumName);
+    protected abstract bool TryToEnum(ReadOnlySpan<byte> enumName, out T value);
 
-    protected abstract T ToEnum(TBackingType numericValue);
+    protected abstract bool TryToEnum(TBackingType numericValue, out T value);
 
     protected abstract TBackingType ToBackingType(T value);
 
@@ -40,7 +40,14 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         {
             var enumName = reader.ValueSpan;
 
-            return ToEnum(enumName);
+            if (TryToEnum(enumName, out var enumValue))
+            {
+                return enumValue;
+            }
+
+            var stringValue = Encoding.UTF8.GetString(enumName.ToArray());
+
+            throw new JsonException($"Undefined mapping of '{stringValue}' to enum '{typeof(T).FullName}'");
         }
 
         if (reader.TokenType is JsonTokenType.Number)
@@ -49,11 +56,54 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
 
             if (numericValue.HasValue)
             {
-                return ToEnum(numericValue.Value);
+                if (TryToEnum(numericValue.Value, out var enumValue))
+                {
+                    return enumValue;
+                }
+
+                throw new JsonException($"Undefined mapping of '{numericValue}' to enum '{{enumFullName}}'");
             }
         }
 
         var value = Encoding.UTF8.GetString(reader.ValueSpan.ToArray());
+
+        throw new JsonException($"Unable to deserialize {value}('{reader.TokenType}') into {typeof(T).Name}");
+    }
+
+    public override T ReadAsPropertyName(
+        ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
+    )
+    {
+        if (
+            reader.TokenType is JsonTokenType.String
+            && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseEnumName)
+        )
+        {
+            var enumName = reader.ValueSpan;
+
+            if (TryToEnum(enumName, out var enumValue))
+            {
+                return enumValue;
+            }
+        }
+
+        var value = Encoding.UTF8.GetString(reader.ValueSpan.ToArray());
+
+        if (
+            reader.TokenType is JsonTokenType.String
+            && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseBackingType)
+        )
+        {
+            var numericValue = ParseAsNumber(value);
+
+            if (numericValue.HasValue)
+            {
+                if (TryToEnum(numericValue.Value, out var enumValue))
+                {
+                    return enumValue;
+                }
+            }
+        }
 
         throw new JsonException($"Unable to deserialize {value}('{reader.TokenType}') into {typeof(T).Name}");
     }
@@ -71,6 +121,21 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         _ => throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}")
     };
 
+    private TBackingType? ParseAsNumber(
+        string value
+    ) => BackingTypeTypeCode switch
+    {
+        TypeCode.SByte => sbyte.TryParse(value, out var numericValue) ? Unsafe.As<sbyte, TBackingType>(ref numericValue) : null,
+        TypeCode.Byte => byte.TryParse(value, out var numericValue) ? Unsafe.As<byte, TBackingType>(ref numericValue) : null,
+        TypeCode.Int16 => short.TryParse(value, out var numericValue) ? Unsafe.As<short, TBackingType>(ref numericValue) : null,
+        TypeCode.UInt16 => ushort.TryParse(value, out var numericValue) ? Unsafe.As<ushort, TBackingType>(ref numericValue) : null,
+        TypeCode.Int32 => int.TryParse(value, out var numericValue) ? Unsafe.As<int, TBackingType>(ref numericValue) : null,
+        TypeCode.UInt32 => uint.TryParse(value, out var numericValue) ? Unsafe.As<uint, TBackingType>(ref numericValue) : null,
+        TypeCode.Int64 => long.TryParse(value, out var numericValue) ? Unsafe.As<long, TBackingType>(ref numericValue) : null,
+        TypeCode.UInt64 => ulong.TryParse(value, out var numericValue) ? Unsafe.As<ulong, TBackingType>(ref numericValue) : null,
+        _ => throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}")
+    };
+
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         if (SerializationStrategy is EnumSerializationStrategy.BackingType)
@@ -80,6 +145,22 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         else if (SerializationStrategy is EnumSerializationStrategy.FirstEnumName)
         {
             WriteAsFirstEnumName(writer, value, options);
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(nameof(SerializationStrategy), SerializationStrategy, "Unknown serialization strategy");
+        }
+    }
+
+    public override void WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+    {
+        if (SerializationStrategy is EnumSerializationStrategy.BackingType)
+        {
+            WriteAsPropertyNameAsBackingType(writer, value, options);
+        }
+        else if (SerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        {
+            WriteAsPropertyNameAsFirstEnumName(writer, value, options);
         }
         else
         {
@@ -127,6 +208,18 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         }
     }
 
+    private void WriteAsPropertyNameAsBackingType(
+        Utf8JsonWriter writer,
+        T value,
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+        JsonSerializerOptions options
+    )
+    {
+        var numericValue = ToBackingType(value);
+
+        writer.WritePropertyName($"{numericValue}");
+    }
+
     private void WriteAsFirstEnumName(
         Utf8JsonWriter writer,
         T value,
@@ -137,5 +230,17 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         var enumValue = ToFirstEnumName(value);
 
         writer.WriteStringValue(enumValue);
+    }
+
+    private void WriteAsPropertyNameAsFirstEnumName(
+        Utf8JsonWriter writer,
+        T value,
+        [SuppressMessage("ReSharper", "UnusedParameter.Local")]
+        JsonSerializerOptions options
+    )
+    {
+        var enumValue = ToFirstEnumName(value);
+
+        writer.WritePropertyName(enumValue);
     }
 }
