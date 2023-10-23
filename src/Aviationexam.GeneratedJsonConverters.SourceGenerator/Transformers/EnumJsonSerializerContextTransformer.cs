@@ -1,4 +1,4 @@
-﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;

@@ -1,4 +1,4 @@
-﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;

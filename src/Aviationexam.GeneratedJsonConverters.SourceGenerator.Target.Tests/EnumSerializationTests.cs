@@ -1,4 +1,4 @@
-﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using System.Text.Json;
 using Xunit;
 

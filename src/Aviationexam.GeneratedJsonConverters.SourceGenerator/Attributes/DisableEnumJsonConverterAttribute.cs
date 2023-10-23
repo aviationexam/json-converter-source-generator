@@ -1,4 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace
 namespace Aviationexam.GeneratedJsonConverters.Attributes;
 
 /// <summary>

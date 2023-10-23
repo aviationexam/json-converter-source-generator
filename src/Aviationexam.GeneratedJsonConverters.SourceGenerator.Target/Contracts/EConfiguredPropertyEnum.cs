@@ -1,4 +1,4 @@
-﻿using Aviationexam.GeneratedJsonConverters.Attributes;
+using Aviationexam.GeneratedJsonConverters.Attributes;
 using System.Runtime.Serialization;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;

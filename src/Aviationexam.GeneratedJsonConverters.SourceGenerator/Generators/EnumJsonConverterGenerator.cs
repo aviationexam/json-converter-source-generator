@@ -1,4 +1,4 @@
-﻿using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators;
 using Microsoft.CodeAnalysis;
 using System;
@@ -260,7 +260,7 @@ internal static class EnumJsonConverterGenerator
 
     private static string GenerateToEnumException(
         string source
-        // language=cs
+    // language=cs
     ) => $"""
            => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from {source}");
           """;
@@ -357,7 +357,7 @@ internal static class EnumJsonConverterGenerator
 
     private static string GenerateFromEnumException(
         string source
-        // language=cs
+    // language=cs
     ) => $"""
            => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to {source}");
           """;
