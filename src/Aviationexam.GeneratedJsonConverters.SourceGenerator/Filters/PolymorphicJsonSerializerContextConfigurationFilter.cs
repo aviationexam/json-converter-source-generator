@@ -8,10 +8,10 @@ using System.Threading;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 
-internal static class JsonSerializerContextConfigurationFilter
+internal static class PolymorphicJsonSerializerContextConfigurationFilter
 {
-    public static ResultWithDiagnostics<JsonSerializerContextConfiguration> FilterJsonSerializerContextConfiguration(
-        ResultWithDiagnostics<JsonSerializerContextConfiguration> x, CancellationToken cancellationToken
+    public static ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration> FilterJsonSerializerContextConfiguration(
+        ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration> x, CancellationToken cancellationToken
     )
     {
         if (

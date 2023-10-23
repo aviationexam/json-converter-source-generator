@@ -17,6 +17,8 @@ i.e. this JSON
 ```
 is deserialized correctly into `AnotherLeafContract` using this library.
 
+And string based enum serialization.
+
 ## Install
 ```xml
 <ItemGroup>
@@ -25,6 +27,21 @@ is deserialized correctly into `AnotherLeafContract` using this library.
 ```
 
 ## How to use library
+
+```xml
+<PropertyGroup>
+    <!-- DefaultJsonSerializerContext configuration is required to generate UseEnumConverters method -->
+    <AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>public</AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>
+    <AVI_EJC_DefaultJsonSerializerContext_Namespace>NamespaceOf.My.Json.Serializer.Context</AVI_EJC_DefaultJsonSerializerContext_Namespace>
+    <AVI_EJC_DefaultJsonSerializerContext_ClassName>MyJsonSerializerContext</AVI_EJC_DefaultJsonSerializerContext_ClassName>
+
+    <!-- Allowed options BackingType, FirstEnumName. Default value FirstEnumName -->
+    <AVI_EJC_DefaultEnumSerializationStrategy>BackingType</AVI_EJC_DefaultEnumSerializationStrategy>
+
+    <!-- Allowed options UseBackingType, UseEnumName, or UseBackingType|UseEnumName (DeserializationStrategy is Flags enum). Default value UseEnumName -->
+    <AVI_EJC_DefaultEnumDeserializationStrategy>UseBackingType|UseEnumName</AVI_EJC_DefaultEnumDeserializationStrategy>
+</PropertyGroup>
+```
 
 ```cs
 // file=contracts.cs
@@ -46,18 +63,50 @@ public sealed class AnotherLeafContract : BaseContract
     public int AnotherLeafProperty { get; set; }
 }
 
+[EnumJsonConverter] // this use project defined configuration
+public enum EMyEnum
+{
+    [EnumMember(Value = "C")]
+    A,
+    [EnumMember(Value = "D")]
+    B,
+}
+
+[EnumJsonConverter(
+    SerializationStrategy = EnumSerializationStrategy.FirstEnumName,
+    DeserializationStrategy = EnumDeserializationStrategy.UseEnumName
+)]
+public enum EMyEnumWithExplicitConfiguration
+{
+    [EnumMember(Value = "C")]
+    A,
+    [EnumMember(Value = "D")]
+    B,
+}
+
+[DisableEnumJsonConverter]
+public enum EMyIgnoredEnum
+{
+    C,
+    D,
+}
+
 // file=MyJsonSerializerContext.cs
 using System.Text.Json.Serialization;
 
 [JsonSerializable(typeof(BaseContract))] // this line is neccesary, generator searches for JsonSerializableAttribute with argument type decorated by JsonPolymorphicAttribute
 [JsonSerializable(typeof(LeafContract))] // notice, it's necessary to specify leaf types
 [JsonSerializable(typeof(AnotherLeafContract))]
+
+[JsonSerializable(typeof(EMyEnum))] // only necessary for not referenced enums from other contracts
+[JsonSerializable(typeof(EMyEnumWithExplicitConfiguration))]
 public partial class MyJsonSerializerContext : JsonSerializerContext
 {
     static MyJsonSerializerContext()
     {
         // register generated converters to options
         UsePolymorphicConverters(s_defaultOptions.Converters);
+        UseEnumConverters(s_defaultOptions.Converters);
     }
 }
 ```

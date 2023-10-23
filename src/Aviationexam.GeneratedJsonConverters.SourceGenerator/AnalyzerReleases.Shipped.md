@@ -4,4 +4,6 @@
 
 | Rule ID      | Category | Severity | Notes |
 |--------------|----------|----------|-------|
-| AVI_JC_0001  | Usage    | Error    |       |
+| AVI_JPC_0001 | Usage    | Error    |       |
+| AVI_EJC_0001 | Usage    | Error    |       |
+| AVI_EJC_0002 | Usage    | Warning  |       |

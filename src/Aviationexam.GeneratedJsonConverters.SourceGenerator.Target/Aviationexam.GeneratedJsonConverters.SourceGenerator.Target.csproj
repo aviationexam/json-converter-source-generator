@@ -6,9 +6,20 @@
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Target</ProjectName>
     <IsPackable>false</IsPackable>
+    <ReportAnalyzer>true</ReportAnalyzer>
+    <CompilerGeneratedFilesOutputPath>..\..\GeneratedFiles\Target</CompilerGeneratedFilesOutputPath>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
+
+  <PropertyGroup>
+    <AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>public</AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>
+    <AVI_EJC_DefaultJsonSerializerContext_Namespace>Aviationexam.GeneratedJsonConverters.SourceGenerator.Target</AVI_EJC_DefaultJsonSerializerContext_Namespace>
+    <AVI_EJC_DefaultJsonSerializerContext_ClassName>MyJsonSerializerContext</AVI_EJC_DefaultJsonSerializerContext_ClassName>
+  </PropertyGroup>
+
+  <Import Project="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.props"/>
 
   <ItemGroup>
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />

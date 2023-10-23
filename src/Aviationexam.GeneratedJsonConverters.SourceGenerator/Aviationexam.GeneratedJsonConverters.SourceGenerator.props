@@ -1,6 +1,11 @@
 <Project>
 
     <ItemGroup>
+        <CompilerVisibleProperty Include="AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility" />
+        <CompilerVisibleProperty Include="AVI_EJC_DefaultJsonSerializerContext_Namespace" />
+        <CompilerVisibleProperty Include="AVI_EJC_DefaultJsonSerializerContext_ClassName" />
+        <CompilerVisibleProperty Include="AVI_EJC_DefaultEnumSerializationStrategy" />
+        <CompilerVisibleProperty Include="AVI_EJC_DefaultEnumDeserializationStrategy" />
     </ItemGroup>
 
     <PropertyGroup>

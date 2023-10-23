@@ -5,13 +5,13 @@ using Xunit;
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
 [UsesVerify]
-public class JsonConverterGeneratorSnapshotTests
+public class JsonPolymorphicConverterGeneratorSnapshotTests
 {
     [Fact]
-    public Task EmptyWorks() => TestHelper.Verify(string.Empty);
+    public Task EmptyWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(string.Empty);
 
     [Fact]
-    public Task SimpleWorks() => TestHelper.Verify(
+    public Task SimpleWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
         // ReSharper disable once HeapView.ObjectAllocation
         """
         using Aviationexam.GeneratedJsonConverters.Attributes;
@@ -55,7 +55,7 @@ public class JsonConverterGeneratorSnapshotTests
     );
 
     [Fact]
-    public Task CustomDiscriminatorWorks() => TestHelper.Verify(
+    public Task CustomDiscriminatorWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
         // ReSharper disable once HeapView.ObjectAllocation
         """
         using Aviationexam.GeneratedJsonConverters.Attributes;
@@ -87,7 +87,7 @@ public class JsonConverterGeneratorSnapshotTests
     );
 
     [Fact]
-    public Task GenericBaseContractWorks() => TestHelper.Verify(
+    public Task GenericBaseContractWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
         // ReSharper disable once HeapView.ObjectAllocation
         """
         using Aviationexam.GeneratedJsonConverters.Attributes;
