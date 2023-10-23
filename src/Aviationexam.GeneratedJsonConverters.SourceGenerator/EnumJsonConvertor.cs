@@ -75,7 +75,7 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
     )
     {
         if (
-            reader.TokenType is JsonTokenType.String
+            reader.TokenType is JsonTokenType.PropertyName
             && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseEnumName)
         )
         {
@@ -90,7 +90,7 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
         var value = Encoding.UTF8.GetString(reader.ValueSpan.ToArray());
 
         if (
-            reader.TokenType is JsonTokenType.String
+            reader.TokenType is JsonTokenType.PropertyName
             && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseBackingType)
         )
         {
