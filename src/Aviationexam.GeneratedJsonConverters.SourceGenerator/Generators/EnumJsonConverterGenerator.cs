@@ -129,12 +129,12 @@ internal static class EnumJsonConverterGenerator
 
                   protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
 
-                  protected override {{fullName}} ToEnum(
-                      System.ReadOnlySpan<byte> enumName
+                  protected override bool TryToEnum(
+                      System.ReadOnlySpan<byte> enumName, out {{fullName}} value
                   ){{toEnumFromString}}
 
-                  protected override {{fullName}} ToEnum(
-                      {{backingType}} numericValue
+                  protected override bool TryToEnum(
+                      {{backingType}} numericValue, out {{fullName}} value
                   ){{toEnumFromBackingType}}
 
                   protected override {{backingType}} ToBackingType(
@@ -180,7 +180,7 @@ internal static class EnumJsonConverterGenerator
                 stringBuilder.Append(MethodPrefix);
                 stringBuilder.Append(Indention);
                 stringBuilder.Append(Indention);
-                stringBuilder.Append("return ");
+                stringBuilder.Append("value = ");
                 stringBuilder.Append(enumFullName);
                 stringBuilder.Append(".");
                 stringBuilder.Append(mapping.Value);
@@ -188,27 +188,32 @@ internal static class EnumJsonConverterGenerator
 
                 stringBuilder.Append(MethodPrefix);
                 stringBuilder.Append(Indention);
+                stringBuilder.Append(Indention);
+                stringBuilder.AppendLine("return true;");
+
+                stringBuilder.Append(MethodPrefix);
+                stringBuilder.Append(Indention);
                 stringBuilder.AppendLine("}");
             }
 
             stringBuilder.AppendLine();
+
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
             stringBuilder.AppendLine(
                 // language=cs
                 $"""
-                 var stringValue = System.Text.Encoding.UTF8.GetString({propertyName}.ToArray());
-                 """
+                value = default({enumFullName});
+                """
             );
-            stringBuilder.AppendLine();
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
             stringBuilder.AppendLine(
                 // language=cs
-                $$"""
-                  throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum '{{enumFullName}}'");
-                  """
+                """
+                return false;
+                """
             );
 
             stringBuilder.Append(MethodPrefix);
@@ -230,34 +235,48 @@ internal static class EnumJsonConverterGenerator
         {
             var stringBuilder = new StringBuilder();
 
-            stringBuilder.AppendLine(" => numericValue switch");
+            stringBuilder.AppendLine();
             stringBuilder.Append(MethodPrefix);
+            stringBuilder.AppendLine("{");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("(var tryValue, value) = numericValue switch");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
             stringBuilder.AppendLine("{");
 
             foreach (var mapping in backingTypeDeserialization)
             {
                 stringBuilder.Append(MethodPrefix);
                 stringBuilder.Append(Indention);
+                stringBuilder.Append(Indention);
                 stringBuilder.Append(mapping.Key);
-                stringBuilder.Append(" => ");
+                stringBuilder.Append(" => (true, ");
                 stringBuilder.Append(enumFullName);
                 stringBuilder.Append(".");
                 stringBuilder.Append(mapping.Value);
-                stringBuilder.AppendLine(",");
+                stringBuilder.AppendLine("),");
             }
 
             stringBuilder.Append(MethodPrefix);
             stringBuilder.Append(Indention);
-            stringBuilder.Append("_ => ");
-            stringBuilder.AppendLine(
-                // language=cs
-                $$"""
-                  throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum '{{enumFullName}}'"),
-                  """
-            );
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine($"_ => (false, default({enumFullName})),");
 
             stringBuilder.Append(MethodPrefix);
-            stringBuilder.Append("};");
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("};");
+
+            stringBuilder.AppendLine();
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("return tryValue;");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append("}");
 
             return stringBuilder.ToString();
         }

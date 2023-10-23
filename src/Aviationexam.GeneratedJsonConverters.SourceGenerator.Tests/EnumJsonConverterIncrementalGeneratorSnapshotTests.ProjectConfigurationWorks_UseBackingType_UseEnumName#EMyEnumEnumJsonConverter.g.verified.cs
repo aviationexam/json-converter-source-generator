@@ -11,32 +11,38 @@ internal class EMyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverters.E
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.BackingType;
 
-    protected override ApplicationNamespace.Contracts.EMyEnum ToEnum(
-        System.ReadOnlySpan<byte> enumName
+    protected override bool TryToEnum(
+        System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EMyEnum value
     )
     {
         if (System.MemoryExtensions.SequenceEqual(enumName, "C"u8))
         {
-            return ApplicationNamespace.Contracts.EMyEnum.A;
+            value = ApplicationNamespace.Contracts.EMyEnum.A;
+            return true;
         }
         if (System.MemoryExtensions.SequenceEqual(enumName, "D"u8))
         {
-            return ApplicationNamespace.Contracts.EMyEnum.B;
+            value = ApplicationNamespace.Contracts.EMyEnum.B;
+            return true;
         }
 
-        var stringValue = System.Text.Encoding.UTF8.GetString(enumName.ToArray());
-
-        throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EMyEnum'");
+        value = default(ApplicationNamespace.Contracts.EMyEnum);
+        return false;
     }
 
-    protected override ApplicationNamespace.Contracts.EMyEnum ToEnum(
-        System.Int32 numericValue
-    ) => numericValue switch
+    protected override bool TryToEnum(
+        System.Int32 numericValue, out ApplicationNamespace.Contracts.EMyEnum value
+    )
     {
-        0 => ApplicationNamespace.Contracts.EMyEnum.A,
-        1 => ApplicationNamespace.Contracts.EMyEnum.B,
-        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{numericValue}' to enum 'ApplicationNamespace.Contracts.EMyEnum'"),
-    };
+        (var tryValue, value) = numericValue switch
+        {
+            0 => (true, ApplicationNamespace.Contracts.EMyEnum.A),
+            1 => (true, ApplicationNamespace.Contracts.EMyEnum.B),
+            _ => (false, default(ApplicationNamespace.Contracts.EMyEnum)),
+        };
+
+        return tryValue;
+    }
 
     protected override System.Int32 ToBackingType(
         ApplicationNamespace.Contracts.EMyEnum value

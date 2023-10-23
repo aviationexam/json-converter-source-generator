@@ -11,26 +11,27 @@ internal class EPropertyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConver
 
     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FirstEnumName;
 
-    protected override ApplicationNamespace.Contracts.EPropertyEnum ToEnum(
-        System.ReadOnlySpan<byte> enumName
+    protected override bool TryToEnum(
+        System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EPropertyEnum value
     )
     {
         if (System.MemoryExtensions.SequenceEqual(enumName, "C"u8))
         {
-            return ApplicationNamespace.Contracts.EPropertyEnum.C;
+            value = ApplicationNamespace.Contracts.EPropertyEnum.C;
+            return true;
         }
         if (System.MemoryExtensions.SequenceEqual(enumName, "D"u8))
         {
-            return ApplicationNamespace.Contracts.EPropertyEnum.D;
+            value = ApplicationNamespace.Contracts.EPropertyEnum.D;
+            return true;
         }
 
-        var stringValue = System.Text.Encoding.UTF8.GetString(enumName.ToArray());
-
-        throw new System.Text.Json.JsonException($"Undefined mapping of '{stringValue}' to enum 'ApplicationNamespace.Contracts.EPropertyEnum'");
+        value = default(ApplicationNamespace.Contracts.EPropertyEnum);
+        return false;
     }
 
-    protected override ApplicationNamespace.Contracts.EPropertyEnum ToEnum(
-        System.Byte numericValue
+    protected override bool TryToEnum(
+        System.Byte numericValue, out ApplicationNamespace.Contracts.EPropertyEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support deserialization from backing type");
 
     protected override System.Byte ToBackingType(
