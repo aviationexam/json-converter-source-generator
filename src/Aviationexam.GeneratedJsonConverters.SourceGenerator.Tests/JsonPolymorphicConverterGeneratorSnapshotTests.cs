@@ -125,4 +125,44 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task GenericAttributeWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [JsonPolymorphic(TypeDiscriminatorPropertyName = "myCustomDiscriminator")]
+        [JsonDerivedType<IntLeafContract>(typeDiscriminator: nameof(IntLeafContract))]
+        [JsonDerivedType<StringLeafContract>(typeDiscriminator: nameof(StringLeafContract))]
+        public abstract class BaseContract<T>
+        {
+        }
+
+        public sealed class IntLeafContract : BaseContract<int>
+        {
+        }
+
+        public sealed class StringLeafContract : BaseContract<string>
+        {
+        }
+        """,
+        """
+        using ApplicationNamespace.Contracts;
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        [JsonSerializable(typeof(BaseContract<int>))]
+        [JsonSerializable(typeof(BaseContract<int>))] // test that duplicated attribute does not kill generator
+        [JsonSerializable(typeof(BaseContract<string>))]
+        [JsonSerializable(typeof(IntLeafContract))]
+        [JsonSerializable(typeof(StringLeafContract))]
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
 }

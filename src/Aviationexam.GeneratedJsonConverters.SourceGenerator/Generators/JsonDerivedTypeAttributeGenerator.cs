@@ -64,6 +64,36 @@ internal static class JsonDerivedTypeAttributeGenerator
             /// </summary>
             public object? TypeDiscriminator { get; }
         }
+
+        [System.AttributeUsage(System.AttributeTargets.Class | System.AttributeTargets.Interface, AllowMultiple = true, Inherited = false)]
+        internal class JsonDerivedTypeAttribute<TDerivedType> : JsonDerivedTypeAttribute
+        {
+            /// <summary>
+            /// Initializes a new attribute with specified parameters.
+            /// </summary>
+            /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared based type.</param>
+            public JsonDerivedTypeAttribute() : base(typeof(TDerivedType))
+            {
+            }
+
+            /// <summary>
+            /// Initializes a new attribute with specified parameters.
+            /// </summary>
+            /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared base type.</param>
+            /// <param name="typeDiscriminator">The type discriminator identifier to be used for the serialization of the subtype.</param>
+            public JsonDerivedTypeAttribute(string typeDiscriminator) : base(typeof(TDerivedType), typeDiscriminator)
+            {
+            }
+
+            /// <summary>
+            /// Initializes a new attribute with specified parameters.
+            /// </summary>
+            /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared base type.</param>
+            /// <param name="typeDiscriminator">The type discriminator identifier to be used for the serialization of the subtype.</param>
+            public JsonDerivedTypeAttribute(int typeDiscriminator) : base(typeof(TDerivedType), typeDiscriminator)
+            {
+            }
+        }
         """
     );
 }

@@ -12,14 +12,22 @@ internal static class JsonDerivedTypeAttributeParser
 
         ITypeSymbol? targetType;
         IDiscriminatorStruct? discriminator = null;
-        if (arguments is [var typeArgument])
+        if (
+            attributeData.AttributeClass is { IsGenericType: true, TypeArguments: [var genericTypeArgument] }
+            && arguments is [var discriminatorArgument]
+        )
+        {
+            targetType = genericTypeArgument;
+            discriminator = GetDiscriminatorSymbol(discriminatorArgument);
+        }
+        else if (arguments is [var typeArgument])
         {
             targetType = GetTargetTypeSymbol(typeArgument);
         }
-        else if (arguments is [var typeArgument2, var discriminatorArgument])
+        else if (arguments is [var typeArgument2, var discriminatorArgument2])
         {
             targetType = GetTargetTypeSymbol(typeArgument2);
-            discriminator = GetDiscriminatorSymbol(discriminatorArgument);
+            discriminator = GetDiscriminatorSymbol(discriminatorArgument2);
         }
         else
         {

@@ -30,6 +30,11 @@ public class BaseContractSerializationTests
         {
             Assert.Equal(2, anotherLeafContract.AnotherLeafProperty);
         }
+
+        if (baseContract is GenericLeafContract genericLeafContract)
+        {
+            Assert.Equal(2, genericLeafContract.Property);
+        }
     }
 
     [Theory]
@@ -118,6 +123,18 @@ public class BaseContractSerializationTests
             """,
             typeof(AnotherLeafContract),
         };
+        yield return new object[]
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1,
+                "property": 2,
+                "$type": "GenericLeafContract"
+            }
+            """,
+            typeof(GenericLeafContract),
+        };
     }
 
     public static IEnumerable<object[]> LeafContractData()
@@ -150,6 +167,22 @@ public class BaseContractSerializationTests
             {
               "$type": 2,
               "anotherLeafProperty": 2,
+              "baseProperty": 1
+            }
+            """.Replace("\r\n", Environment.NewLine)
+        };
+        yield return new object[]
+        {
+            new GenericLeafContract
+            {
+                BaseProperty = 1,
+                Property = 2
+            },
+            // language=json
+            """
+            {
+              "$type": "GenericLeafContract",
+              "property": 2,
               "baseProperty": 1
             }
             """.Replace("\r\n", Environment.NewLine)

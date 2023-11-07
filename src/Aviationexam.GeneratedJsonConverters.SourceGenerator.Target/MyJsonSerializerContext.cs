@@ -13,6 +13,7 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 [JsonSerializable(typeof(BaseContract))]
 [JsonSerializable(typeof(LeafContract))]
 [JsonSerializable(typeof(AnotherLeafContract))]
+[JsonSerializable(typeof(GenericLeafContract))]
 [JsonSerializable(typeof(BaseContractWithCustomDelimiter))]
 [JsonSerializable(typeof(LeafContractWithCustomDelimiter))]
 [JsonSerializable(typeof(EBackingEnum))]
