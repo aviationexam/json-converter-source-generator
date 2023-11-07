@@ -94,7 +94,13 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                     jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
                 }
 
-                if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol))
+                if (
+                    SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol)
+                    || (
+                        attribute.AttributeClass is { IsGenericType: true } attributeClass
+                        && SymbolEqualityComparer.Default.Equals(attributeClass.BaseType, context.JsonDerivedTypeAttributeSymbol)
+                    )
+                )
                 {
                     var jsonDerivedTypeConfiguration = JsonDerivedTypeAttributeParser.Parse(attribute);
 
