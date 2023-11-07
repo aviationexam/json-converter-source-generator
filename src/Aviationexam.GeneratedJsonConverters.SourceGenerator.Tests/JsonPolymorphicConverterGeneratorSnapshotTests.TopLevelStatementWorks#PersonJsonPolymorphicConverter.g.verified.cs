@@ -1,9 +1,9 @@
 ﻿//HintName: PersonJsonPolymorphicConverter.g.cs
 #nullable enable
 
-namespace ;
+namespace PolymorphicGlobalNamespace;
 
-internal class PersonJsonPolymorphicConverter : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<Person>
+internal class PersonJsonPolymorphicConverter : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::Person>
 {
     protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
 

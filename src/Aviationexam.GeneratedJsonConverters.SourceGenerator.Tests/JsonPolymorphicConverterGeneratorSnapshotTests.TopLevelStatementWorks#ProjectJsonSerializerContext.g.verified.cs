@@ -7,7 +7,7 @@ public partial class ProjectJsonSerializerContext
 {
     public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
     {
-        new .PersonJsonPolymorphicConverter(),
+        new PolymorphicGlobalNamespace.PersonJsonPolymorphicConverter(),
     };
 
     public static void UsePolymorphicConverters(
