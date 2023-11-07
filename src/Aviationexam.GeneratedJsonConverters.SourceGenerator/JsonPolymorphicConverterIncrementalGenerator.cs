@@ -19,13 +19,15 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 {
     public const string Id = "AVI_JPC";
 
+    private const string EmptyPolymorphicNamespace = "PolymorphicGlobalNamespace";
+
     internal static readonly SymbolDisplayFormat NamespaceFormat = new(
         globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces
     );
 
     internal static readonly SymbolDisplayFormat NamespaceFormatWithGenericArguments = new(
-        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
+        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
         typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
         genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
     );
@@ -79,7 +81,9 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();
 
-        var convertersTargetNamespace = context.JsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
+        var convertersTargetNamespace = context.JsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
+            ? EmptyPolymorphicNamespace
+            : context.JsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
 
         foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
         {
