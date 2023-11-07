@@ -165,4 +165,40 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task TopLevelStatementWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using System.Text.Json.Serialization;
+
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonPolymorphic]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<Student>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<Teacher>]
+        public abstract record Person(string Name);
+
+        public sealed record Student(string Name) : Person(Name);
+
+        public sealed record Teacher(string Name) : Person(Name);
+
+        [JsonSourceGenerationOptions(
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+            GenerationMode = JsonSourceGenerationMode.Default
+        )]
+        [JsonSerializable(typeof(Person))]
+        [JsonSerializable(typeof(Student))]
+        [JsonSerializable(typeof(Teacher))]
+        public partial class ProjectJsonSerializerContext : JsonSerializerContext
+        {
+            static ProjectJsonSerializerContext()
+            {
+                foreach (var converter in GetPolymorphicConverters())
+                {
+                    s_defaultOptions.Converters.Add(converter);
+                }
+            }
+        }
+        """
+    );
 }
