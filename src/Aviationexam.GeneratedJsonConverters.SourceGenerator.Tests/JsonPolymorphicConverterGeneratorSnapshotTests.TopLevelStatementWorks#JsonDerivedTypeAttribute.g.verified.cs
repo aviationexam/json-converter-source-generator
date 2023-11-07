@@ -60,7 +60,6 @@ internal class JsonDerivedTypeAttribute<TDerivedType> : JsonDerivedTypeAttribute
     /// <summary>
     /// Initializes a new attribute with specified parameters.
     /// </summary>
-    /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared based type.</param>
     public JsonDerivedTypeAttribute() : base(typeof(TDerivedType))
     {
     }
@@ -68,7 +67,6 @@ internal class JsonDerivedTypeAttribute<TDerivedType> : JsonDerivedTypeAttribute
     /// <summary>
     /// Initializes a new attribute with specified parameters.
     /// </summary>
-    /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared base type.</param>
     /// <param name="typeDiscriminator">The type discriminator identifier to be used for the serialization of the subtype.</param>
     public JsonDerivedTypeAttribute(string typeDiscriminator) : base(typeof(TDerivedType), typeDiscriminator)
     {
@@ -77,7 +75,6 @@ internal class JsonDerivedTypeAttribute<TDerivedType> : JsonDerivedTypeAttribute
     /// <summary>
     /// Initializes a new attribute with specified parameters.
     /// </summary>
-    /// <param name="derivedType">A derived type that should be supported in polymorphic serialization of the declared base type.</param>
     /// <param name="typeDiscriminator">The type discriminator identifier to be used for the serialization of the subtype.</param>
     public JsonDerivedTypeAttribute(int typeDiscriminator) : base(typeof(TDerivedType), typeDiscriminator)
     {
