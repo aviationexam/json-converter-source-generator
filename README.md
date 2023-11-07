@@ -50,6 +50,7 @@ using Aviationexam.GeneratedJsonConverters.Attributes;
 [JsonPolymorphic] // notice, that attributes are from `Aviationexam.GeneratedJsonConverters.Attributes` namespace, not `System.Text.Json.Serialization`
 [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
 [JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
+[JsonDerivedType<GenericLeafContract>(typeDiscriminator: nameof(GenericLeafContract))]
 public abstract class BaseContract
 {
     public int BaseProperty { get; set; }
@@ -61,6 +62,10 @@ public sealed class LeafContract : BaseContract
 public sealed class AnotherLeafContract : BaseContract
 {
     public int AnotherLeafProperty { get; set; }
+}
+public sealed class GenericLeafContract : BaseContract
+{
+    public int Property { get; set; }
 }
 
 [EnumJsonConverter] // this use project defined configuration
@@ -97,6 +102,7 @@ using System.Text.Json.Serialization;
 [JsonSerializable(typeof(BaseContract))] // this line is neccesary, generator searches for JsonSerializableAttribute with argument type decorated by JsonPolymorphicAttribute
 [JsonSerializable(typeof(LeafContract))] // notice, it's necessary to specify leaf types
 [JsonSerializable(typeof(AnotherLeafContract))]
+[JsonSerializable(typeof(GenericLeafContract))]
 
 [JsonSerializable(typeof(EMyEnum))] // only necessary for not referenced enums from other contracts
 [JsonSerializable(typeof(EMyEnumWithExplicitConfiguration))]
