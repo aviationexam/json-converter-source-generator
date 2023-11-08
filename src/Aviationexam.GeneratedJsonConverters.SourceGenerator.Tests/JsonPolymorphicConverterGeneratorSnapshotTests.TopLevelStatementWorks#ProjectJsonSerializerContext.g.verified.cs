@@ -1,8 +1,6 @@
 ﻿//HintName: ProjectJsonSerializerContext.g.cs
 #nullable enable
 
-namespace PolymorphicGlobalNamespace;
-
 public partial class ProjectJsonSerializerContext
 {
     public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]

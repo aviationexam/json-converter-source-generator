@@ -33,7 +33,7 @@ internal static class JsonConvertersSerializerJsonContextGenerator
         }
 
         var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
-            ? JsonPolymorphicConverterIncrementalGenerator.EmptyPolymorphicNamespace
+            ? null
             : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
 
         return Generate(
@@ -55,14 +55,24 @@ internal static class JsonConvertersSerializerJsonContextGenerator
     {
         var converterTypeString = converterType.ToString();
 
+        var namespaceLine = string.Empty;
+        if (jsonSerializerContext.Namespace is { } jsonConverterNamespace)
+        {
+            namespaceLine =
+                // language=cs
+                $"""
+
+                 namespace {jsonConverterNamespace};
+
+                 """;
+        }
+
         return new FileWithName(
             $"{jsonSerializerContext.ClassName}.g.cs",
             // language=cs
             $$"""
               #nullable enable
-
-              namespace {{jsonSerializerContext.Namespace}};
-
+              {{namespaceLine}}
               {{jsonSerializerContext.ClassAccessibility}} partial class {{jsonSerializerContext.ClassName}}
               {
                   public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> Get{{converterTypeString}}Converters() => new System.Text.Json.Serialization.JsonConverter[]
