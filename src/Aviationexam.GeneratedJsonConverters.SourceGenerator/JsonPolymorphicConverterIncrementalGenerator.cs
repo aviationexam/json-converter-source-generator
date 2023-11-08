@@ -19,7 +19,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 {
     public const string Id = "AVI_JPC";
 
-    private const string EmptyPolymorphicNamespace = "PolymorphicGlobalNamespace";
+    public const string EmptyPolymorphicNamespace = "PolymorphicGlobalNamespace";
 
     internal static readonly SymbolDisplayFormat NamespaceFormat = new(
         globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
