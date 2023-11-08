@@ -1,7 +1,7 @@
 ﻿//HintName: ProjectJsonSerializerContext.g.cs
 #nullable enable
 
-namespace ;
+namespace PolymorphicGlobalNamespace;
 
 public partial class ProjectJsonSerializerContext
 {

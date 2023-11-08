@@ -32,7 +32,9 @@ internal static class JsonConvertersSerializerJsonContextGenerator
             classAccessibility = $"{classAccessibility} sealed";
         }
 
-        var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
+        var targetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
+            ? JsonPolymorphicConverterIncrementalGenerator.EmptyPolymorphicNamespace
+            : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormat);
 
         return Generate(
             converterType,
