@@ -113,6 +113,10 @@ public partial class MyJsonSerializerContext : JsonSerializerContext
         // register generated converters to options
         UsePolymorphicConverters(s_defaultOptions.Converters);
         UseEnumConverters(s_defaultOptions.Converters);
+
+#if NET8_0_OR_GREATER
+        Default = new MyJsonSerializerContext(new System.Text.Json.JsonSerializerOptions(s_defaultOptions));
+#endif
     }
 }
 ```
