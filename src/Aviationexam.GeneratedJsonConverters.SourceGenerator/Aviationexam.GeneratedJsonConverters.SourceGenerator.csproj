@@ -31,10 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
+    <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="H.Generators.Extensions" Version="1.20.0" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,8 +53,13 @@
   </PropertyGroup>
 
   <Target Name="_AddAnalyzersToOutput">
+    <Message Importance="High" Text="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" />
+    <Message Importance="High" Text="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" />
+    <Message Importance="High" Text="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" />
+
     <ItemGroup>
       <TfmSpecificPackageFile Include="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
