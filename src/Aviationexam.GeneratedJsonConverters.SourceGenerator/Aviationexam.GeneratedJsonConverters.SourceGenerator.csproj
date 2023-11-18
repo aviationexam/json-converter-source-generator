@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Text.Json" Version="8.0.0" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" Version="8.0.0" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0" PrivateAssets="all" />
     <PackageReference Include="H.Generators.Extensions" Version="1.20.0" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="PolySharp" Version="1.13.2" PrivateAssets="all" />
@@ -54,6 +54,7 @@
   <Target Name="_AddAnalyzersToOutput">
     <ItemGroup>
       <TfmSpecificPackageFile Include="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
 
