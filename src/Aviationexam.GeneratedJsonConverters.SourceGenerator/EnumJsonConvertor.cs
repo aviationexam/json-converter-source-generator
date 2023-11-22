@@ -11,9 +11,8 @@ using System.Text.Json.Serialization;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
+internal abstract class EnumJsonConvertor<T> : JsonConverter<T>
     where T : struct, Enum
-    where TBackingType : struct
 {
     protected abstract TypeCode BackingTypeTypeCode { get; }
 
@@ -23,11 +22,16 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : JsonConverter<T>
 
     public abstract bool TryToEnum(ReadOnlySpan<byte> enumName, out T value);
 
+    public abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
+}
+
+internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T>
+    where T : struct, Enum
+    where TBackingType : struct
+{
     public abstract bool TryToEnum(TBackingType numericValue, out T value);
 
     public abstract TBackingType ToBackingType(T value);
-
-    public abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
 
     public override T Read(
         ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
