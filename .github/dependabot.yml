@@ -9,6 +9,19 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    groups:
+      microsoft:
+        patterns:
+          - ^Microsoft\..*
+          - ^System\..*
+      xunit:
+        patterns:
+          - ^xunit$
+          - ^xunit\..*
+      verify:
+        patterns:
+          - ^Verify$
+          - ^Verify\..*
 
   - package-ecosystem: "github-actions"
     directory: "/" # Location of package manifests
