@@ -1,5 +1,5 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
-using H.Generators;
+using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
