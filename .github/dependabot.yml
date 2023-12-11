@@ -12,16 +12,15 @@ updates:
     groups:
       microsoft:
         patterns:
-          - ^Microsoft\..*
-          - ^System\..*
+          - Microsoft.*
+          - System.*
       xunit:
         patterns:
-          - ^xunit$
-          - ^xunit\..*
-      verify:
+          - xunit
+          - xunit.*
         patterns:
-          - ^Verify$
-          - ^Verify\..*
+          - Verify
+          - Verify.*
 
   - package-ecosystem: "github-actions"
     directory: "/" # Location of package manifests
