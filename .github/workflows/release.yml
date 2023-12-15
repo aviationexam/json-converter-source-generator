@@ -39,7 +39,7 @@ jobs:
       - name: Pack with .Net
         run: |
           dotnet pack --nologo --no-build --configuration Release --output nuget-packages -p:PackageVersion=${{ steps.gitversion.outputs.NuGetVersionV2 }} src/Aviationexam.GeneratedJsonConverters.SourceGenerator/Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: Nuget-packages-${{ steps.gitversion.outputs.nuGetVersionV2 }}
           path: nuget-packages
