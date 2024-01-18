@@ -1,10 +1,8 @@
 using System.Threading.Tasks;
-using VerifyXunit;
 using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
-[UsesVerify]
 public class JsonPolymorphicConverterGeneratorSnapshotTests
 {
     [Fact]

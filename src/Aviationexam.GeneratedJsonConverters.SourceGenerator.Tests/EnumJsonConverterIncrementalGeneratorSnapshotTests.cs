@@ -1,12 +1,10 @@
 using H.Generators.Tests.Extensions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using VerifyXunit;
 using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
 
-[UsesVerify]
 public class EnumJsonConverterIncrementalGeneratorSnapshotTests
 {
     [Fact]
