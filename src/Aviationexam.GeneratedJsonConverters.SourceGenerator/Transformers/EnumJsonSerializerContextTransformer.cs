@@ -105,6 +105,6 @@ internal static class EnumJsonSerializerContextTransformer
                 enumMemberAttributeSymbol,
                 enumJsonConverterConfiguration
             )
-            .ToResultWithDiagnostics([..diagnostics]);
+            .ToResultWithDiagnostics([.. diagnostics]);
     }
 }

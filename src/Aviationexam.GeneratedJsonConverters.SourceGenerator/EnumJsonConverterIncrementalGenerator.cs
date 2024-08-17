@@ -67,7 +67,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                     : EnumDeserializationStrategy.ProjectDefault
             ).ToArray() is { } defaultEnumDeserializationStrategies
             && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
-                ? [..defaultEnumDeserializationStrategies]
+                ? [.. defaultEnumDeserializationStrategies]
                 : [DefaultEnumDeserializationStrategy]
         ));
 
@@ -87,7 +87,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 }
 
                 return results.ToImmutableArray().AsEquatableArray()
-                    .ToResultWithDiagnostics([..diagnostics]);
+                    .ToResultWithDiagnostics([.. diagnostics]);
             })
             .Combine(enumJsonConverterOptions)
             .SelectAndReportExceptions(GetSourceCode, context, Id)
