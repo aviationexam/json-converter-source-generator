@@ -4,7 +4,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Threading;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
@@ -106,6 +105,6 @@ internal static class EnumJsonSerializerContextTransformer
                 enumMemberAttributeSymbol,
                 enumJsonConverterConfiguration
             )
-            .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
+            .ToResultWithDiagnostics([.. diagnostics]);
     }
 }

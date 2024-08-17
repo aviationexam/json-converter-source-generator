@@ -3,7 +3,6 @@ using Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
-using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -74,9 +73,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 .ToResultWithDiagnostics(resultObject.Diagnostics);
         }
 
-        var diagnostics = ImmutableArray<Diagnostic>.Empty;
-
-        diagnostics = resultObject.Diagnostics.Concat(diagnostics).ToImmutableArray();
+        ImmutableArray<Diagnostic> diagnostics = resultObject.Diagnostics.AsImmutableArray();
 
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();

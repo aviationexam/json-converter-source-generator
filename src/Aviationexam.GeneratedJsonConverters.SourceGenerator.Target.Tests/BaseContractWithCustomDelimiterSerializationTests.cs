@@ -41,8 +41,8 @@ public class BaseContractWithCustomDelimiterSerializationTests
 
     public static IEnumerable<object[]> BaseJsonContractData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             // language=json
             """
             {
@@ -51,10 +51,10 @@ public class BaseContractWithCustomDelimiterSerializationTests
                 "leafProperty": 2
             }
             """,
-            typeof(LeafContractWithCustomDelimiter),
-        };
-        yield return new object[]
-        {
+            typeof(LeafContractWithCustomDelimiter)
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -63,10 +63,10 @@ public class BaseContractWithCustomDelimiterSerializationTests
                 "leafProperty": 2
             }
             """,
-            typeof(LeafContractWithCustomDelimiter),
-        };
-        yield return new object[]
-        {
+            typeof(LeafContractWithCustomDelimiter)
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -75,14 +75,14 @@ public class BaseContractWithCustomDelimiterSerializationTests
                 "myCustomDelimiter": "LeafContractWithCustomDelimiter"
             }
             """,
-            typeof(LeafContractWithCustomDelimiter),
-        };
+            typeof(LeafContractWithCustomDelimiter)
+        ];
     }
 
     public static IEnumerable<object[]> LeafContractData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new LeafContractWithCustomDelimiter
             {
                 BaseProperty = 1,
@@ -96,6 +96,6 @@ public class BaseContractWithCustomDelimiterSerializationTests
               "baseProperty": 1
             }
             """.Replace("\r\n", Environment.NewLine)
-        };
+        ];
     }
 }

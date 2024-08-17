@@ -88,6 +88,6 @@ internal static class PolymorphicJsonSerializerContextTransformer
                     .ToImmutableArray()
                     .AsEquatableArray()
             )
-            .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
+            .ToResultWithDiagnostics([.. diagnostics]);
     }
 }

@@ -110,8 +110,8 @@ public class EnumSerializationTests
 
     public static IEnumerable<object[]> EnumDictionaryData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             typeof(IReadOnlyDictionary<EBackingEnum, int>),
             new Dictionary<EBackingEnum, int>
             {
@@ -123,9 +123,9 @@ public class EnumSerializationTests
               "1": 2
             }
             """.ReplaceLineEndings("\n"),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             typeof(IReadOnlyDictionary<EConfiguredPropertyEnum, int>),
             new Dictionary<EConfiguredPropertyEnum, int>
             {
@@ -137,6 +137,6 @@ public class EnumSerializationTests
               "D": 2
             }
             """.ReplaceLineEndings("\n"),
-        };
+        ];
     }
 }
