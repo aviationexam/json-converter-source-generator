@@ -1,7 +1,6 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
-using H.Generators;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -60,7 +59,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 : DefaultEnumSerializationStrategy,
             x.GetGlobalOption("DefaultEnumDeserializationStrategy", Id) is { } defaultEnumDeserializationStrategyString
             && defaultEnumDeserializationStrategyString.Split(
-                new[] { '|' }, StringSplitOptions.RemoveEmptyEntries
+                ['|'], StringSplitOptions.RemoveEmptyEntries
             ) is { } defaultEnumDeserializationStrategiesString
             && defaultEnumDeserializationStrategiesString.Select(s =>
                 Enum.TryParse<EnumDeserializationStrategy>(s, out var defaultEnumDeserializationStrategy)
@@ -68,8 +67,8 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                     : EnumDeserializationStrategy.ProjectDefault
             ).ToArray() is { } defaultEnumDeserializationStrategies
             && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
-                ? defaultEnumDeserializationStrategies.ToImmutableArray()
-                : new[] { DefaultEnumDeserializationStrategy }.ToImmutableArray()
+                ? [..defaultEnumDeserializationStrategies]
+                : [DefaultEnumDeserializationStrategy]
         ));
 
         context.SyntaxProvider.CreateSyntaxProvider(
@@ -88,7 +87,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 }
 
                 return results.ToImmutableArray().AsEquatableArray()
-                    .ToResultWithDiagnostics(diagnostics.ToImmutableArray());
+                    .ToResultWithDiagnostics([..diagnostics]);
             })
             .Combine(enumJsonConverterOptions)
             .SelectAndReportExceptions(GetSourceCode, context, Id)

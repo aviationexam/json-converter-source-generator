@@ -51,8 +51,8 @@ public class BaseContractSerializationTests
 
     public static IEnumerable<object[]> BaseJsonContractData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             // language=json
             """
             {
@@ -62,9 +62,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(LeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -74,9 +74,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(LeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -86,9 +86,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(LeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -98,9 +98,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(AnotherLeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -110,9 +110,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(AnotherLeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -122,9 +122,9 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(AnotherLeafContract),
-        };
-        yield return new object[]
-        {
+        ];
+        yield return
+        [
             // language=json
             """
             {
@@ -134,13 +134,13 @@ public class BaseContractSerializationTests
             }
             """,
             typeof(GenericLeafContract),
-        };
+        ];
     }
 
     public static IEnumerable<object[]> LeafContractData()
     {
-        yield return new object[]
-        {
+        yield return
+        [
             new LeafContract
             {
                 BaseProperty = 1,
@@ -153,10 +153,10 @@ public class BaseContractSerializationTests
               "leafProperty": 2,
               "baseProperty": 1
             }
-            """.Replace("\r\n", Environment.NewLine)
-        };
-        yield return new object[]
-        {
+            """.Replace("\r\n", Environment.NewLine),
+        ];
+        yield return
+        [
             new AnotherLeafContract
             {
                 BaseProperty = 1,
@@ -169,10 +169,10 @@ public class BaseContractSerializationTests
               "anotherLeafProperty": 2,
               "baseProperty": 1
             }
-            """.Replace("\r\n", Environment.NewLine)
-        };
-        yield return new object[]
-        {
+            """.Replace("\r\n", Environment.NewLine),
+        ];
+        yield return
+        [
             new GenericLeafContract
             {
                 BaseProperty = 1,
@@ -185,7 +185,7 @@ public class BaseContractSerializationTests
               "property": 2,
               "baseProperty": 1
             }
-            """.Replace("\r\n", Environment.NewLine)
-        };
+            """.Replace("\r\n", Environment.NewLine),
+        ];
     }
 }
