@@ -1,14 +1,31 @@
 ﻿{
   Diagnostics: [
     {
-      Id: AVI_EJC_0002,
-      Title: There is an enum without json converter configuration,
+      Location: /*
+
+public enum EMyEnum
+^^^^^^^^^^^^^^^^^^^
+{
+^
+    A,
+^^^^^^
+    B,
+^^^^^^
+}
+^
+*/
+ : (4,0)-(8,1),
+      Message: There is an enum 'ApplicationNamespace.Contracts.EMyEnum' without json converter configuration. Add [EnumJsonConverterAttribute] or disable warning using [DisableEnumJsonConverterAttribute].,
       Severity: Warning,
       WarningLevel: 1,
-      Location: : (4,0)-(8,1),
-      MessageFormat: There is an enum '{0}' without json converter configuration. Add [EnumJsonConverterAttribute] or disable warning using [DisableEnumJsonConverterAttribute].,
-      Message: There is an enum 'ApplicationNamespace.Contracts.EMyEnum' without json converter configuration. Add [EnumJsonConverterAttribute] or disable warning using [DisableEnumJsonConverterAttribute].,
-      Category: Aviationexam.GeneratedJsonConverters.SourceGenerator
+      Descriptor: {
+        Id: AVI_EJC_0002,
+        Title: There is an enum without json converter configuration,
+        MessageFormat: There is an enum '{0}' without json converter configuration. Add [EnumJsonConverterAttribute] or disable warning using [DisableEnumJsonConverterAttribute].,
+        Category: Aviationexam.GeneratedJsonConverters.SourceGenerator,
+        DefaultSeverity: Warning,
+        IsEnabledByDefault: true
+      }
     }
   ]
 }

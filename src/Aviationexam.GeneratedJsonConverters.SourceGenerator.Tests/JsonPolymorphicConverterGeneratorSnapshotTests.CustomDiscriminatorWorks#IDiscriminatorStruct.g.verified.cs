@@ -5,6 +5,4 @@
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-internal interface IDiscriminatorStruct
-{
-}
+internal interface IDiscriminatorStruct;
