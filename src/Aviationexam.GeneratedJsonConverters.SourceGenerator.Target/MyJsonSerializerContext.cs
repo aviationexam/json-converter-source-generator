@@ -1,10 +1,8 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
-#if NET8_0_OR_GREATER
 using System.Text.Json;
-#endif
+using System.Text.Json.Serialization;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 
@@ -35,8 +33,6 @@ public partial class MyJsonSerializerContext : JsonSerializerContext
         UsePolymorphicConverters(s_defaultOptions.Converters);
         UseEnumConverters(s_defaultOptions.Converters);
 
-#if NET8_0_OR_GREATER
         Default = new MyJsonSerializerContext(new JsonSerializerOptions(s_defaultOptions));
-#endif
     }
 }
