@@ -7,7 +7,7 @@
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Target</ProjectName>
     <IsPackable>false</IsPackable>
     <ReportAnalyzer>true</ReportAnalyzer>
-    <CompilerGeneratedFilesOutputPath>..\..\GeneratedFiles\Target</CompilerGeneratedFilesOutputPath>
+    <CompilerGeneratedFilesOutputPath>..\..\GeneratedFiles\Target\$(TargetFramework)</CompilerGeneratedFilesOutputPath>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
