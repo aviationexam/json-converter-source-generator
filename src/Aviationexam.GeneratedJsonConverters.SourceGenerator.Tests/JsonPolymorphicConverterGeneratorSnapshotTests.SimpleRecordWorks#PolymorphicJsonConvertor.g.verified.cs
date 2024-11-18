@@ -48,7 +48,7 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
         var type = GetTypeForDiscriminator(typeDiscriminator);
 
-        return (T?) jsonDocument.Deserialize(type, options);
+        return (T?) jsonDocument.Deserialize(options.GetTypeInfo(type));
     }
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
@@ -79,7 +79,7 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
             }
 
             writer.WritePropertyName(p.Name);
-            JsonSerializer.Serialize(writer, p.Get(value), p.PropertyType, options);
+            JsonSerializer.Serialize(writer, p.Get(value), options.GetTypeInfo(p.PropertyType));
         }
 
         writer.WriteEndObject();
