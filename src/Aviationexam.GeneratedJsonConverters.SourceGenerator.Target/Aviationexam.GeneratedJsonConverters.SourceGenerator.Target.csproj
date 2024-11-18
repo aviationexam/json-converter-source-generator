@@ -13,6 +13,10 @@
 
   <Import Project="..\WarningConfiguration.targets" />
 
+  <PropertyGroup Label="Enable AOT">
+    <IsAotCompatible>true</IsAotCompatible>
+  </PropertyGroup>
+
   <PropertyGroup>
     <AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>public</AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility>
     <AVI_EJC_DefaultJsonSerializerContext_Namespace>Aviationexam.GeneratedJsonConverters.SourceGenerator.Target</AVI_EJC_DefaultJsonSerializerContext_Namespace>
