@@ -37,12 +37,11 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
     {
         context.RegisterPostInitializationOutput(i =>
         {
-            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>(new[]
-            {
+            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>([
                 "DiscriminatorStruct",
                 "IDiscriminatorStruct",
                 "PolymorphicJsonConvertor",
-            });
+            ]);
 
             i.GenerateJsonPolymorphicAttribute();
             i.GenerateJsonDerivedTypeAttribute();

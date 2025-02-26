@@ -50,7 +50,7 @@ public static class TestHelper
 
         // The GeneratorDriver is used to run our generator against a compilation
         GeneratorDriver driver = CSharpGeneratorDriver.Create(
-            new[] { generator.AsSourceGenerator() },
+            [generator.AsSourceGenerator()],
             optionsProvider: analyzerConfigOptionsProvider
         );
 
