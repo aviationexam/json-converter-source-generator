@@ -5,12 +5,9 @@
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-internal readonly struct DiscriminatorStruct<T> : IDiscriminatorStruct
+internal readonly struct DiscriminatorStruct<T>(
+    T value
+) : IDiscriminatorStruct
 {
-    public T Value { get; init; }
-
-    public DiscriminatorStruct(T value)
-    {
-        Value = value;
-    }
+    public T Value { get; init; } = value;
 }
