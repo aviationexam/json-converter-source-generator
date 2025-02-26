@@ -17,8 +17,6 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
     protected abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
 
-    protected abstract IDiscriminatorStruct GetDiscriminatorForType(Type type);
-
     protected abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out Type targetType
     ) where TInstance : T;
@@ -56,12 +54,10 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        var instanceType = value.GetType();
-
         writer.WriteStartObject();
 
         var discriminatorPropertyName = GetDiscriminatorPropertyName();
-        var discriminatorValue = GetDiscriminatorForType(instanceType);
+        var discriminatorValue = GetDiscriminatorForInstance(value, out var instanceType);
 
         if (discriminatorValue is DiscriminatorStruct<string> discriminatorString)
         {
