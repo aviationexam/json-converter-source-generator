@@ -72,7 +72,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 .ToResultWithDiagnostics(resultObject.Diagnostics);
         }
 
-        ImmutableArray<Diagnostic> diagnostics = resultObject.Diagnostics.AsImmutableArray();
+        var diagnostics = resultObject.Diagnostics.AsImmutableArray();
 
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();
