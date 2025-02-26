@@ -44,19 +44,19 @@ internal class BaseContractJsonPolymorphicConverter : Aviationexam.GeneratedJson
     {
         if (instance is ApplicationNamespace.Contracts.LeafContract)
         {
-                targetType = typeof(ApplicationNamespace.Contracts.LeafContract);
+            targetType = typeof(ApplicationNamespace.Contracts.LeafContract);
 
             return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("LeafContract");
         }
         if (instance is ApplicationNamespace.Contracts.AnotherLeafContract)
         {
-                targetType = typeof(ApplicationNamespace.Contracts.AnotherLeafContract);
+            targetType = typeof(ApplicationNamespace.Contracts.AnotherLeafContract);
 
             return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>(2);
         }
         if (instance is ApplicationNamespace.Contracts.AnonymousLeafContract)
         {
-                targetType = typeof(ApplicationNamespace.Contracts.AnonymousLeafContract);
+            targetType = typeof(ApplicationNamespace.Contracts.AnonymousLeafContract);
 
             return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("AnonymousLeafContract");
         }

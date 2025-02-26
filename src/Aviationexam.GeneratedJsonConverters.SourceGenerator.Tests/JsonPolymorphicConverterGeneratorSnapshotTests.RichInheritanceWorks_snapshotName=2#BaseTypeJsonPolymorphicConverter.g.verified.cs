@@ -52,4 +52,48 @@ internal class BaseTypeJsonPolymorphicConverter : Aviationexam.GeneratedJsonConv
 
         throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
     }
+
+    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out System.Type targetType
+    )
+    {
+        if (instance is SecondLevel1A)
+        {
+            targetType = typeof(SecondLevel1A);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel1A");
+        }
+        if (instance is SecondLevel1B)
+        {
+            targetType = typeof(SecondLevel1B);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel1B");
+        }
+        if (instance is FirstLevel1)
+        {
+            targetType = typeof(FirstLevel1);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("FirstLevel1");
+        }
+        if (instance is SecondLevel2A)
+        {
+            targetType = typeof(SecondLevel2A);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel2A");
+        }
+        if (instance is SecondLevel2B)
+        {
+            targetType = typeof(SecondLevel2B);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel2B");
+        }
+        if (instance is FirstLevel2)
+        {
+            targetType = typeof(FirstLevel2);
+
+            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("FirstLevel2");
+        }
+
+        throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
+    }
 }
