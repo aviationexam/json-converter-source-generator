@@ -15,7 +15,7 @@ internal static class EnumMemberAttributeParser
                 .Select(x => x.Value).SingleOrDefault() is
             {
                 Kind: TypedConstantKind.Primitive,
-                Value: string enumMemberValue
+                Value: string enumMemberValue,
             }
         )
         {
