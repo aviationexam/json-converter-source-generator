@@ -137,7 +137,9 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
     }
 
-    private static IReadOnlyCollection<JsonDerivedTypeConfiguration> SortDerivedTypes(IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes)
+    private static IReadOnlyCollection<JsonDerivedTypeConfiguration> SortDerivedTypes(
+        IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes
+    )
     {
         var baseTypeDict = derivedTypes.ToDictionary(
             x => x.TargetType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),

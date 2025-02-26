@@ -243,4 +243,96 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
         }
         """
     );
+
+    [Theory]
+    [InlineData(
+        "1",
+        """
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel1>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel2>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2B>]
+        """
+    )]
+    [InlineData(
+        "2",
+        """
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel1>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel2>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2B>]
+        """
+    )]
+    [InlineData(
+        "3",
+        """
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel1>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel2>]
+        """
+    )]
+    [InlineData(
+        "4",
+        """
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel1A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2A>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<SecondLevel2B>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel1>]
+        [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<FirstLevel2>]
+        """
+    )]
+    public Task RichInheritanceWorks(
+        string snapshotName, string attributes
+    ) => TestHelper.ParametrizedVerify<JsonPolymorphicConverterIncrementalGenerator>(
+        snapshotName,
+        // ReSharper disable once HeapView.ObjectAllocation
+        $$"""
+          using System.Text.Json.Serialization;
+
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonPolymorphic]
+          {{attributes}}
+          public abstract record BaseType(string Name);
+
+          public record FirstLevel1(string Name) : BaseType(Name);
+
+          public record FirstLevel2(string Name) : BaseType(Name);
+
+          public sealed record SecondLevel1A(string Name) : FirstLevel1(Name);
+          public sealed record SecondLevel1B(string Name) : FirstLevel1(Name);
+
+          public sealed record SecondLevel2A(string Name) : FirstLevel2(Name);
+          public sealed record SecondLevel2B(string Name) : FirstLevel2(Name);
+
+          [JsonSourceGenerationOptions(
+              WriteIndented = true,
+              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+              GenerationMode = JsonSourceGenerationMode.Default
+          )]
+          [JsonSerializable(typeof(BaseType))]
+          [JsonSerializable(typeof(FirstLevel1))]
+          [JsonSerializable(typeof(FirstLevel2))]
+          [JsonSerializable(typeof(SecondLevel1A))]
+          [JsonSerializable(typeof(SecondLevel1B))]
+          [JsonSerializable(typeof(SecondLevel2A))]
+          [JsonSerializable(typeof(SecondLevel2B))]
+          public partial class ProjectJsonSerializerContext : JsonSerializerContext
+          {
+              static ProjectJsonSerializerContext()
+              {
+                  foreach (var converter in GetPolymorphicConverters())
+                  {
+                      s_defaultOptions.Converters.Add(converter);
+                  }
+              }
+          }
+          """
+    );
 }
