@@ -20,6 +20,10 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
     protected abstract IDiscriminatorStruct GetDiscriminatorForType(Type type);
 
+    protected abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out Type targetType
+    ) where TInstance : T;
+
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var jsonDocument = JsonDocument.ParseValue(ref reader);
