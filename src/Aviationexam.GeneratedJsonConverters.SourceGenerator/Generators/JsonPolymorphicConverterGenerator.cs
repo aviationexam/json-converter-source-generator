@@ -29,7 +29,6 @@ internal static class JsonPolymorphicConverterGenerator
         const string prefix = $"{halfPrefix}{halfPrefix}";
 
         var typeForDiscriminatorStringBuilder = new StringBuilder();
-        var discriminatorForTypeStringBuilder = new StringBuilder();
         var discriminatorForInstanceStringBuilder = new StringBuilder();
         foreach (var derivedType in derivedTypes)
         {
@@ -61,15 +60,6 @@ internal static class JsonPolymorphicConverterGenerator
             );
 
             typeForDiscriminatorStringBuilder.AppendLine();
-
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine($"if (type == typeof({fullTargetType}))");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("{");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine(discriminatorForTypeCase);
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("}");
 
             discriminatorForInstanceStringBuilder.Append(prefix);
             discriminatorForInstanceStringBuilder.AppendLine($"if (instance is {fullTargetType})");
@@ -103,14 +93,6 @@ internal static class JsonPolymorphicConverterGenerator
               {{typeForDiscriminatorStringBuilder}}
                       _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
-
-                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
-                      System.Type type
-                  )
-                  {
-              {{discriminatorForTypeStringBuilder}}
-                      throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
-                  }
 
                   protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
                       TInstance instance, out System.Type targetType

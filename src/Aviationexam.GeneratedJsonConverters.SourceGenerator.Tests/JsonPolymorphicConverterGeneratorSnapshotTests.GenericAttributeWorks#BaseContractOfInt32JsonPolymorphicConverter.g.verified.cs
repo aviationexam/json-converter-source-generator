@@ -17,22 +17,6 @@ internal class BaseContractOfInt32JsonPolymorphicConverter : Aviationexam.Genera
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
-        System.Type type
-    )
-    {
-        if (type == typeof(ApplicationNamespace.Contracts.IntLeafContract))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("IntLeafContract");
-        }
-        if (type == typeof(ApplicationNamespace.Contracts.StringLeafContract))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("StringLeafContract");
-        }
-
-        throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
-    }
-
     protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out System.Type targetType
     )

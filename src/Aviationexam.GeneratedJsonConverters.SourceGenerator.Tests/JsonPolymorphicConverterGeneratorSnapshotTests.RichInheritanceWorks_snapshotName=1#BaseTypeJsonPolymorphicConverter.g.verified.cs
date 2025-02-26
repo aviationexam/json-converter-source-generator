@@ -21,38 +21,6 @@ internal class BaseTypeJsonPolymorphicConverter : Aviationexam.GeneratedJsonConv
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
-        System.Type type
-    )
-    {
-        if (type == typeof(SecondLevel1A))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel1A");
-        }
-        if (type == typeof(SecondLevel1B))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel1B");
-        }
-        if (type == typeof(SecondLevel2A))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel2A");
-        }
-        if (type == typeof(SecondLevel2B))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("SecondLevel2B");
-        }
-        if (type == typeof(FirstLevel1))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("FirstLevel1");
-        }
-        if (type == typeof(FirstLevel2))
-        {
-            return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("FirstLevel2");
-        }
-
-        throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
-    }
-
     protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out System.Type targetType
     )
