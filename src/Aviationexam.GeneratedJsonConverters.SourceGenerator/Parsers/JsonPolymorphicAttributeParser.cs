@@ -16,7 +16,7 @@ internal static class JsonPolymorphicAttributeParser
                 .Select(x => x.Value).SingleOrDefault() is
             {
                 Kind: TypedConstantKind.Primitive,
-                Value: string discriminatorPropertyName
+                Value: string discriminatorPropertyName,
             }
         )
         {

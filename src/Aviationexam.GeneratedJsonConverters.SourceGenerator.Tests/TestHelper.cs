@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Threading.Tasks;
+using VerifyTests;
 using VerifyXunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests;
@@ -24,6 +25,25 @@ public static class TestHelper
 
     public static Task Verify<TIncrementalGenerator>(
         DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
+        [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => ParametrizedVerify<TIncrementalGenerator>(
+        analyzerConfigOptionsProvider,
+        null,
+        source
+        );
+
+    public static Task ParametrizedVerify<TIncrementalGenerator>(
+        string? parameter,
+        [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => ParametrizedVerify<TIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(),
+        parameter,
+        source
+    );
+
+    public static Task ParametrizedVerify<TIncrementalGenerator>(
+        DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
+        string? parameter,
         [StringSyntax("csharp")] params string[] source
     ) where TIncrementalGenerator : class, IIncrementalGenerator, new()
     {
@@ -50,15 +70,22 @@ public static class TestHelper
 
         // The GeneratorDriver is used to run our generator against a compilation
         GeneratorDriver driver = CSharpGeneratorDriver.Create(
-            new[] { generator.AsSourceGenerator() },
+            [generator.AsSourceGenerator()],
             optionsProvider: analyzerConfigOptionsProvider
         );
 
         // Run the source generator!
         driver = driver.RunGenerators(compilation);
 
+        var settings = new VerifySettings();
+
+        if (parameter is not null)
+        {
+            settings.UseParameters(parameter);
+        }
+
         // Use verify to snapshot test the source generator output!
-        return Verifier.Verify(driver);
+        return Verifier.Verify(driver, settings);
     }
 
 

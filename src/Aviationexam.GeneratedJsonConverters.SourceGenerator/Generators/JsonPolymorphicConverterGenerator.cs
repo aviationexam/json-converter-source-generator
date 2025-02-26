@@ -25,10 +25,11 @@ internal static class JsonPolymorphicConverterGenerator
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
 
-        const string prefix = "        ";
+        const string halfPrefix = "    ";
+        const string prefix = $"{halfPrefix}{halfPrefix}";
 
         var typeForDiscriminatorStringBuilder = new StringBuilder();
-        var discriminatorForTypeStringBuilder = new StringBuilder();
+        var discriminatorForInstanceStringBuilder = new StringBuilder();
         foreach (var derivedType in derivedTypes)
         {
             typeForDiscriminatorStringBuilder.Append(prefix);
@@ -49,7 +50,7 @@ internal static class JsonPolymorphicConverterGenerator
                 ),
                 DiscriminatorStruct<int> discriminatorInt => (
                     $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});"
+                    $"{halfPrefix}return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});"
                 ),
                 _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
             };
@@ -60,14 +61,17 @@ internal static class JsonPolymorphicConverterGenerator
 
             typeForDiscriminatorStringBuilder.AppendLine();
 
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine($"if (type == typeof({fullTargetType}))");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("{");
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine(discriminatorForTypeCase);
-            discriminatorForTypeStringBuilder.Append(prefix);
-            discriminatorForTypeStringBuilder.AppendLine("}");
+            discriminatorForInstanceStringBuilder.Append(prefix);
+            discriminatorForInstanceStringBuilder.AppendLine($"if (instance is {fullTargetType})");
+            discriminatorForInstanceStringBuilder.Append(prefix);
+            discriminatorForInstanceStringBuilder.AppendLine("{");
+            discriminatorForInstanceStringBuilder.Append(prefix);
+            discriminatorForInstanceStringBuilder.AppendLine($"{halfPrefix}targetType = typeof({fullTargetType});");
+            discriminatorForInstanceStringBuilder.AppendLine();
+            discriminatorForInstanceStringBuilder.Append(prefix);
+            discriminatorForInstanceStringBuilder.AppendLine(discriminatorForTypeCase);
+            discriminatorForInstanceStringBuilder.Append(prefix);
+            discriminatorForInstanceStringBuilder.AppendLine("}");
         }
 
         return new FileWithName(
@@ -90,12 +94,12 @@ internal static class JsonPolymorphicConverterGenerator
                       _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
 
-                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
-                      System.Type type
+                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+                      TInstance instance, out System.Type targetType
                   )
                   {
-              {{discriminatorForTypeStringBuilder}}
-                      throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
+              {{discriminatorForInstanceStringBuilder}}
+                      throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
                   }
               }
               """

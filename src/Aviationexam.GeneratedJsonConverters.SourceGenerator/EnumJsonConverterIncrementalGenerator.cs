@@ -31,13 +31,12 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
     {
         context.RegisterPostInitializationOutput(i =>
         {
-            i.AddEmbeddedResources<EnumJsonConverterIncrementalGenerator>(new[]
-            {
+            i.AddEmbeddedResources<EnumJsonConverterIncrementalGenerator>([
                 "Attributes.DisableEnumJsonConverterAttribute",
                 "EnumSerializationStrategy",
                 "EnumDeserializationStrategy",
                 "EnumJsonConvertor",
-            });
+            ]);
 
             i.GenerateEnumJsonConverterAttribute();
         });

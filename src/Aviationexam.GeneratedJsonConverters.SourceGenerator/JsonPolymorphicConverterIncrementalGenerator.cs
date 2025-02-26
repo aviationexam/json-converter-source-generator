@@ -37,12 +37,11 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
     {
         context.RegisterPostInitializationOutput(i =>
         {
-            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>(new[]
-            {
+            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>([
                 "DiscriminatorStruct",
                 "IDiscriminatorStruct",
                 "PolymorphicJsonConvertor",
-            });
+            ]);
 
             i.GenerateJsonPolymorphicAttribute();
             i.GenerateJsonDerivedTypeAttribute();
@@ -73,7 +72,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 .ToResultWithDiagnostics(resultObject.Diagnostics);
         }
 
-        ImmutableArray<Diagnostic> diagnostics = resultObject.Diagnostics.AsImmutableArray();
+        var diagnostics = resultObject.Diagnostics.AsImmutableArray();
 
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();
@@ -116,7 +115,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 convertersTargetNamespace,
                 jsonSerializableConfiguration,
                 jsonPolymorphicConfiguration,
-                derivedTypes,
+                SortDerivedTypes(derivedTypes),
                 out var converterName
             ));
 
@@ -136,5 +135,71 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         }
 
         return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
+    }
+
+    private static IReadOnlyCollection<JsonDerivedTypeConfiguration> SortDerivedTypes(
+        IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes
+    )
+    {
+        var baseTypeDict = derivedTypes.ToDictionary(
+            x => x.TargetType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+            x => (
+                configuration: x,
+                baseTypes: GetAllBaseTypes(x.TargetType)
+            )
+        );
+
+        var inheritanceMap = new List<(JsonDerivedTypeConfiguration Parent, JsonDerivedTypeConfiguration Child)>();
+
+        foreach (var baseTypeMetadata in baseTypeDict)
+        {
+            foreach (var baseType in baseTypeMetadata.Value.baseTypes)
+            {
+                if (baseTypeDict.TryGetValue(baseType, out var derivedType))
+                {
+                    inheritanceMap.Add((
+                        Parent: baseTypeMetadata.Value.configuration,
+                        Child: derivedType.configuration
+                    ));
+                }
+            }
+        }
+
+        var queue = new Queue<JsonDerivedTypeConfiguration>(derivedTypes);
+        var orderedDerivedTypes = new List<JsonDerivedTypeConfiguration>(derivedTypes.Count);
+
+        while (queue.Count > 0)
+        {
+            var configuration = queue.Dequeue();
+
+            if (inheritanceMap.All(x => x.Child != configuration))
+            {
+                orderedDerivedTypes.Add(configuration);
+
+                inheritanceMap.RemoveAll(x => x.Parent == configuration);
+            }
+            else
+            {
+                queue.Enqueue(configuration);
+            }
+        }
+
+        return orderedDerivedTypes;
+    }
+
+    private static IReadOnlyCollection<string> GetAllBaseTypes(ITypeSymbol type)
+    {
+        var result = new List<string>();
+
+        var current = type.BaseType;
+
+        while (current is not null)
+        {
+            result.Add(current.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat));
+
+            current = current.BaseType;
+        }
+
+        return result;
     }
 }

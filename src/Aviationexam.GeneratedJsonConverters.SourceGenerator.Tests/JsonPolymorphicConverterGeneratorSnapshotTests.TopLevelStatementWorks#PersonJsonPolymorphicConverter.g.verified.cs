@@ -17,19 +17,23 @@ internal class PersonJsonPolymorphicConverter : Aviationexam.GeneratedJsonConver
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForType(
-        System.Type type
+    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out System.Type targetType
     )
     {
-        if (type == typeof(Student))
+        if (instance is Student)
         {
+            targetType = typeof(Student);
+
             return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("Student");
         }
-        if (type == typeof(Teacher))
+        if (instance is Teacher)
         {
+            targetType = typeof(Teacher);
+
             return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>("Teacher");
         }
 
-        throw new System.ArgumentOutOfRangeException(nameof(type), type, null);
+        throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
     }
 }
