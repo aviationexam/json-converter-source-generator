@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <LangVersion>13.0</LangVersion>
     <Nullable>enable</Nullable>
@@ -10,14 +11,19 @@
 
   <Import Project="..\WarningConfiguration.targets" />
 
+  <PropertyGroup>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="H.Generators.Extensions" Version="1.24.2" PrivateAssets="all" />
     <PackageReference Include="H.Generators.Tests.Extensions" Version="1.24.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.13.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="NuGet.Common" Version="6.13.1" />
-    <PackageReference Include="NuGet.Packaging" Version="6.13.1" />
-    <PackageReference Include="NuGet.Protocol" Version="6.13.1" />
+    <PackageReference Include="NuGet.Common" Version="6.13.2" />
+    <PackageReference Include="NuGet.Packaging" Version="6.13.2" />
+    <PackageReference Include="NuGet.Protocol" Version="6.13.2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Formats.Asn1" Version="9.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
@@ -29,7 +35,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="xunit.v3" Version="1.1.0" />
+    <PackageReference Include="xunit.v3" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
