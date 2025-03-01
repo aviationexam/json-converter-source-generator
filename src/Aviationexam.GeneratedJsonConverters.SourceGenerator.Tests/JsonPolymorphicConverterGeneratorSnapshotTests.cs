@@ -335,4 +335,45 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
           }
           """
     );
+
+    [Fact]
+    public Task GenericLeafsWorks(
+    ) => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+          using System.Text.Json.Serialization;
+
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonPolymorphic]
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<LeafA<int>>("int_LeafA")]
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<LeafB<int>>("int_LeafB")]
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<LeafA<string>>("string_LeafA")]
+          [Aviationexam.GeneratedJsonConverters.Attributes.JsonDerivedType<LeafB<string>>("string_LeafB")]
+          public abstract record BaseType<T>(string Name);
+
+          public sealed record LeafA<T>(string Name) : BaseType<T>(Name);
+
+          public sealed record LeafB<T>(string Name) : BaseType<T>(Name);
+
+          [JsonSourceGenerationOptions(
+              WriteIndented = true,
+              PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
+              GenerationMode = JsonSourceGenerationMode.Default
+          )]
+          [JsonSerializable(typeof(BaseType))]
+          [JsonSerializable(typeof(LeafA<int>))]
+          [JsonSerializable(typeof(LeafB<int>))]
+          [JsonSerializable(typeof(LeafA<string>))]
+          [JsonSerializable(typeof(LeafB<string>))]
+          public partial class ProjectJsonSerializerContext : JsonSerializerContext
+          {
+              static ProjectJsonSerializerContext()
+              {
+                  foreach (var converter in GetPolymorphicConverters())
+                  {
+                      s_defaultOptions.Converters.Add(converter);
+                  }
+              }
+          }
+          """
+    );
 }

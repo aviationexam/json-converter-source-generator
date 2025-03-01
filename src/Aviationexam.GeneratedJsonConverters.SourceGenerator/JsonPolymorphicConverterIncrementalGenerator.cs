@@ -22,7 +22,8 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
     internal static readonly SymbolDisplayFormat NamespaceFormat = new(
         globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
-        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters
     );
 
     internal static readonly SymbolDisplayFormat NamespaceFormatWithGenericArguments = new(
