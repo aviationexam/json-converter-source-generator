@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/_SolutionFiles/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".github/dependabot.yml" />
+    <File Path=".gitignore" />
+    <File Path="GitVersion.yml" />
+    <File Path="README.md" />
+    <File Path="src/WarningConfiguration.targets" />
+  </Folder>
+  <Folder Name="/_SolutionFiles/workflows/">
+    <File Path=".github/workflows/build.yml" />
+    <File Path=".github/workflows/nightly-release.yml" />
+    <File Path=".github/workflows/pr-build.yml" />
+    <File Path=".github/workflows/release.yml" />
+  </Folder>
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj" Type="Classic C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj" Type="Classic C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests.csproj" Type="Classic C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator/Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" Type="Classic C#" />
+</Solution>
