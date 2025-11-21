@@ -26,7 +26,7 @@ jobs:
             8.0.x
             9.0.x
             10.0.x
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Restore
         run: dotnet restore --nologo
       - name: Build
@@ -47,7 +47,7 @@ jobs:
     env:
       DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Setup .Net 10.0.x
         uses: actions/setup-dotnet@v5
         with:
