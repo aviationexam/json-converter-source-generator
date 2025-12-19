@@ -24,8 +24,6 @@ updates:
         patterns:
           - xunit
           - xunit.*
-      verify:
-        patterns:
           - Verify
           - Verify.*
       nuget:
