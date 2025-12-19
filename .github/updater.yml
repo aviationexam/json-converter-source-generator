@@ -28,6 +28,12 @@ updates:
         patterns:
           - Verify
           - Verify.*
+      nuget:
+        patterns:
+          - NuGet.*
+      h-generators:
+        patterns:
+          - H.Generators.*
     ignore:
       - dependency-name: "Microsoft.*"
         update-types: ["version-update:semver-major"]
