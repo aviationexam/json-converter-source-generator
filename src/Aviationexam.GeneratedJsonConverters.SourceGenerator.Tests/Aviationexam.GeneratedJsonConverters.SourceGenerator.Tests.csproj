@@ -21,9 +21,9 @@
     <PackageReference Include="H.Generators.Tests.Extensions" Version="1.24.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" PrivateAssets="all" />
-    <PackageReference Include="NuGet.Common" Version="7.0.0" />
-    <PackageReference Include="NuGet.Packaging" Version="7.0.0" />
-    <PackageReference Include="NuGet.Protocol" Version="7.0.0" />
+    <PackageReference Include="NuGet.Common" Version="7.0.1" />
+    <PackageReference Include="NuGet.Packaging" Version="7.0.1" />
+    <PackageReference Include="NuGet.Protocol" Version="7.0.1" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="System.Formats.Asn1" Version="10.0.1" />
     <PackageReference Include="Verify.XunitV3" Version="31.9.0" />
