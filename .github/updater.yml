@@ -1,0 +1,35 @@
+# Configuration for Aviationexam.DependencyUpdater
+# https://github.com/aviationexam/Aviationexam.DependencyUpdater
+
+version: 2
+
+registries:
+  nuget:
+    type: nuget-feed
+    url: https://api.nuget.org/v3/index.json
+    nuget-feed-version: V3
+
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: main
+    targetFramework: net10.0
+    execute-restore: true
+    groups:
+      microsoft:
+        patterns:
+          - Microsoft.*
+          - System.*
+      xunit:
+        patterns:
+          - xunit
+          - xunit.*
+      verify:
+        patterns:
+          - Verify
+          - Verify.*
+    ignore:
+      - dependency-name: "Microsoft.*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "System.*"
+        update-types: ["version-update:semver-major"]
