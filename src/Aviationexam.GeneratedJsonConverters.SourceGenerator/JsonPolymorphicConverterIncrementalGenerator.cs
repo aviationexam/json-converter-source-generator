@@ -8,8 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Threading;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
@@ -54,6 +54,59 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             )
             .Where(x => !x.Result.JsonSerializableCollection.IsEmpty)
             .Select(PolymorphicJsonSerializerContextConfigurationFilter.FilterJsonSerializerContextConfiguration)
+            .CollectAsEquatableArray()
+            .SelectMany((x, cancellationToken) =>
+            {
+                var results = new List<ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration>>();
+                foreach (
+                    var grouping in
+                    x.AsValueEnumerable()
+                        .GroupBy(r => r.Result
+                            .JsonSerializableCollection
+                            .AsValueEnumerable()
+                            .Select(c => c.JsonSerializableAttributeTypeArgument.ToDisplayString(NamespaceFormatWithGenericArguments))
+                            .JoinToString(',')
+                        )
+                )
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var jsonSerializerContextClassTypes = new List<EquatableArray<ISymbol>>();
+                    PolymorphicJsonSerializerMetadata? jsonPolymorphicMetadata = null;
+                    var jsonSerializableCollections = new List<EquatableArray<JsonSerializableConfiguration>>();
+                    var diagnostics = new List<EquatableArray<Diagnostic>>();
+                    foreach (var item in grouping)
+                    {
+                        jsonSerializerContextClassTypes.Add(item.Result.JsonSerializerContextClassType);
+                        jsonPolymorphicMetadata ??= item.Result.Metadata;
+                        jsonSerializableCollections.Add(item.Result.JsonSerializableCollection);
+                        diagnostics.Add(item.Diagnostics);
+                    }
+
+                    if (
+                        jsonPolymorphicMetadata is null
+                    )
+                    {
+                        continue;
+                    }
+
+                    results.Add(new PolymorphicJsonSerializerContextConfiguration(
+                        jsonSerializerContextClassTypes.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray(),
+                        jsonPolymorphicMetadata,
+                        jsonSerializableCollections
+                            .AsValueEnumerable()
+                            .SelectMany(static x => x)
+                            .DistinctBy(c => c
+                                .JsonSerializableAttributeTypeArgument.ToDisplayString(NamespaceFormatWithGenericArguments)
+                            )
+                            .ToArray()
+                            .ToImmutableArray()
+                            .AsEquatableArray()
+                    ).ToResultWithDiagnostics(diagnostics.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray()));
+                }
+
+                return results;
+            })
             .SelectAndReportExceptions(GetSourceCode, context, Id)
             .SelectAndReportDiagnostics(context)
             .AddSource(context);
@@ -76,11 +129,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         var diagnostics = resultObject.Diagnostics.AsImmutableArray();
 
         var files = new List<FileWithName>();
-        var converters = new List<JsonConverter>();
-
-        var convertersTargetNamespace = context.JsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
-            ? EmptyPolymorphicNamespace
-            : context.JsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
+        var converters = new Dictionary<string, ICollection<JsonConverter>>();
 
         foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
         {
@@ -90,16 +139,16 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             var derivedTypes = new List<JsonDerivedTypeConfiguration>();
             foreach (var attribute in attributes)
             {
-                if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonPolymorphicAttributeSymbol))
+                if (SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.Metadata.JsonPolymorphicAttributeSymbol))
                 {
                     jsonPolymorphicConfiguration = JsonPolymorphicAttributeParser.Parse(attribute);
                 }
 
                 if (
-                    SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.JsonDerivedTypeAttributeSymbol)
+                    SymbolEqualityComparer.Default.Equals(attribute.AttributeClass, context.Metadata.JsonDerivedTypeAttributeSymbol)
                     || (
                         attribute.AttributeClass is { IsGenericType: true } attributeClass
-                        && SymbolEqualityComparer.Default.Equals(attributeClass.BaseType, context.JsonDerivedTypeAttributeSymbol)
+                        && SymbolEqualityComparer.Default.Equals(attributeClass.BaseType, context.Metadata.JsonDerivedTypeAttributeSymbol)
                     )
                 )
                 {
@@ -112,27 +161,59 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 }
             }
 
-            files.Add(JsonPolymorphicConverterGenerator.Generate(
-                convertersTargetNamespace,
-                jsonSerializableConfiguration,
-                jsonPolymorphicConfiguration,
-                SortDerivedTypes(derivedTypes),
-                out var converterName
-            ));
+            foreach (
+                var jsonSerializerContextClassType
+                in context.JsonSerializerContextClassType
+                    .AsValueEnumerable()
+                    .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormat))
+                    .Select(static x => x.AsValueEnumerable().First())
+            )
+            {
+                var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
+                    ? EmptyPolymorphicNamespace
+                    : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
 
-            converters.Add(new JsonConverter(
-                convertersTargetNamespace,
-                converterName
-            ));
+                if (!converters.TryGetValue(convertersTargetNamespace, out var convertersCollection))
+                {
+                    convertersCollection = new List<JsonConverter>();
+                    converters.Add(convertersTargetNamespace, convertersCollection);
+                }
+
+                files.Add(JsonPolymorphicConverterGenerator.Generate(
+                    convertersTargetNamespace,
+                    jsonSerializableConfiguration,
+                    jsonPolymorphicConfiguration,
+                    SortDerivedTypes(derivedTypes),
+                    out var converterName
+                ));
+
+                convertersCollection.Add(new JsonConverter(
+                    convertersTargetNamespace,
+                    converterName
+                ));
+            }
         }
 
-        if (converters.Any())
+        if (converters.AsValueEnumerable().Any())
         {
-            files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
-                EJsonConverterType.Polymorphic,
-                context.JsonSerializerContextClassType,
-                converters
-            ));
+            foreach (
+                var jsonSerializerContextClassType
+                in context.JsonSerializerContextClassType
+                    .AsValueEnumerable()
+                    .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormatWithGenericArguments))
+                    .SelectMany(static x => x)
+            )
+            {
+                var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
+                    ? EmptyPolymorphicNamespace
+                    : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
+
+                files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
+                    EJsonConverterType.Polymorphic,
+                    jsonSerializerContextClassType,
+                    [.. converters[convertersTargetNamespace]]
+                ));
+            }
         }
 
         return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
@@ -142,7 +223,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes
     )
     {
-        var baseTypeDict = derivedTypes.ToDictionary(
+        var baseTypeDict = derivedTypes.AsValueEnumerable().ToDictionary(
             x => x.TargetType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             x => (
                 configuration: x,
@@ -173,7 +254,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         {
             var configuration = queue.Dequeue();
 
-            if (inheritanceMap.All(x => x.Child != configuration))
+            if (inheritanceMap.AsValueEnumerable().All(x => x.Child != configuration))
             {
                 orderedDerivedTypes.Add(configuration);
 
