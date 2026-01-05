@@ -63,9 +63,11 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
                     if (jsonSerializableAttributeTypeArgument is null)
                     {
-                        diagnostics.Add(
-                            Diagnostic.Create(GeneratorGenerationRules.PolymorphicJsonUnableToParseAttribute, attributeSyntax.GetLocation(), attributeSyntax.ToFullString())
-                        );
+                        diagnostics.Add(Diagnostic.Create(
+                            GeneratorGenerationRules.PolymorphicJsonUnableToParseAttribute,
+                            attributeSyntax.GetLocation(),
+                            attributeSyntax.ToFullString()
+                        ));
 
                         continue;
                     }
@@ -79,9 +81,11 @@ internal static class PolymorphicJsonSerializerContextTransformer
         }
 
         return new PolymorphicJsonSerializerContextConfiguration(
-                jsonSerializerContextClassType,
-                jsonPolymorphicAttributeSymbol!,
-                jsonDerivedTypeAttributeSymbol!,
+                ImmutableArray.CreateRange<ISymbol>([jsonSerializerContextClassType]).AsEquatableArray(),
+                new PolymorphicJsonSerializerMetadata(
+                    jsonPolymorphicAttributeSymbol!,
+                    jsonDerivedTypeAttributeSymbol!
+                ),
                 jsonConverterConfiguration
                     .Distinct()
                     .ToImmutableArray()

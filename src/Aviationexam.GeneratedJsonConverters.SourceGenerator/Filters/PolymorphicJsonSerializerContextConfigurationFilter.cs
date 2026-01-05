@@ -17,7 +17,7 @@ internal static class PolymorphicJsonSerializerContextConfigurationFilter
             x.Result is
             {
                 JsonSerializableCollection: { IsEmpty: false } jsonConverterConfigurations,
-                JsonPolymorphicAttributeSymbol: { } jsonPolymorphicAttributeSymbol
+                Metadata.JsonPolymorphicAttributeSymbol: { } jsonPolymorphicAttributeSymbol
             }
         )
         {
