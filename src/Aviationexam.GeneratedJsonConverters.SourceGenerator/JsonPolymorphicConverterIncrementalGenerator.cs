@@ -54,59 +54,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             )
             .Where(x => !x.Result.JsonSerializableCollection.IsEmpty)
             .Select(PolymorphicJsonSerializerContextConfigurationFilter.FilterJsonSerializerContextConfiguration)
-            .CollectAsEquatableArray()
-            .SelectMany((x, cancellationToken) =>
-            {
-                var results = new List<ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration>>();
-                foreach (
-                    var grouping in
-                    x.AsValueEnumerable()
-                        .GroupBy(r => r.Result
-                            .JsonSerializableCollection
-                            .AsValueEnumerable()
-                            .Select(c => c.JsonSerializableAttributeTypeArgument.ToDisplayString(NamespaceFormatWithGenericArguments))
-                            .JoinToString(',')
-                        )
-                )
-                {
-                    cancellationToken.ThrowIfCancellationRequested();
-
-                    var jsonSerializerContextClassTypes = new List<EquatableArray<ISymbol>>();
-                    PolymorphicJsonSerializerMetadata? jsonPolymorphicMetadata = null;
-                    var jsonSerializableCollections = new List<EquatableArray<JsonSerializableConfiguration>>();
-                    var diagnostics = new List<EquatableArray<Diagnostic>>();
-                    foreach (var item in grouping)
-                    {
-                        jsonSerializerContextClassTypes.Add(item.Result.JsonSerializerContextClassType);
-                        jsonPolymorphicMetadata ??= item.Result.Metadata;
-                        jsonSerializableCollections.Add(item.Result.JsonSerializableCollection);
-                        diagnostics.Add(item.Diagnostics);
-                    }
-
-                    if (
-                        jsonPolymorphicMetadata is null
-                    )
-                    {
-                        continue;
-                    }
-
-                    results.Add(new PolymorphicJsonSerializerContextConfiguration(
-                        jsonSerializerContextClassTypes.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray(),
-                        jsonPolymorphicMetadata,
-                        jsonSerializableCollections
-                            .AsValueEnumerable()
-                            .SelectMany(static x => x)
-                            .DistinctBy(c => c
-                                .JsonSerializableAttributeTypeArgument.ToDisplayString(NamespaceFormatWithGenericArguments)
-                            )
-                            .ToArray()
-                            .ToImmutableArray()
-                            .AsEquatableArray()
-                    ).ToResultWithDiagnostics(diagnostics.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray()));
-                }
-
-                return results;
-            })
+            .MergeJsonSerializerContextConfiguration()
             .SelectAndReportExceptions(GetSourceCode, context, Id)
             .SelectAndReportDiagnostics(context)
             .AddSource(context);
@@ -284,4 +232,5 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
         return result;
     }
+
 }
