@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading;
-using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 
@@ -21,7 +20,7 @@ internal static class PolymorphicJsonSerializerContextConfigurationFilter
             }
         )
         {
-            var filteredJsonSerializableCollection = new List<JsonSerializableConfiguration>(jsonConverterConfigurations.AsValueEnumerable().Count());
+            var filteredJsonSerializableCollection = new List<JsonSerializableConfiguration>(jsonConverterConfigurations.AsImmutableArray().Length);
 
             foreach (var jsonConverterConfiguration in jsonConverterConfigurations)
             {
