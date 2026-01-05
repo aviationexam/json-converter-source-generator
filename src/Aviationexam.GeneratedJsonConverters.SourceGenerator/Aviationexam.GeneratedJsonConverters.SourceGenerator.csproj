@@ -37,7 +37,6 @@
     <PackageReference Include="H.Generators.Extensions" Version="1.24.2" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="PolySharp" Version="1.15.0" PrivateAssets="all" />
     <PackageReference Include="System.Text.Json" Version="10.0.1" PrivateAssets="all" GeneratePathProperty="true" />
-    <PackageReference Include="ZLinq" Version="1.5.4" PrivateAssets="all" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup>
@@ -63,7 +62,6 @@
       <TfmSpecificPackageFile Include="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" PackagePath="analyzers/dotnet/cs" />
-      <TfmSpecificPackageFile Include="$(PkgZLinq)\lib\netstandard2.0\ZLinq.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
   </Target>
 

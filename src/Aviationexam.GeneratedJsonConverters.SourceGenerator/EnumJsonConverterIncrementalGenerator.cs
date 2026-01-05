@@ -8,7 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading;
-using ZLinq;
+using System.Linq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
@@ -60,12 +60,12 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             && defaultEnumDeserializationStrategyString.Split(
                 ['|'], StringSplitOptions.RemoveEmptyEntries
             ) is { } defaultEnumDeserializationStrategiesString
-            && defaultEnumDeserializationStrategiesString.AsValueEnumerable().Select(s =>
+            && defaultEnumDeserializationStrategiesString.Select(s =>
                 Enum.TryParse<EnumDeserializationStrategy>(s, out var defaultEnumDeserializationStrategy)
                     ? defaultEnumDeserializationStrategy
                     : EnumDeserializationStrategy.ProjectDefault
             ).ToArray() is { } defaultEnumDeserializationStrategies
-            && defaultEnumDeserializationStrategies.AsValueEnumerable().All(s => s != EnumDeserializationStrategy.ProjectDefault)
+            && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
                 ? [.. defaultEnumDeserializationStrategies]
                 : [DefaultEnumDeserializationStrategy]
         ));

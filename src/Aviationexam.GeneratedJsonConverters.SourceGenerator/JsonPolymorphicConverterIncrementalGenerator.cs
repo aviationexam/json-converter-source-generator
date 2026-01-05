@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading;
-using ZLinq;
+using System.Linq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
@@ -112,9 +112,8 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             foreach (
                 var jsonSerializerContextClassType
                 in context.JsonSerializerContextClassType
-                    .AsValueEnumerable()
                     .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormat))
-                    .Select(static x => x.AsValueEnumerable().First())
+                    .Select(static x => x.First())
             )
             {
                 var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
@@ -147,7 +146,6 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             foreach (
                 var jsonSerializerContextClassType
                 in context.JsonSerializerContextClassType
-                    .AsValueEnumerable()
                     .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormatWithGenericArguments))
                     .SelectMany(static x => x)
             )
@@ -171,7 +169,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         IReadOnlyCollection<JsonDerivedTypeConfiguration> derivedTypes
     )
     {
-        var baseTypeDict = derivedTypes.AsValueEnumerable().ToDictionary(
+        var baseTypeDict = derivedTypes.ToDictionary(
             x => x.TargetType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             x => (
                 configuration: x,
@@ -202,7 +200,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         {
             var configuration = queue.Dequeue();
 
-            if (inheritanceMap.AsValueEnumerable().All(x => x.Child != configuration))
+            if (inheritanceMap.All(x => x.Child != configuration))
             {
                 orderedDerivedTypes.Add(configuration);
 
@@ -232,5 +230,4 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
         return result;
     }
-
 }

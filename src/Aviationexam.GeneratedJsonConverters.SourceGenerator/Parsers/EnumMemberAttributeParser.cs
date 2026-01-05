@@ -1,5 +1,5 @@
 using Microsoft.CodeAnalysis;
-using ZLinq;
+using System.Linq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
@@ -11,7 +11,6 @@ internal static class EnumMemberAttributeParser
     {
         if (
             attributeData.NamedArguments
-                .AsValueEnumerable()
                 .Where(x => x.Key == "Value")
                 .Select(x => x.Value)
                 .SingleOrDefault() is
