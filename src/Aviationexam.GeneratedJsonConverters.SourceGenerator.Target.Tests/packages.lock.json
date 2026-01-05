@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "dependencies": {
     "net10.0": {
       "Microsoft.Bcl.AsyncInterfaces": {
@@ -28,12 +28,6 @@
           "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.0.2",
           "Microsoft.Testing.Platform": "2.0.2"
         }
-      },
-      "System.Collections.Immutable": {
-        "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "kdTe61B8P7i2M1pODC3MLbZ/CfFGjpC6c6jzxjQoB5DHZNewayCRqgFUmx3JKB6vLQtozpMQEiw+R5fO32Jv4g=="
       },
       "System.IO.Pipelines": {
         "type": "Direct",
@@ -176,11 +170,6 @@
           "SimpleInfoName": "3.1.2"
         }
       },
-      "xunit.analyzers": {
-        "type": "Transitive",
-        "resolved": "1.26.0",
-        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
-      },
       "xunit.v3.assert": {
         "type": "Transitive",
         "resolved": "3.2.1",
@@ -238,6 +227,12 @@
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project"
+      },
+      "xunit.analyzers": {
+        "type": "CentralTransitive",
+        "requested": "[1.26.0, )",
+        "resolved": "1.26.0",
+        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
       }
     },
     "net8.0": {
@@ -268,12 +263,6 @@
           "Microsoft.Testing.Platform": "2.0.2"
         }
       },
-      "System.Collections.Immutable": {
-        "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "kdTe61B8P7i2M1pODC3MLbZ/CfFGjpC6c6jzxjQoB5DHZNewayCRqgFUmx3JKB6vLQtozpMQEiw+R5fO32Jv4g=="
-      },
       "System.IO.Pipelines": {
         "type": "Direct",
         "requested": "[10.0.1, )",
@@ -419,11 +408,6 @@
           "SimpleInfoName": "3.1.2"
         }
       },
-      "xunit.analyzers": {
-        "type": "Transitive",
-        "resolved": "1.26.0",
-        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
-      },
       "xunit.v3.assert": {
         "type": "Transitive",
         "resolved": "3.2.1",
@@ -481,6 +465,12 @@
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project"
+      },
+      "xunit.analyzers": {
+        "type": "CentralTransitive",
+        "requested": "[1.26.0, )",
+        "resolved": "1.26.0",
+        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
       }
     },
     "net9.0": {
@@ -511,12 +501,6 @@
           "Microsoft.Testing.Platform": "2.0.2"
         }
       },
-      "System.Collections.Immutable": {
-        "type": "Direct",
-        "requested": "[10.0.1, )",
-        "resolved": "10.0.1",
-        "contentHash": "kdTe61B8P7i2M1pODC3MLbZ/CfFGjpC6c6jzxjQoB5DHZNewayCRqgFUmx3JKB6vLQtozpMQEiw+R5fO32Jv4g=="
-      },
       "System.IO.Pipelines": {
         "type": "Direct",
         "requested": "[10.0.1, )",
@@ -662,11 +646,6 @@
           "SimpleInfoName": "3.1.2"
         }
       },
-      "xunit.analyzers": {
-        "type": "Transitive",
-        "resolved": "1.26.0",
-        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
-      },
       "xunit.v3.assert": {
         "type": "Transitive",
         "resolved": "3.2.1",
@@ -724,6 +703,12 @@
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project"
+      },
+      "xunit.analyzers": {
+        "type": "CentralTransitive",
+        "requested": "[1.26.0, )",
+        "resolved": "1.26.0",
+        "contentHash": "YrWZOfuU1Scg4iGizAlMNALOxVS+HPSVilfscNDEJAyrTIVdF4c+8o+Aerw2RYnrJxafj/F56YkJOKCURUWQmA=="
       }
     }
   }
