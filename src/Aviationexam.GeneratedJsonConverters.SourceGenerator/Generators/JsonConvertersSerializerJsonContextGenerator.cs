@@ -67,6 +67,10 @@ internal static class JsonConvertersSerializerJsonContextGenerator
                  """;
         }
 
+        var jsonConverters = converters.AsValueEnumerable()
+            .Select(x => $"new {x.Namespace}.{x.ClassName}(),")
+            .JoinToString("\n        ");
+
         return new FileWithName(
             $"{jsonSerializerContext.ClassName}.g.cs",
             // language=cs
@@ -77,7 +81,7 @@ internal static class JsonConvertersSerializerJsonContextGenerator
               {
                   public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> Get{{converterTypeString}}Converters() => new System.Text.Json.Serialization.JsonConverter[]
                   {
-                      {{converters.AsValueEnumerable().Select(x => $"new {x.Namespace}.{x.ClassName}(),").JoinToString("\n        ")}}
+                      {{jsonConverters}}
                   };
 
                   public static void Use{{converterTypeString}}Converters(
