@@ -4,8 +4,8 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Text;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
@@ -45,9 +45,9 @@ internal static class EnumJsonConverterGenerator
             backingType = constantValue.GetType();
 
             var fieldName = typeMember.Name;
-            var enumMember = typeMember.GetAttributes().Where(
-                    x => SymbolEqualityComparer.Default.Equals(x.AttributeClass, enumMemberAttributeSymbol)
-                )
+            var enumMember = typeMember.GetAttributes()
+                .AsValueEnumerable()
+                .Where(x => SymbolEqualityComparer.Default.Equals(x.AttributeClass, enumMemberAttributeSymbol))
                 .Select(EnumMemberAttributeParser.Parse)
                 .SingleOrDefault();
 
@@ -101,12 +101,10 @@ internal static class EnumJsonConverterGenerator
             deserializationStrategies = enumJsonConverterOptions.DefaultEnumDeserializationStrategies;
         }
 
-        var deserializationStrategy = string.Join(
-            " | ",
-            deserializationStrategies.Select(
-                x => $"Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.{x}"
-            )
-        );
+        var deserializationStrategy = deserializationStrategies
+            .AsValueEnumerable()
+            .Select(x => $"Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.{x}")
+            .JoinToString(" | ");
 
         var toEnumFromString = GenerateToEnumFromString(deserializationStrategies, fullName, fieldNameDeserialization);
         var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
@@ -155,7 +153,7 @@ internal static class EnumJsonConverterGenerator
         IDictionary<string, string> backingTypeDeserialization
     )
     {
-        if (enumDeserializationStrategies.Any(x => x == EnumDeserializationStrategy.UseEnumName))
+        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x == EnumDeserializationStrategy.UseEnumName))
         {
             const string propertyName = "enumName";
 
@@ -231,7 +229,7 @@ internal static class EnumJsonConverterGenerator
         IDictionary<object, string> backingTypeDeserialization
     )
     {
-        if (enumDeserializationStrategies.Any(x => x == EnumDeserializationStrategy.UseBackingType))
+        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x == EnumDeserializationStrategy.UseBackingType))
         {
             var stringBuilder = new StringBuilder();
 
