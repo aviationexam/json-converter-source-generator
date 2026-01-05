@@ -282,6 +282,12 @@
           "Microsoft.Testing.Platform": "2.0.2"
         }
       },
+      "System.Collections.Immutable": {
+        "type": "Direct",
+        "requested": "[9.0.0, )",
+        "resolved": "9.0.0",
+        "contentHash": "QhkXUl2gNrQtvPmtBTQHb0YsUrDiDQ2QS09YbtTTiSjGcf7NBqtYbrG/BE06zcBPCKEwQGzIv13IVdXNOSub2w=="
+      },
       "System.IO.Pipelines": {
         "type": "Direct",
         "requested": "[10.0.1, )",
