@@ -1,7 +1,6 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
@@ -10,7 +9,7 @@ internal static class PostInitializationExtensions
 {
     public static void AddEmbeddedResources<TGenerator>(
         this IncrementalGeneratorPostInitializationContext initializationContext,
-        IReadOnlyCollection<string> filenames
+        HashSet<string> filenames
     ) where TGenerator : IIncrementalGenerator
     {
         var type = typeof(TGenerator);
