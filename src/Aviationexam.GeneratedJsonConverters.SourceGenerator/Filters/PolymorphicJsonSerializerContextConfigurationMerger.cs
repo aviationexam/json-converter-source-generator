@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
 
@@ -54,20 +55,20 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
             }
 
             yield return new PolymorphicJsonSerializerContextConfiguration(
-                jsonSerializerContextClassTypes.SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray(),
+                jsonSerializerContextClassTypes.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray(),
                 jsonPolymorphicMetadata,
                 jsonSerializableCollections
+                    .AsValueEnumerable()
                     .SelectMany(static x => x)
-                    .GroupBy(c => c
+                    .DistinctBy(c => c
                         .JsonSerializableAttributeTypeArgument.ToDisplayString(
                             JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
                         )
                     )
-                    .Select(static x => x.First())
                     .ToArray()
                     .ToImmutableArray()
                     .AsEquatableArray()
-            ).ToResultWithDiagnostics(diagnostics.SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray());
+            ).ToResultWithDiagnostics(diagnostics.AsValueEnumerable().SelectMany(static x => x).ToArray().ToImmutableArray().AsEquatableArray());
         }
     }
 }
