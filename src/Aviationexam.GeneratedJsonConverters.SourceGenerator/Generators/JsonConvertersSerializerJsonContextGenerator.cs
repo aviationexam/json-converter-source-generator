@@ -2,7 +2,7 @@ using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
@@ -67,9 +67,9 @@ internal static class JsonConvertersSerializerJsonContextGenerator
                  """;
         }
 
-        var jsonConverters = string.Join("\n        ", converters
+        var jsonConverters = converters.AsValueEnumerable()
             .Select(x => $"new {x.Namespace}.{x.ClassName}(),")
-        );
+            .JoinToString("\n        ");
 
         return new FileWithName(
             $"{jsonSerializerContext.ClassName}.g.cs",

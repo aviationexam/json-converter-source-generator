@@ -2,7 +2,6 @@ using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Threading;
 using ZLinq;
 
@@ -23,14 +22,17 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
         foreach (
             var grouping in
             resultWithDiagnostics
-                .GroupBy(r => string.Join(
-                    ",",
-                    r.Result
-                        .JsonSerializableCollection
-                        .Select(c => c.JsonSerializableAttributeTypeArgument.ToDisplayString(
-                            JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
-                        ))
-                ))
+                .AsValueEnumerable()
+                .GroupBy(r => r.Result
+                    .JsonSerializableCollection
+                    .AsValueEnumerable()
+                    .Select(c => c.JsonSerializableAttributeTypeArgument.ToDisplayString(
+                        JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
+                    ))
+                    .JoinToString(',')
+                )
+                .Select(r => r.AsValueEnumerable().ToList())
+                .ToList()
         )
         {
             cancellationToken.ThrowIfCancellationRequested();
