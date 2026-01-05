@@ -142,7 +142,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             }
         }
 
-        if (converters.AsValueEnumerable().Any())
+        if (converters.Count > 0)
         {
             foreach (
                 var jsonSerializerContextClassType

@@ -153,7 +153,7 @@ internal static class EnumJsonConverterGenerator
         IDictionary<string, string> backingTypeDeserialization
     )
     {
-        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x == EnumDeserializationStrategy.UseEnumName))
+        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x is EnumDeserializationStrategy.UseEnumName))
         {
             const string propertyName = "enumName";
 
@@ -229,7 +229,7 @@ internal static class EnumJsonConverterGenerator
         IDictionary<object, string> backingTypeDeserialization
     )
     {
-        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x == EnumDeserializationStrategy.UseBackingType))
+        if (enumDeserializationStrategies.AsValueEnumerable().Any(x => x is EnumDeserializationStrategy.UseBackingType))
         {
             var stringBuilder = new StringBuilder();
 

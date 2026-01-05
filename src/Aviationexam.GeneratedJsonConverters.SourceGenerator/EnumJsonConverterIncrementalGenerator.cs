@@ -147,7 +147,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
 
         if (
             enumJsonConverterOptions.DefaultJsonSerializerContext is { } defaultJsonSerializerContext
-            && converters.AsValueEnumerable().Any()
+            && converters.Count > 0
         )
         {
             files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
