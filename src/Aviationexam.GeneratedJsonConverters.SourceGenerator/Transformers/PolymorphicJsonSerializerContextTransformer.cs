@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 
@@ -87,7 +87,9 @@ internal static class PolymorphicJsonSerializerContextTransformer
                     jsonDerivedTypeAttributeSymbol!
                 ),
                 jsonConverterConfiguration
+                    .AsValueEnumerable()
                     .Distinct()
+                    .ToArray()
                     .ToImmutableArray()
                     .AsEquatableArray()
             )
