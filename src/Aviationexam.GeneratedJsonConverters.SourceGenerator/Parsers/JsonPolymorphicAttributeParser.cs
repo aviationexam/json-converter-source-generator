@@ -1,6 +1,6 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Microsoft.CodeAnalysis;
-using System.Linq;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
@@ -12,8 +12,10 @@ internal static class JsonPolymorphicAttributeParser
     {
         if (
             attributeData.NamedArguments
+                .AsValueEnumerable()
                 .Where(x => x.Key == JsonPolymorphicAttributeGenerator.TypeDiscriminatorPropertyNamePropertyName)
-                .Select(x => x.Value).SingleOrDefault() is
+                .Select(x => x.Value)
+                .SingleOrDefault() is
             {
                 Kind: TypedConstantKind.Primitive,
                 Value: string discriminatorPropertyName,
