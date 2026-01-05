@@ -7,10 +7,10 @@
   <!-- Build-time tools (analyzers and source generators) -->
   <ItemGroup>
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="4.14.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.0.0" />
     <PackageVersion Include="H.Generators.Extensions" Version="1.24.2" />
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
@@ -109,7 +109,7 @@
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.11" />
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="9.0.11" />
     <PackageVersion Include="System.Security.Permissions" Version="4.5.0" />
-    <PackageVersion Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <PackageVersion Include="System.Text.Encoding.CodePages" Version="8.0.0" />
     <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
   </ItemGroup>
 
