@@ -1,6 +1,9 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
+using VerifyTests;
+using VerifyXunit;
 using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
@@ -28,13 +31,16 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
 
     [Theory]
     [MemberData(nameof(LeafContractData))]
-    public void SerializeBaseContractWorks(BaseContractWithCustomDelimiter contract, string expectedJson)
+    public Task SerializeBaseContractWorks(int testId, BaseContractWithCustomDelimiter contract)
     {
         var json = JsonSerializer.Serialize(
             contract,
             MyJsonSerializerContext.Default.Options
         );
 
-        Assert.Equal(expectedJson, json);
+        var settings = new VerifySettings();
+        settings.UseParameters(testId);
+
+        return Verifier.VerifyJson(json, settings);
     }
 }

@@ -1,15 +1,14 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
-using System.Collections.Generic;
+using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public partial class BaseContractWithCustomDelimiterSerializationTests
 {
-    public static IEnumerable<object[]> BaseJsonContractData()
+    public static TheoryData<string, Type> BaseJsonContractData() => new()
     {
-        yield return
-        [
+        {
             // language=json
             """
             {
@@ -19,9 +18,8 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-        yield return
-        [
+        },
+        {
             // language=json
             """
             {
@@ -31,9 +29,8 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-        yield return
-        [
+        },
+        {
             // language=json
             """
             {
@@ -43,26 +40,55 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-    }
+        },
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1,
+                "leafProperty": "2",
+                "myCustomDelimiter": "NullableLeafContractWithCustomDelimiter"
+            }
+            """,
+            typeof(NullableLeafContractWithCustomDelimiter)
+        },
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1,
+                "myCustomDelimiter": "NullableLeafContractWithCustomDelimiter"
+            }
+            """,
+            typeof(NullableLeafContractWithCustomDelimiter)
+        }
+    };
 
-    public static IEnumerable<object[]> LeafContractData()
+    public static TheoryData<int, BaseContractWithCustomDelimiter> LeafContractData() => new()
     {
-        yield return
-        [
+        {
+            1,
             new LeafContractWithCustomDelimiter
             {
                 BaseProperty = 1,
                 LeafProperty = 2
-            },
-            // language=json
-            """
-            {
-              "myCustomDelimiter": "LeafContractWithCustomDelimiter",
-              "leafProperty": 2,
-              "baseProperty": 1
             }
-            """.Replace("\r\n", Environment.NewLine)
-        ];
-    }
+        },
+        {
+            2,
+            new NullableLeafContractWithCustomDelimiter
+            {
+                BaseProperty = 1,
+                LeafProperty = "2",
+            }
+        },
+        {
+            3,
+            new NullableLeafContractWithCustomDelimiter
+            {
+                BaseProperty = 1,
+                LeafProperty = null,
+            }
+        }
+    };
 }
