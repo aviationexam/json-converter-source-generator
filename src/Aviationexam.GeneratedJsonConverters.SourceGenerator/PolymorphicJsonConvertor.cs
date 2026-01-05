@@ -89,7 +89,9 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
 
             if (
                 options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.Always)
+#if NET_10_OR_GREATER
                 || options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWriting)
+#endif
                 || (options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWritingDefault) && realValue == null)
                 || (options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWritingNull) && realValue is null)
             )
