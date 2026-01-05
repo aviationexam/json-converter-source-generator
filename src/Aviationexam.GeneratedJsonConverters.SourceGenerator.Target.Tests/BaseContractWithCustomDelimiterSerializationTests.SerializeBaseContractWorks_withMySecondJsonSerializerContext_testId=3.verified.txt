@@ -1,0 +1,4 @@
+﻿{
+  myCustomDelimiter: NullableLeafContractWithCustomDelimiter,
+  baseProperty: 1
+}

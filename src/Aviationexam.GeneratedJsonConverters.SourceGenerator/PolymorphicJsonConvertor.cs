@@ -77,8 +77,30 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
                 continue;
             }
 
+            var realValue = p.Get(value);
+
+            if (
+                p.ShouldSerialize is { } shouldSerialize
+                && !shouldSerialize(value, realValue)
+            )
+            {
+                continue;
+            }
+
+            if (
+                options.DefaultIgnoreCondition is JsonIgnoreCondition.Always
+#if NET_10_OR_GREATER
+                || options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWriting
+#endif
+                || (options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWritingDefault && realValue == null)
+                || (options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWritingNull && realValue is null)
+            )
+            {
+                continue;
+            }
+
             writer.WritePropertyName(p.Name);
-            JsonSerializer.Serialize(writer, p.Get(value), options.GetTypeInfo(p.PropertyType));
+            JsonSerializer.Serialize(writer, realValue, options.GetTypeInfo(p.PropertyType));
         }
 
         writer.WriteEndObject();

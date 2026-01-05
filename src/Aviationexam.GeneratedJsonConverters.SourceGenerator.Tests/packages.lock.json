@@ -164,6 +164,12 @@
           "xunit.v3.core.mtp-v2": "[3.2.1]"
         }
       },
+      "ZLinq": {
+        "type": "Direct",
+        "requested": "[1.5.4, )",
+        "resolved": "1.5.4",
+        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
+      },
       "Argon": {
         "type": "Transitive",
         "resolved": "0.33.0",
@@ -674,6 +680,12 @@
           "xunit.v3.assert": "[3.2.1]",
           "xunit.v3.core.mtp-v2": "[3.2.1]"
         }
+      },
+      "ZLinq": {
+        "type": "Direct",
+        "requested": "[1.5.4, )",
+        "resolved": "1.5.4",
+        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
       },
       "Argon": {
         "type": "Transitive",
@@ -1214,6 +1226,12 @@
           "xunit.v3.assert": "[3.2.1]",
           "xunit.v3.core.mtp-v2": "[3.2.1]"
         }
+      },
+      "ZLinq": {
+        "type": "Direct",
+        "requested": "[1.5.4, )",
+        "resolved": "1.5.4",
+        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
       },
       "Argon": {
         "type": "Transitive",

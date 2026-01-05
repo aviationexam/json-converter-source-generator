@@ -4,8 +4,7 @@ using Microsoft.CodeAnalysis;
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record PolymorphicJsonSerializerContextConfiguration(
-    ISymbol JsonSerializerContextClassType,
-    INamedTypeSymbol JsonPolymorphicAttributeSymbol,
-    INamedTypeSymbol JsonDerivedTypeAttributeSymbol,
+    EquatableArray<ISymbol> JsonSerializerContextClassType,
+    PolymorphicJsonSerializerMetadata Metadata,
     EquatableArray<JsonSerializableConfiguration> JsonSerializableCollection
 );

@@ -7,8 +7,8 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Threading;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
@@ -60,12 +60,12 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             && defaultEnumDeserializationStrategyString.Split(
                 ['|'], StringSplitOptions.RemoveEmptyEntries
             ) is { } defaultEnumDeserializationStrategiesString
-            && defaultEnumDeserializationStrategiesString.Select(s =>
+            && defaultEnumDeserializationStrategiesString.AsValueEnumerable().Select(s =>
                 Enum.TryParse<EnumDeserializationStrategy>(s, out var defaultEnumDeserializationStrategy)
                     ? defaultEnumDeserializationStrategy
                     : EnumDeserializationStrategy.ProjectDefault
             ).ToArray() is { } defaultEnumDeserializationStrategies
-            && defaultEnumDeserializationStrategies.All(s => s != EnumDeserializationStrategy.ProjectDefault)
+            && defaultEnumDeserializationStrategies.AsValueEnumerable().All(s => s != EnumDeserializationStrategy.ProjectDefault)
                 ? [.. defaultEnumDeserializationStrategies]
                 : [DefaultEnumDeserializationStrategy]
         ));
@@ -147,7 +147,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
 
         if (
             enumJsonConverterOptions.DefaultJsonSerializerContext is { } defaultJsonSerializerContext
-            && converters.Any()
+            && converters.Count > 0
         )
         {
             files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(

@@ -2,7 +2,6 @@ using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Threading;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Filters;
@@ -17,11 +16,11 @@ internal static class PolymorphicJsonSerializerContextConfigurationFilter
             x.Result is
             {
                 JsonSerializableCollection: { IsEmpty: false } jsonConverterConfigurations,
-                JsonPolymorphicAttributeSymbol: { } jsonPolymorphicAttributeSymbol
+                Metadata.JsonPolymorphicAttributeSymbol: { } jsonPolymorphicAttributeSymbol
             }
         )
         {
-            var filteredJsonSerializableCollection = new List<JsonSerializableConfiguration>(jsonConverterConfigurations.Count());
+            var filteredJsonSerializableCollection = new List<JsonSerializableConfiguration>(jsonConverterConfigurations.AsImmutableArray().Length);
 
             foreach (var jsonConverterConfiguration in jsonConverterConfigurations)
             {

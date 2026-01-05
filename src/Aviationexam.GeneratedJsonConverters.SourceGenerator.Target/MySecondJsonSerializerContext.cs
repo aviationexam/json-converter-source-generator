@@ -9,7 +9,8 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 [JsonSourceGenerationOptions(
     WriteIndented = true,
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
-    GenerationMode = JsonSourceGenerationMode.Default
+    GenerationMode = JsonSourceGenerationMode.Default,
+    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
 )]
 [JsonSerializable(typeof(BaseContract))]
 [JsonSerializable(typeof(LeafContract))]
@@ -27,13 +28,13 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 [JsonSerializable(typeof(EPropertyWithBackingEnum))]
 [JsonSerializable(typeof(IReadOnlyDictionary<EBackingEnum, int>))]
 [JsonSerializable(typeof(IReadOnlyDictionary<EConfiguredPropertyEnum, int>))]
-public partial class MyJsonSerializerContext : JsonSerializerContext
+public partial class MySecondJsonSerializerContext : JsonSerializerContext
 {
-    static MyJsonSerializerContext()
+    static MySecondJsonSerializerContext()
     {
         UsePolymorphicConverters(s_defaultOptions.Converters);
-        UseEnumConverters(s_defaultOptions.Converters);
+        MyJsonSerializerContext.UseEnumConverters(s_defaultOptions.Converters);
 
-        Default = new MyJsonSerializerContext(new JsonSerializerOptions(s_defaultOptions));
+        Default = new MySecondJsonSerializerContext(new JsonSerializerOptions(s_defaultOptions));
     }
 }

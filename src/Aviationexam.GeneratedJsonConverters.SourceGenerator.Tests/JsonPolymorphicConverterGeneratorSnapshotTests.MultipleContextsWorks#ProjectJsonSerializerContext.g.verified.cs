@@ -1,14 +1,11 @@
-﻿//HintName: MyJsonSerializerContext.g.cs
+﻿//HintName: ProjectJsonSerializerContext.g.cs
 #nullable enable
 
-namespace ApplicationNamespace;
-
-public partial class MyJsonSerializerContext
+public partial class ProjectJsonSerializerContext
 {
     public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
     {
-        new ApplicationNamespace.BaseContractOfInt32JsonPolymorphicConverter(),
-        new ApplicationNamespace.BaseContractOfStringJsonPolymorphicConverter(),
+        new PolymorphicGlobalNamespace.PersonJsonPolymorphicConverter(),
     };
 
     public static void UsePolymorphicConverters(

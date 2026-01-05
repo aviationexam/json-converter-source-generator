@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Threading;
+using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 
@@ -63,9 +63,11 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
                     if (jsonSerializableAttributeTypeArgument is null)
                     {
-                        diagnostics.Add(
-                            Diagnostic.Create(GeneratorGenerationRules.PolymorphicJsonUnableToParseAttribute, attributeSyntax.GetLocation(), attributeSyntax.ToFullString())
-                        );
+                        diagnostics.Add(Diagnostic.Create(
+                            GeneratorGenerationRules.PolymorphicJsonUnableToParseAttribute,
+                            attributeSyntax.GetLocation(),
+                            attributeSyntax.ToFullString()
+                        ));
 
                         continue;
                     }
@@ -79,11 +81,15 @@ internal static class PolymorphicJsonSerializerContextTransformer
         }
 
         return new PolymorphicJsonSerializerContextConfiguration(
-                jsonSerializerContextClassType,
-                jsonPolymorphicAttributeSymbol!,
-                jsonDerivedTypeAttributeSymbol!,
+                ImmutableArray.CreateRange<ISymbol>([jsonSerializerContextClassType]).AsEquatableArray(),
+                new PolymorphicJsonSerializerMetadata(
+                    jsonPolymorphicAttributeSymbol!,
+                    jsonDerivedTypeAttributeSymbol!
+                ),
                 jsonConverterConfiguration
+                    .AsValueEnumerable()
                     .Distinct()
+                    .ToArray()
                     .ToImmutableArray()
                     .AsEquatableArray()
             )

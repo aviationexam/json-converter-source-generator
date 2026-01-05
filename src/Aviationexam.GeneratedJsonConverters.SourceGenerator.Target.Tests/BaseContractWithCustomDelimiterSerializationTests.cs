@@ -1,48 +1,14 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
-using System.Collections.Generic;
-using System.Text.Json;
 using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
-public class BaseContractWithCustomDelimiterSerializationTests
+public partial class BaseContractWithCustomDelimiterSerializationTests
 {
-    [Theory]
-    [MemberData(nameof(BaseJsonContractData))]
-    public void DeserializeBaseContractWorks(string json, Type targetType)
+    public static TheoryData<string, Type> BaseJsonContractData() => new()
     {
-        var baseContract = JsonSerializer.Deserialize<BaseContractWithCustomDelimiter>(
-            json,
-            MyJsonSerializerContext.Default.Options
-        );
-
-        Assert.NotNull(baseContract);
-        Assert.Equal(1, baseContract.BaseProperty);
-        Assert.IsType(targetType, baseContract);
-
-        if (baseContract is LeafContractWithCustomDelimiter leafContract)
         {
-            Assert.Equal(2, leafContract.LeafProperty);
-        }
-    }
-
-    [Theory]
-    [MemberData(nameof(LeafContractData))]
-    public void SerializeBaseContractWorks(BaseContractWithCustomDelimiter contract, string expectedJson)
-    {
-        var json = JsonSerializer.Serialize(
-            contract,
-            MyJsonSerializerContext.Default.Options
-        );
-
-        Assert.Equal(expectedJson, json);
-    }
-
-    public static IEnumerable<object[]> BaseJsonContractData()
-    {
-        yield return
-        [
             // language=json
             """
             {
@@ -52,9 +18,8 @@ public class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-        yield return
-        [
+        },
+        {
             // language=json
             """
             {
@@ -64,9 +29,8 @@ public class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-        yield return
-        [
+        },
+        {
             // language=json
             """
             {
@@ -76,26 +40,55 @@ public class BaseContractWithCustomDelimiterSerializationTests
             }
             """,
             typeof(LeafContractWithCustomDelimiter)
-        ];
-    }
+        },
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1,
+                "leafProperty": "2",
+                "myCustomDelimiter": "NullableLeafContractWithCustomDelimiter"
+            }
+            """,
+            typeof(NullableLeafContractWithCustomDelimiter)
+        },
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1,
+                "myCustomDelimiter": "NullableLeafContractWithCustomDelimiter"
+            }
+            """,
+            typeof(NullableLeafContractWithCustomDelimiter)
+        }
+    };
 
-    public static IEnumerable<object[]> LeafContractData()
+    public static TheoryData<int, BaseContractWithCustomDelimiter> LeafContractData() => new()
     {
-        yield return
-        [
+        {
+            1,
             new LeafContractWithCustomDelimiter
             {
                 BaseProperty = 1,
                 LeafProperty = 2
-            },
-            // language=json
-            """
-            {
-              "myCustomDelimiter": "LeafContractWithCustomDelimiter",
-              "leafProperty": 2,
-              "baseProperty": 1
             }
-            """.Replace("\r\n", Environment.NewLine)
-        ];
-    }
+        },
+        {
+            2,
+            new NullableLeafContractWithCustomDelimiter
+            {
+                BaseProperty = 1,
+                LeafProperty = "2",
+            }
+        },
+        {
+            3,
+            new NullableLeafContractWithCustomDelimiter
+            {
+                BaseProperty = 1,
+                LeafProperty = null,
+            }
+        }
+    };
 }
