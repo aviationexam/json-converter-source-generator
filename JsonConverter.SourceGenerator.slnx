@@ -4,6 +4,7 @@
     <File Path=".gitattributes" />
     <File Path=".github/dependabot.yml" />
     <File Path=".gitignore" />
+    <File Path="Directory.Packages.props" />
     <File Path="GitVersion.yml" />
     <File Path="README.md" />
     <File Path="src/WarningConfiguration.targets" />
@@ -14,8 +15,8 @@
     <File Path=".github/workflows/pr-build.yml" />
     <File Path=".github/workflows/release.yml" />
   </Folder>
-  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj" Type="Classic C#" />
-  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj" Type="Classic C#" />
-  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests.csproj" Type="Classic C#" />
-  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator/Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" Type="Classic C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj" Type="C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj" Type="C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests.csproj" Type="C#" />
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator/Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" Type="C#" />
 </Solution>
