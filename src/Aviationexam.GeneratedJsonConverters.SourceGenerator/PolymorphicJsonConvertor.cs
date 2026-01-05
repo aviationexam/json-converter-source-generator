@@ -88,12 +88,12 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
             }
 
             if (
-                options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.Always)
+                options.DefaultIgnoreCondition is JsonIgnoreCondition.Always
 #if NET_10_OR_GREATER
-                || options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWriting)
+                || options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWriting
 #endif
-                || (options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWritingDefault) && realValue == null)
-                || (options.DefaultIgnoreCondition.HasFlag(JsonIgnoreCondition.WhenWritingNull) && realValue is null)
+                || (options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWritingDefault && realValue == null)
+                || (options.DefaultIgnoreCondition is JsonIgnoreCondition.WhenWritingNull && realValue is null)
             )
             {
                 continue;
