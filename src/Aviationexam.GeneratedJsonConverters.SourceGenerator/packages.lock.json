@@ -20,6 +20,16 @@
           "System.Threading.Tasks.Extensions": "4.6.3"
         }
       },
+      "Microsoft.Bcl.Memory": {
+        "type": "Direct",
+        "requested": "[9.0.11, )",
+        "resolved": "9.0.11",
+        "contentHash": "tIAD5U4KzQ9SrIcKnpdlQrq4TevtgL0FZAgtHROgM8l/hWs3LahUxA7LtuuieRvvtKJ5pRuk0gID65Yr2FGTAg==",
+        "dependencies": {
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        }
+      },
       "Microsoft.CodeAnalysis.Analyzers": {
         "type": "Direct",
         "requested": "[4.14.0, )",
@@ -84,16 +94,6 @@
           "System.Buffers": "4.6.1",
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
-        }
-      },
-      "Microsoft.Bcl.Memory": {
-        "type": "CentralTransitive",
-        "requested": "[9.0.11, )",
-        "resolved": "9.0.11",
-        "contentHash": "tIAD5U4KzQ9SrIcKnpdlQrq4TevtgL0FZAgtHROgM8l/hWs3LahUxA7LtuuieRvvtKJ5pRuk0gID65Yr2FGTAg==",
-        "dependencies": {
-          "System.Memory": "4.5.5",
-          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         }
       },
       "Microsoft.CodeAnalysis.Common": {
