@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" PrivateAssets="all" GeneratePathProperty="true" />
+    <PackageReference Include="Microsoft.Bcl.Memory" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" PrivateAssets="all" />
     <PackageReference Include="H.Generators.Extensions" PrivateAssets="all" GeneratePathProperty="true" />
@@ -62,6 +63,7 @@
     <ItemGroup>
       <TfmSpecificPackageFile Include="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" PackagePath="analyzers/dotnet/cs" />
+      <TfmSpecificPackageFile Include="$(PkgMicrosoft_Bcl_Memory)\lib\netstandard2.0\Microsoft.Bcl.Memory.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" PackagePath="analyzers/dotnet/cs" />
       <TfmSpecificPackageFile Include="$(PkgZLinq)\lib\netstandard2.0\ZLinq.dll" PackagePath="analyzers/dotnet/cs" />
     </ItemGroup>
