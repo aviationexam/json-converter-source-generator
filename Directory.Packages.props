@@ -58,7 +58,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Composition" Version="16.1.8" />
     <PackageVersion Include="Microsoft.VisualStudio.Composition.NetFxAttributes" Version="16.1.8" />
     <PackageVersion Include="Microsoft.VisualStudio.Validation" Version="15.5.31" />
-    <PackageVersion Include="SimpleInfoName" Version="3.1.2" />
+    <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
     <PackageVersion Include="Verify" Version="31.9.3" />
   </ItemGroup>
 
