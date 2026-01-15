@@ -23,7 +23,7 @@
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.3.2" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.0.2" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
-    <PackageVersion Include="Verify.XunitV3" Version="31.9.3" />
+    <PackageVersion Include="Verify.XunitV3" Version="31.9.4" />
     <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.1" />
   </ItemGroup>
 
@@ -59,7 +59,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Composition.NetFxAttributes" Version="16.1.8" />
     <PackageVersion Include="Microsoft.VisualStudio.Validation" Version="15.5.31" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
-    <PackageVersion Include="Verify" Version="31.9.3" />
+    <PackageVersion Include="Verify" Version="31.9.4" />
   </ItemGroup>
 
   <!-- Transitive dependencies - Testing platform -->
@@ -71,7 +71,7 @@
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.0.2" />
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.0.2" />
     <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.0.2" />
-    <PackageVersion Include="xunit.v3.assert" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.assert" Version="3.2.2" />
     <PackageVersion Include="xunit.v3.common" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.core.mtp-v2" Version="3.2.1" />
     <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
