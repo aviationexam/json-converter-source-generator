@@ -15,7 +15,7 @@
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
     <PackageVersion Include="PolySharp" Version="1.15.0" />
-    <PackageVersion Include="xunit.analyzers" Version="1.26.0" />
+    <PackageVersion Include="xunit.analyzers" Version="1.27.0" />
   </ItemGroup>
 
   <!-- Test infrastructure -->
@@ -24,7 +24,7 @@
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.0.2" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
     <PackageVersion Include="Verify.XunitV3" Version="31.9.4" />
-    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
   </ItemGroup>
 
   <!-- NuGet packages -->
@@ -72,11 +72,11 @@
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.0.2" />
     <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.0.2" />
     <PackageVersion Include="xunit.v3.assert" Version="3.2.2" />
-    <PackageVersion Include="xunit.v3.common" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.core.mtp-v2" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.runner.common" Version="3.2.1" />
-    <PackageVersion Include="xunit.v3.runner.inproc.console" Version="3.2.1" />
+    <PackageVersion Include="xunit.v3.common" Version="3.2.2" />
+    <PackageVersion Include="xunit.v3.core.mtp-v2" Version="3.2.2" />
+    <PackageVersion Include="xunit.v3.extensibility.core" Version="3.2.2" />
+    <PackageVersion Include="xunit.v3.runner.common" Version="3.2.2" />
+    <PackageVersion Include="xunit.v3.runner.inproc.console" Version="3.2.2" />
   </ItemGroup>
 
   <!-- Transitive dependencies - NuGet -->

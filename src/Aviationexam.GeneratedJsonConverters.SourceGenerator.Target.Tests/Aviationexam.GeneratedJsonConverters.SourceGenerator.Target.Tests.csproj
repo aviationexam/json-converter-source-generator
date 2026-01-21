@@ -26,6 +26,7 @@
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Verify.XunitV3" />
     <PackageReference Include="Verify.SourceGenerators" />
+    <PackageReference Include="xunit.v3.assert" />
     <PackageReference Include="xunit.v3.mtp-v2" />
   </ItemGroup>
 
