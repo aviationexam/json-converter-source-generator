@@ -394,11 +394,11 @@
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[6.3.4, )",
-        "resolved": "6.3.4",
-        "contentHash": "cO/QqtGqCIUf/e6EncIQ/ORJDco9UOtxooDL0IZhf18x1l0xFJ/nrcLCyAjZeznE9RAIqaNv1+YFobht4u0Lsw==",
+        "requested": "[7.0.1, )",
+        "resolved": "7.0.1",
+        "contentHash": "Jb8Xks/hxrV5c1w9234E0/egU5upClP2ztw3lMZHYB45bCuzuIOamzscvIJO507MZfQmSUbECNY1IXNNxOCYJA==",
         "dependencies": {
-          "NuGet.Protocol": "6.3.4"
+          "NuGet.Protocol": "7.0.1"
         }
       },
       "NuGet.Versioning": {
@@ -971,11 +971,11 @@
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[6.3.4, )",
-        "resolved": "6.3.4",
-        "contentHash": "cO/QqtGqCIUf/e6EncIQ/ORJDco9UOtxooDL0IZhf18x1l0xFJ/nrcLCyAjZeznE9RAIqaNv1+YFobht4u0Lsw==",
+        "requested": "[7.0.1, )",
+        "resolved": "7.0.1",
+        "contentHash": "Jb8Xks/hxrV5c1w9234E0/egU5upClP2ztw3lMZHYB45bCuzuIOamzscvIJO507MZfQmSUbECNY1IXNNxOCYJA==",
         "dependencies": {
-          "NuGet.Protocol": "6.3.4"
+          "NuGet.Protocol": "7.0.1"
         }
       },
       "NuGet.Versioning": {
@@ -1548,11 +1548,11 @@
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[6.3.4, )",
-        "resolved": "6.3.4",
-        "contentHash": "cO/QqtGqCIUf/e6EncIQ/ORJDco9UOtxooDL0IZhf18x1l0xFJ/nrcLCyAjZeznE9RAIqaNv1+YFobht4u0Lsw==",
+        "requested": "[7.0.1, )",
+        "resolved": "7.0.1",
+        "contentHash": "Jb8Xks/hxrV5c1w9234E0/egU5upClP2ztw3lMZHYB45bCuzuIOamzscvIJO507MZfQmSUbECNY1IXNNxOCYJA==",
         "dependencies": {
-          "NuGet.Protocol": "6.3.4"
+          "NuGet.Protocol": "7.0.1"
         }
       },
       "NuGet.Versioning": {
