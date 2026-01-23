@@ -83,7 +83,7 @@
   <ItemGroup>
     <PackageVersion Include="NuGet.Configuration" Version="7.0.1" />
     <PackageVersion Include="NuGet.Frameworks" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Resolver" Version="6.3.4" />
+    <PackageVersion Include="NuGet.Resolver" Version="7.0.1" />
     <PackageVersion Include="NuGet.Versioning" Version="7.0.1" />
   </ItemGroup>
 
