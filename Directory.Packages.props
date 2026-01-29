@@ -59,7 +59,7 @@
     <PackageVersion Include="Microsoft.VisualStudio.Composition.NetFxAttributes" Version="16.9.20" />
     <PackageVersion Include="Microsoft.VisualStudio.Validation" Version="15.5.31" />
     <PackageVersion Include="SimpleInfoName" Version="3.2.0" />
-    <PackageVersion Include="Verify" Version="31.9.4" />
+    <PackageVersion Include="Verify" Version="31.10.0" />
   </ItemGroup>
 
   <!-- Transitive dependencies - Testing platform -->
