@@ -83,10 +83,10 @@
 
   <!-- Transitive dependencies - NuGet -->
   <ItemGroup>
-    <PackageVersion Include="NuGet.Configuration" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Frameworks" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Resolver" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Versioning" Version="7.0.1" />
+    <PackageVersion Include="NuGet.Configuration" Version="7.3.0" />
+    <PackageVersion Include="NuGet.Frameworks" Version="7.3.0" />
+    <PackageVersion Include="NuGet.Resolver" Version="7.3.0" />
+    <PackageVersion Include="NuGet.Versioning" Version="7.3.0" />
   </ItemGroup>
 
   <!-- Transitive dependencies - System libraries -->
