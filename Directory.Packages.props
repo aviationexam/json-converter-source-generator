@@ -55,7 +55,7 @@
     <PackageVersion Include="System.IO.Pipelines" Version="10.0.2" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="10.0.2" />
     <PackageVersion Include="System.Text.Json" Version="10.0.2" />
-    <PackageVersion Include="ZLinq" Version="1.5.4" />
+    <PackageVersion Include="ZLinq" Version="1.5.5" />
   </ItemGroup>
 
   <!-- Transitive dependencies - Code analysis and testing -->
