@@ -166,9 +166,9 @@
       },
       "ZLinq": {
         "type": "Direct",
-        "requested": "[1.5.4, )",
-        "resolved": "1.5.4",
-        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
+        "requested": "[1.5.5, )",
+        "resolved": "1.5.5",
+        "contentHash": "gWSFd85Ru7p/fWE3qI78QT8unoddFqLy3IJ0fxr+l99GXGUDKNVvV/5ZdrKH4x7v1lfdwp+i8dR2Fzreq71q8A=="
       },
       "Microsoft.VisualStudio.Composition.Analyzers": {
         "type": "Transitive",
@@ -727,9 +727,9 @@
       },
       "ZLinq": {
         "type": "Direct",
-        "requested": "[1.5.4, )",
-        "resolved": "1.5.4",
-        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
+        "requested": "[1.5.5, )",
+        "resolved": "1.5.5",
+        "contentHash": "gWSFd85Ru7p/fWE3qI78QT8unoddFqLy3IJ0fxr+l99GXGUDKNVvV/5ZdrKH4x7v1lfdwp+i8dR2Fzreq71q8A=="
       },
       "Microsoft.VisualStudio.Composition.Analyzers": {
         "type": "Transitive",
@@ -1320,9 +1320,9 @@
       },
       "ZLinq": {
         "type": "Direct",
-        "requested": "[1.5.4, )",
-        "resolved": "1.5.4",
-        "contentHash": "Ogt0vjeHVPKJFOqcoEeHpBft4b1HD6CnOpeQSHWK2WPq0kMtietggm/2viwW44hdalf4F2mYeyWomDXMw9rv1g=="
+        "requested": "[1.5.5, )",
+        "resolved": "1.5.5",
+        "contentHash": "gWSFd85Ru7p/fWE3qI78QT8unoddFqLy3IJ0fxr+l99GXGUDKNVvV/5ZdrKH4x7v1lfdwp+i8dR2Fzreq71q8A=="
       },
       "Microsoft.VisualStudio.Composition.Analyzers": {
         "type": "Transitive",
