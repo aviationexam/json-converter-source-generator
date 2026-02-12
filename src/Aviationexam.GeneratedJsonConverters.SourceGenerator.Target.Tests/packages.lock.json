@@ -180,9 +180,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.12.4, )",
-        "resolved": "31.12.4",
-        "contentHash": "UT6JY63EGMGFjxbccmS8esM+S+bWULGJzolOeXDBgJATpVgoHOQEV/LmtSzCiKuArEW+Swx8zLa6UpcRFOl4Tw==",
+        "requested": "[31.12.5, )",
+        "resolved": "31.12.5",
+        "contentHash": "Luht+42xCM969Scwl7XQ1teZb/7w9XbQg/4eqVQ2WGTWc7mfheENb8PnaX9yJCNROyb1POjQIrQogO+wtf34mg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
@@ -437,9 +437,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.12.4, )",
-        "resolved": "31.12.4",
-        "contentHash": "UT6JY63EGMGFjxbccmS8esM+S+bWULGJzolOeXDBgJATpVgoHOQEV/LmtSzCiKuArEW+Swx8zLa6UpcRFOl4Tw==",
+        "requested": "[31.12.5, )",
+        "resolved": "31.12.5",
+        "contentHash": "Luht+42xCM969Scwl7XQ1teZb/7w9XbQg/4eqVQ2WGTWc7mfheENb8PnaX9yJCNROyb1POjQIrQogO+wtf34mg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
@@ -688,9 +688,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.12.4, )",
-        "resolved": "31.12.4",
-        "contentHash": "UT6JY63EGMGFjxbccmS8esM+S+bWULGJzolOeXDBgJATpVgoHOQEV/LmtSzCiKuArEW+Swx8zLa6UpcRFOl4Tw==",
+        "requested": "[31.12.5, )",
+        "resolved": "31.12.5",
+        "contentHash": "Luht+42xCM969Scwl7XQ1teZb/7w9XbQg/4eqVQ2WGTWc7mfheENb8PnaX9yJCNROyb1POjQIrQogO+wtf34mg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
