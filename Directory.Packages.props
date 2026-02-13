@@ -42,9 +42,9 @@
 
   <!-- NuGet packages -->
   <ItemGroup>
-    <PackageVersion Include="NuGet.Common" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Packaging" Version="7.0.1" />
-    <PackageVersion Include="NuGet.Protocol" Version="7.0.1" />
+    <PackageVersion Include="NuGet.Common" Version="7.3.0" />
+    <PackageVersion Include="NuGet.Packaging" Version="7.3.0" />
+    <PackageVersion Include="NuGet.Protocol" Version="7.3.0" />
   </ItemGroup>
 
   <!-- Runtime packages -->
