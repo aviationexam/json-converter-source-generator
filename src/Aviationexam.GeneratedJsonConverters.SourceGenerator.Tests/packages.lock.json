@@ -135,15 +135,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.13.0, )",
-        "resolved": "31.13.0",
-        "contentHash": "x3mmX9XIJ9O/I76wRxS2d34ggZxHy36GQNuYcJ3A7oivgLVoZGoznznzKfQYKWZ3KtZe3VgKZR2hQQ3lgGdT+w==",
+        "requested": "[31.13.1, )",
+        "resolved": "31.13.1",
+        "contentHash": "OHuquj71LWUgfeHCFonK2d+q+ckgElaQAI0eG4XFPyxF2BRLxUpIdFXP1nmq7PE/LP/hhpfA6QH4fRFrLETjbg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
           "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.13.0",
+          "Verify": "31.13.1",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
@@ -696,15 +696,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.13.0, )",
-        "resolved": "31.13.0",
-        "contentHash": "x3mmX9XIJ9O/I76wRxS2d34ggZxHy36GQNuYcJ3A7oivgLVoZGoznznzKfQYKWZ3KtZe3VgKZR2hQQ3lgGdT+w==",
+        "requested": "[31.13.1, )",
+        "resolved": "31.13.1",
+        "contentHash": "OHuquj71LWUgfeHCFonK2d+q+ckgElaQAI0eG4XFPyxF2BRLxUpIdFXP1nmq7PE/LP/hhpfA6QH4fRFrLETjbg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
           "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.13.0",
+          "Verify": "31.13.1",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
@@ -1289,15 +1289,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.13.0, )",
-        "resolved": "31.13.0",
-        "contentHash": "x3mmX9XIJ9O/I76wRxS2d34ggZxHy36GQNuYcJ3A7oivgLVoZGoznznzKfQYKWZ3KtZe3VgKZR2hQQ3lgGdT+w==",
+        "requested": "[31.13.1, )",
+        "resolved": "31.13.1",
+        "contentHash": "OHuquj71LWUgfeHCFonK2d+q+ckgElaQAI0eG4XFPyxF2BRLxUpIdFXP1nmq7PE/LP/hhpfA6QH4fRFrLETjbg==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "18.4.1",
           "Microsoft.Bcl.AsyncInterfaces": "10.0.3",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.13.0",
+          "Verify": "31.13.1",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
