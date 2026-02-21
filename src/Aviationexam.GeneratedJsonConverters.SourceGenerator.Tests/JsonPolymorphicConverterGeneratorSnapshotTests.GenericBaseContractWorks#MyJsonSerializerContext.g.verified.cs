@@ -9,6 +9,8 @@ public partial class MyJsonSerializerContext
     {
         new ApplicationNamespace.BaseContractOfInt32JsonPolymorphicConverter(),
         new ApplicationNamespace.BaseContractOfStringJsonPolymorphicConverter(),
+        new ApplicationNamespace.IntLeafContractLeafJsonPolymorphicConverter(),
+        new ApplicationNamespace.StringLeafContractLeafJsonPolymorphicConverter(),
     };
 
     public static void UsePolymorphicConverters(

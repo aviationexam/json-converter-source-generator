@@ -8,6 +8,9 @@ public partial class MyJsonSerializerContext
     public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetPolymorphicConverters() => new System.Text.Json.Serialization.JsonConverter[]
     {
         new ApplicationNamespace.BaseContractJsonPolymorphicConverter(),
+        new ApplicationNamespace.LeafContractLeafJsonPolymorphicConverter(),
+        new ApplicationNamespace.AnotherLeafContractLeafJsonPolymorphicConverter(),
+        new ApplicationNamespace.AnonymousLeafContractLeafJsonPolymorphicConverter(),
     };
 
     public static void UsePolymorphicConverters(
