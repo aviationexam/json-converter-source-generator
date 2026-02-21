@@ -49,6 +49,45 @@ public class BaseContractSerializationTests
         Assert.Equal(expectedJson, json);
     }
 
+    [Fact]
+    public void SerializeLeafContractDirectlyIncludesDiscriminator()
+    {
+        var leafContract = new LeafContract { BaseProperty = 1, LeafProperty = 2 };
+        var json = JsonSerializer.Serialize(
+            leafContract,
+            MyJsonSerializerContext.Default.Options
+        );
+
+        Assert.Contains("\"$type\"", json);
+        Assert.Contains("\"LeafContract\"", json);
+    }
+
+    [Fact]
+    public void SerializeAnotherLeafContractDirectlyIncludesDiscriminator()
+    {
+        var contract = new AnotherLeafContract { BaseProperty = 1, AnotherLeafProperty = 2 };
+        var json = JsonSerializer.Serialize(
+            contract,
+            MyJsonSerializerContext.Default.Options
+        );
+
+        Assert.Contains("\"$type\"", json);
+        Assert.Contains("2", json);
+    }
+
+    [Fact]
+    public void SerializeGenericLeafContractDirectlyIncludesDiscriminator()
+    {
+        var contract = new GenericLeafContract { BaseProperty = 1, Property = 2 };
+        var json = JsonSerializer.Serialize(
+            contract,
+            MyJsonSerializerContext.Default.Options
+        );
+
+        Assert.Contains("\"$type\"", json);
+        Assert.Contains("\"GenericLeafContract\"", json);
+    }
+
     public static IEnumerable<object[]> BaseJsonContractData()
     {
         yield return
