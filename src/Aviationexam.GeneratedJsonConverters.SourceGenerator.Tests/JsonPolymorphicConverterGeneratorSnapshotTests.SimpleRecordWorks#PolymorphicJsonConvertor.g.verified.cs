@@ -7,12 +7,17 @@ using System;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
 internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T : class
 {
     private readonly Type _polymorphicType = typeof(T);
+
+    // Cache options without any LeafPolymorphicJsonConvertor entries so that
+    // GetTypeInfo(leafType) returns a properly populated JsonTypeInfo with properties.
+    private JsonSerializerOptions? _optionsWithoutLeafConverters;
 
     protected abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
@@ -69,7 +74,7 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
             writer.WriteNumber(discriminatorPropertyName, discriminatorInt.Value);
         }
 
-        var typeInfo = options.GetTypeInfo(instanceType);
+        var typeInfo = GetTypeInfoWithoutLeafConverters(options, instanceType);
 
         foreach (var p in typeInfo.Properties)
         {
@@ -105,5 +110,33 @@ internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T :
         }
 
         writer.WriteEndObject();
+    }
+
+    private JsonTypeInfo GetTypeInfoWithoutLeafConverters(JsonSerializerOptions options, Type instanceType)
+    {
+        // When LeafPolymorphicJsonConvertor<TLeaf> instances are registered in options.Converters,
+        // options.GetTypeInfo(typeof(TLeaf)) returns a converter-backed JsonTypeInfo with no
+        // property metadata. Strip all leaf converters so the source-generated property metadata
+        // is used for the discriminator-free write path here.
+        if (_optionsWithoutLeafConverters is null)
+        {
+            var newOptions = new JsonSerializerOptions(options);
+
+            for (var i = newOptions.Converters.Count - 1; i >= 0; i--)
+            {
+                var converterType = newOptions.Converters[i].GetType();
+
+                if (converterType.BaseType is { IsGenericType: true } baseType
+                    && baseType.GetGenericTypeDefinition() == typeof(LeafPolymorphicJsonConvertor<>))
+                {
+                    newOptions.Converters.RemoveAt(i);
+                }
+            }
+
+            newOptions.MakeReadOnly();
+            _optionsWithoutLeafConverters = newOptions;
+        }
+
+        return _optionsWithoutLeafConverters.GetTypeInfo(instanceType);
     }
 }
