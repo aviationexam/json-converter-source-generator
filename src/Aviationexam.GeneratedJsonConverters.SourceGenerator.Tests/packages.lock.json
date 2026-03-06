@@ -186,9 +186,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[18.4.2, )",
-        "resolved": "18.4.2",
-        "contentHash": "wF6X6muxUEqJNEsrzM/EKqN47wCHp7M5oQkze8hjg7SwTuUxso+RZmUJZIOcVilMCjXnNXn0xOxyqoqZYoAs8Q==",
+        "requested": "[19.0.0, )",
+        "resolved": "19.0.0",
+        "contentHash": "QtT6bdSW93UwE3f3vy5/qQRQIGtybA6uU1qyF4NvlCUga4esTTA6T4o8gENj2s8YJX8wh1MR10L6ypQ8A5dFAg==",
         "dependencies": {
           "EmptyFiles": "8.17.2"
         }
@@ -747,9 +747,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[18.4.2, )",
-        "resolved": "18.4.2",
-        "contentHash": "wF6X6muxUEqJNEsrzM/EKqN47wCHp7M5oQkze8hjg7SwTuUxso+RZmUJZIOcVilMCjXnNXn0xOxyqoqZYoAs8Q==",
+        "requested": "[19.0.0, )",
+        "resolved": "19.0.0",
+        "contentHash": "QtT6bdSW93UwE3f3vy5/qQRQIGtybA6uU1qyF4NvlCUga4esTTA6T4o8gENj2s8YJX8wh1MR10L6ypQ8A5dFAg==",
         "dependencies": {
           "EmptyFiles": "8.17.2"
         }
@@ -1340,9 +1340,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[18.4.2, )",
-        "resolved": "18.4.2",
-        "contentHash": "wF6X6muxUEqJNEsrzM/EKqN47wCHp7M5oQkze8hjg7SwTuUxso+RZmUJZIOcVilMCjXnNXn0xOxyqoqZYoAs8Q==",
+        "requested": "[19.0.0, )",
+        "resolved": "19.0.0",
+        "contentHash": "QtT6bdSW93UwE3f3vy5/qQRQIGtybA6uU1qyF4NvlCUga4esTTA6T4o8gENj2s8YJX8wh1MR10L6ypQ8A5dFAg==",
         "dependencies": {
           "EmptyFiles": "8.17.2"
         }
