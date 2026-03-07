@@ -48,6 +48,7 @@
     <EmbeddedResource Include="EnumJsonConvertor.cs" />
     <EmbeddedResource Include="DiscriminatorStruct.cs" />
     <EmbeddedResource Include="IDiscriminatorStruct.cs" />
+    <EmbeddedResource Include="LeafPolymorphicJsonConvertor.cs" />
     <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
   </ItemGroup>
 

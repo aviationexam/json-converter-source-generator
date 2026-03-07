@@ -6,5 +6,6 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 internal record PolymorphicJsonSerializerContextConfiguration(
     EquatableArray<ISymbol> JsonSerializerContextClassType,
     PolymorphicJsonSerializerMetadata Metadata,
-    EquatableArray<JsonSerializableConfiguration> JsonSerializableCollection
+    EquatableArray<JsonSerializableConfiguration> JsonSerializableCollection,
+    EquatableArray<JsonLeafSerializableConfiguration> JsonLeafSerializableCollection
 );

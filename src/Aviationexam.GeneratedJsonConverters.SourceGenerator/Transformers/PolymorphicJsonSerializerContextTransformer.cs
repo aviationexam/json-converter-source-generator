@@ -91,7 +91,8 @@ internal static class PolymorphicJsonSerializerContextTransformer
                     .Distinct()
                     .ToArray()
                     .ToImmutableArray()
-                    .AsEquatableArray()
+                    .AsEquatableArray(),
+                ImmutableArray<JsonLeafSerializableConfiguration>.Empty.AsEquatableArray()
             )
             .ToResultWithDiagnostics([.. diagnostics]);
     }

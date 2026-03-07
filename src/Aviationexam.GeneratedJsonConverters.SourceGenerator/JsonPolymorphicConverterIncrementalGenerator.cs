@@ -41,6 +41,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>([
                 "DiscriminatorStruct",
                 "IDiscriminatorStruct",
+                "LeafPolymorphicJsonConvertor",
                 "PolymorphicJsonConvertor",
             ]);
 
@@ -138,6 +139,40 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                 convertersCollection.Add(new JsonConverter(
                     convertersTargetNamespace,
                     converterName
+                ));
+            }
+        }
+
+        // Generate leaf converters for concrete derived types that appear directly in [JsonSerializable].
+        foreach (var leafConfiguration in context.JsonLeafSerializableCollection)
+        {
+            foreach (
+                var jsonSerializerContextClassType
+                in context.JsonSerializerContextClassType
+                    .AsValueEnumerable()
+                    .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormat))
+                    .Select(static x => x.AsValueEnumerable().First())
+            )
+            {
+                var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
+                    ? EmptyPolymorphicNamespace
+                    : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
+
+                if (!converters.TryGetValue(convertersTargetNamespace, out var leafConvertersCollection))
+                {
+                    leafConvertersCollection = new List<JsonConverter>();
+                    converters.Add(convertersTargetNamespace, leafConvertersCollection);
+                }
+
+                files.Add(JsonLeafPolymorphicConverterGenerator.Generate(
+                    convertersTargetNamespace,
+                    leafConfiguration,
+                    out var leafConverterName
+                ));
+
+                leafConvertersCollection.Add(new JsonConverter(
+                    convertersTargetNamespace,
+                    leafConverterName
                 ));
             }
         }

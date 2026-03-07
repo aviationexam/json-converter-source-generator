@@ -40,12 +40,14 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
             var jsonSerializerContextClassTypes = new List<EquatableArray<ISymbol>>();
             PolymorphicJsonSerializerMetadata? jsonPolymorphicMetadata = null;
             var jsonSerializableCollections = new List<EquatableArray<JsonSerializableConfiguration>>();
+            var jsonLeafSerializableCollections = new List<EquatableArray<JsonLeafSerializableConfiguration>>();
             var diagnostics = new List<EquatableArray<Diagnostic>>();
             foreach (var item in grouping)
             {
                 jsonSerializerContextClassTypes.Add(item.Result.JsonSerializerContextClassType);
                 jsonPolymorphicMetadata ??= item.Result.Metadata;
                 jsonSerializableCollections.Add(item.Result.JsonSerializableCollection);
+                jsonLeafSerializableCollections.Add(item.Result.JsonLeafSerializableCollection);
                 diagnostics.Add(item.Diagnostics);
             }
 
@@ -64,6 +66,17 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
                     .SelectMany(static x => x)
                     .DistinctBy(c => c
                         .JsonSerializableAttributeTypeArgument.ToDisplayString(
+                            JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
+                        )
+                    )
+                    .ToArray()
+                    .ToImmutableArray()
+                    .AsEquatableArray(),
+                jsonLeafSerializableCollections
+                    .AsValueEnumerable()
+                    .SelectMany(static x => x)
+                    .DistinctBy(c => c
+                        .LeafType.ToDisplayString(
                             JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
                         )
                     )
