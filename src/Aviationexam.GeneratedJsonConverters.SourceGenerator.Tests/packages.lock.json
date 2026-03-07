@@ -207,9 +207,9 @@
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
-        "requested": "[3.0.8, )",
-        "resolved": "3.0.8",
-        "contentHash": "yVT6VkN6MCleIOMBrId4pTT2DdUM58GnqA+eDIECqp14bFUmh7uEEboxI+CJXI2p1NzwMh/IJDxClROMdrp5Jg=="
+        "requested": "[3.0.10, )",
+        "resolved": "3.0.10",
+        "contentHash": "yZIhtw8sYuvsONzQbZxWpR60tMWYHXoo0DL6nyOqSFiU5POjBTSEyWFpTQtJEZuy+oqiYTXKXY/Mjx7KnqIQFw=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
@@ -768,9 +768,9 @@
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
-        "requested": "[3.0.8, )",
-        "resolved": "3.0.8",
-        "contentHash": "yVT6VkN6MCleIOMBrId4pTT2DdUM58GnqA+eDIECqp14bFUmh7uEEboxI+CJXI2p1NzwMh/IJDxClROMdrp5Jg=="
+        "requested": "[3.0.10, )",
+        "resolved": "3.0.10",
+        "contentHash": "yZIhtw8sYuvsONzQbZxWpR60tMWYHXoo0DL6nyOqSFiU5POjBTSEyWFpTQtJEZuy+oqiYTXKXY/Mjx7KnqIQFw=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
@@ -1361,9 +1361,9 @@
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
-        "requested": "[3.0.8, )",
-        "resolved": "3.0.8",
-        "contentHash": "yVT6VkN6MCleIOMBrId4pTT2DdUM58GnqA+eDIECqp14bFUmh7uEEboxI+CJXI2p1NzwMh/IJDxClROMdrp5Jg=="
+        "requested": "[3.0.10, )",
+        "resolved": "3.0.10",
+        "contentHash": "yZIhtw8sYuvsONzQbZxWpR60tMWYHXoo0DL6nyOqSFiU5POjBTSEyWFpTQtJEZuy+oqiYTXKXY/Mjx7KnqIQFw=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
