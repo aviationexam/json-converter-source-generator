@@ -84,7 +84,7 @@ internal static class JsonPolymorphicConverterGenerator
 
               internal class {{converterName}} :
                   Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{converterName}}, {{fullName}}>,
-                  Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
+                  Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<{{fullName}}>
               {
                   #if !NET7_0_OR_GREATER
 
@@ -112,7 +112,7 @@ internal static class JsonPolymorphicConverterGenerator
 
                   public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
                       TInstance instance, out System.Type targetType
-                  )
+                  ) where TInstance : {{fullName}}
                   {
               {{discriminatorForInstanceStringBuilder}}
                       throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);

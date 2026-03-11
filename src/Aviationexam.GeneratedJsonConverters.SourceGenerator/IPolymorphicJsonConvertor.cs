@@ -4,7 +4,7 @@ using System;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-internal interface IPolymorphicJsonConvertor
+internal interface IPolymorphicJsonConvertor<T> where T : class
 {
 #if NET7_0_OR_GREATER
     public static abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
@@ -13,6 +13,6 @@ internal interface IPolymorphicJsonConvertor
 
     public static abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out Type targetType
-    ) where TInstance : T
+    ) where TInstance : T;
 #endif
 }
