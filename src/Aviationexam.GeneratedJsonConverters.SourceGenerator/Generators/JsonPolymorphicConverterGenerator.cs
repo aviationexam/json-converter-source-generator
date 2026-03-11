@@ -86,9 +86,23 @@ internal static class JsonPolymorphicConverterGenerator
                   Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{converterName}}, {{fullName}}>,
                   Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
               {
-                  protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
+                  #if !NET7_0_OR_GREATER
+
+                  protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => {{converterName}}.GetDiscriminatorPropertyName();
 
                   protected override System.Type GetTypeForDiscriminator(
+                      Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
+                  ) => {{converterName}}.GetTypeForDiscriminator(discriminator);
+
+                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+                      TInstance instance, out System.Type targetType
+                  ) => {{converterName}}.GetDiscriminatorForInstance<TInstance>(instance, out targetType);
+
+                  #endif
+
+                  public static System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
+
+                  public static System.Type GetTypeForDiscriminator(
                       Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
@@ -96,7 +110,7 @@ internal static class JsonPolymorphicConverterGenerator
                       _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
 
-                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+                  public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
                       TInstance instance, out System.Type targetType
                   )
                   {
