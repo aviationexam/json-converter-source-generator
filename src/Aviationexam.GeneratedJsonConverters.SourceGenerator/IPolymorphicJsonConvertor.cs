@@ -10,5 +10,9 @@ public interface IPolymorphicJsonConvertor
     public static abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
     public static abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
+
+    public static abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out Type targetType
+    ) where TInstance : T
 #endif
 }
