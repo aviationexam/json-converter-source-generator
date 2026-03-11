@@ -4,7 +4,7 @@ using System;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-public interface IPolymorphicJsonConvertor
+internal interface IPolymorphicJsonConvertor
 {
 #if NET7_0_OR_GREATER
     public static abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
