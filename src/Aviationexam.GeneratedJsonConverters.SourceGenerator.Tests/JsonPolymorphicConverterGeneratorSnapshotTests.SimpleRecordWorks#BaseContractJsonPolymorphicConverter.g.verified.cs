@@ -3,7 +3,9 @@
 
 namespace ApplicationNamespace;
 
-internal class BaseContractJsonPolymorphicConverter : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract>
+internal class BaseContractJsonPolymorphicConverter :
+    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseContractJsonPolymorphicConverter, global::ApplicationNamespace.Contracts.BaseContract>,
+    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
 {
     protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
 

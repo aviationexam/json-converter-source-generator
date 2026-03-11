@@ -82,7 +82,9 @@ internal static class JsonPolymorphicConverterGenerator
 
               namespace {{targetNamespace}};
 
-              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{fullName}}>
+              internal class {{converterName}} :
+                  Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{converterName}}, {{fullName}}>,
+                  Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
               {
                   protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
 

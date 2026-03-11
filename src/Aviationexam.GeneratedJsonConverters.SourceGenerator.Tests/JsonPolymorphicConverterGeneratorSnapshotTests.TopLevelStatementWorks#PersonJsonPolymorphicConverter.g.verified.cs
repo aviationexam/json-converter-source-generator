@@ -3,7 +3,9 @@
 
 namespace PolymorphicGlobalNamespace;
 
-internal class PersonJsonPolymorphicConverter : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::Person>
+internal class PersonJsonPolymorphicConverter :
+    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<PersonJsonPolymorphicConverter, global::Person>,
+    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
 {
     protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
 

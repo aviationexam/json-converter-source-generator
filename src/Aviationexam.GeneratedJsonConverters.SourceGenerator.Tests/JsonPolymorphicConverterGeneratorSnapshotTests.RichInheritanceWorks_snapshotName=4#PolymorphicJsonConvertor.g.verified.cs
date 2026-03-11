@@ -10,7 +10,9 @@ using System.Text.Json.Serialization;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-internal abstract class PolymorphicJsonConvertor<T> : JsonConverter<T> where T : class
+internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
+    where TConverter : PolymorphicJsonConvertor<TConverter, T>, IPolymorphicJsonConvertor
+    where T : class
 {
     private readonly Type _polymorphicType = typeof(T);
 
