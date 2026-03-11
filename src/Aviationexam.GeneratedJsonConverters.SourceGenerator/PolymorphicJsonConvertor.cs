@@ -16,11 +16,11 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
     private readonly Type _polymorphicType = typeof(T);
 
 #if !NET7_0_OR_GREATER
-    protected abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
+    protected abstract ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName();
 
-    protected abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
+    protected abstract Type Self_GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
 
-    protected abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+    protected abstract IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out Type targetType
     ) where TInstance : T;
 #endif
@@ -31,9 +31,10 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
 
         var discriminatorPropertyName =
 #if NET7_0_OR_GREATER
-            TConverter.
+            TConverter.GetDiscriminatorPropertyName();
+#else
+            Self_GetDiscriminatorPropertyName();
 #endif
-            GetDiscriminatorPropertyName();
 
         var discriminatorProperty = jsonDocument.RootElement
             .GetProperty(discriminatorPropertyName);
@@ -57,9 +58,10 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
 
         var type =
 #if NET7_0_OR_GREATER
-            TConverter.
+            TConverter.GetTypeForDiscriminator(typeDiscriminator);
+#else
+            Self_GetTypeForDiscriminator(typeDiscriminator);
 #endif
-            GetTypeForDiscriminator(typeDiscriminator);
 
         return (T?) jsonDocument.Deserialize(options.GetTypeInfo(type));
     }
@@ -70,14 +72,16 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
 
         var discriminatorPropertyName =
 #if NET7_0_OR_GREATER
-            TConverter.
+            TConverter.GetDiscriminatorPropertyName();
+#else
+            Self_GetDiscriminatorPropertyName();
 #endif
-            GetDiscriminatorPropertyName();
         var discriminatorValue =
 #if NET7_0_OR_GREATER
-            TConverter.
+            TConverter.GetDiscriminatorForInstance(value, out var instanceType);
+#else
+            Self_GetDiscriminatorForInstance(value, out var instanceType);
 #endif
-            GetDiscriminatorForInstance(value, out var instanceType);
 
         if (discriminatorValue is DiscriminatorStruct<string> discriminatorString)
         {

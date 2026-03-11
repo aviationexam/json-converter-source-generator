@@ -88,15 +88,15 @@ internal static class JsonPolymorphicConverterGenerator
               {
                   #if !NET7_0_OR_GREATER
 
-                  protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => {{converterName}}.GetDiscriminatorPropertyName();
+                  protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
 
-                  protected override System.Type GetTypeForDiscriminator(
+                  protected override System.Type Self_GetTypeForDiscriminator(
                       Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
-                  ) => {{converterName}}.GetTypeForDiscriminator(discriminator);
+                  ) => GetTypeForDiscriminator(discriminator);
 
-                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
                       TInstance instance, out System.Type targetType
-                  ) => {{converterName}}.GetDiscriminatorForInstance<TInstance>(instance, out targetType);
+                  ) => GetDiscriminatorForInstance<TInstance>(instance, out targetType);
 
                   #endif
 
