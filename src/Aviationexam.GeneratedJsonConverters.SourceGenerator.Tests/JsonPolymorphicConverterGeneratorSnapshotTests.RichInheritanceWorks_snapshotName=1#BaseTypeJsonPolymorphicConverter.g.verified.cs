@@ -5,11 +5,25 @@ namespace PolymorphicGlobalNamespace;
 
 internal class BaseTypeJsonPolymorphicConverter :
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseTypeJsonPolymorphicConverter, global::BaseType>,
-    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
+    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::BaseType>
 {
-    protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
+    #if !NET7_0_OR_GREATER
 
-    protected override System.Type GetTypeForDiscriminator(
+    protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
+
+    protected override System.Type Self_GetTypeForDiscriminator(
+        Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
+    ) => GetTypeForDiscriminator(discriminator);
+
+    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out System.Type targetType
+    ) => GetDiscriminatorForInstance<TInstance>(instance, out targetType);
+
+    #endif
+
+    public static System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "$type"u8;
+
+    public static System.Type GetTypeForDiscriminator(
         Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
     ) => discriminator switch
     {
@@ -23,9 +37,9 @@ internal class BaseTypeJsonPolymorphicConverter :
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+    public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out System.Type targetType
-    )
+    ) where TInstance : global::BaseType
     {
         if (instance is SecondLevel1A)
         {

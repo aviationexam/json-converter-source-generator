@@ -5,11 +5,25 @@ namespace ApplicationNamespace;
 
 internal class BaseContractOfStringJsonPolymorphicConverter :
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseContractOfStringJsonPolymorphicConverter, global::ApplicationNamespace.Contracts.BaseContract<global::System.String>>,
-    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor
+    Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract<global::System.String>>
 {
-    protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "myCustomDiscriminator"u8;
+    #if !NET7_0_OR_GREATER
 
-    protected override System.Type GetTypeForDiscriminator(
+    protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
+
+    protected override System.Type Self_GetTypeForDiscriminator(
+        Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
+    ) => GetTypeForDiscriminator(discriminator);
+
+    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
+        TInstance instance, out System.Type targetType
+    ) => GetDiscriminatorForInstance<TInstance>(instance, out targetType);
+
+    #endif
+
+    public static System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "myCustomDiscriminator"u8;
+
+    public static System.Type GetTypeForDiscriminator(
         Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
     ) => discriminator switch
     {
@@ -19,9 +33,9 @@ internal class BaseContractOfStringJsonPolymorphicConverter :
         _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
     };
 
-    protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+    public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out System.Type targetType
-    )
+    ) where TInstance : global::ApplicationNamespace.Contracts.BaseContract<global::System.String>
     {
         if (instance is ApplicationNamespace.Contracts.IntLeafContract)
         {
