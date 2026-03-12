@@ -71,6 +71,10 @@ internal static class JsonConvertersSerializerJsonContextGenerator
             .Select(x => $"new {x.Namespace}.{x.ClassName}(),")
             .JoinToString("\n        ");
 
+        var jsonTypeInfoConfigurations = converters.AsValueEnumerable()
+            .Select(x => $"new {x.Namespace}.{x.ClassName}.ConfigureJsonTypeInfo,")
+            .JoinToString("\n        ");
+
         return new FileWithName(
             $"{jsonSerializerContext.ClassName}.g.cs",
             // language=cs
@@ -93,6 +97,11 @@ internal static class JsonConvertersSerializerJsonContextGenerator
                           optionsConverters.Add(converter);
                       }
                   }
+
+                  public static System.Collections.Generic.IReadOnlyCollection<System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>> Get{{converterTypeString}}JsonTypeInfoConfigurations() => new System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>[]
+                  {
+                      {{jsonTypeInfoConfigurations}}
+                  };
               }
               """
         );

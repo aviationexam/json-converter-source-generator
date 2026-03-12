@@ -17,4 +17,9 @@ public partial class ProjectJsonSerializerContext
             optionsConverters.Add(converter);
         }
     }
+
+    public static System.Collections.Generic.IReadOnlyCollection<System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>> GetPolymorphicJsonTypeInfoConfigurations() => new System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>[]
+    {
+        new PolymorphicGlobalNamespace.BaseTypeOfTJsonPolymorphicConverter.ConfigureJsonTypeInfo,
+    };
 }
