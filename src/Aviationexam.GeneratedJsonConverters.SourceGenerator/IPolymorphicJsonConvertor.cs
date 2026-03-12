@@ -1,18 +1,16 @@
-#if NET7_0_OR_GREATER
-using System;
-#endif
-
 namespace Aviationexam.GeneratedJsonConverters;
 
 internal interface IPolymorphicJsonConvertor<T> where T : class
 {
 #if NET7_0_OR_GREATER
-    public static abstract ReadOnlySpan<byte> GetDiscriminatorPropertyName();
+    public static abstract System.ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
-    public static abstract Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
+    public static abstract System.Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
 
     public static abstract IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
-        TInstance instance, out Type targetType
+        TInstance instance, out System.Type targetType
     ) where TInstance : T;
+
+    public static abstract void ConfigureJsonTypeInfo(System.Text.Json.Serialization.Metadata.JsonTypeInfo jsonTypeInfo);
 #endif
 }
