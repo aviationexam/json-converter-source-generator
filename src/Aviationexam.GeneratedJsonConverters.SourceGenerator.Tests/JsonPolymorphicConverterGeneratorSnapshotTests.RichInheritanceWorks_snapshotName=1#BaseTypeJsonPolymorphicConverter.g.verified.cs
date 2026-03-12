@@ -80,4 +80,147 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
     }
+
+    public static void ConfigureJsonTypeInfo(System.Text.Json.Serialization.Metadata.JsonTypeInfo jsonTypeInfo)
+    {
+ 
+        if (jsonTypeInfo.Type == typeof(SecondLevel1A) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(SecondLevel1A),
+                    Converter = null,
+                    Getter = static _ => "SecondLevel1A",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(SecondLevel1B) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(SecondLevel1B),
+                    Converter = null,
+                    Getter = static _ => "SecondLevel1B",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(SecondLevel2A) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(SecondLevel2A),
+                    Converter = null,
+                    Getter = static _ => "SecondLevel2A",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(SecondLevel2B) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(SecondLevel2B),
+                    Converter = null,
+                    Getter = static _ => "SecondLevel2B",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(FirstLevel1) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(FirstLevel1),
+                    Converter = null,
+                    Getter = static _ => "FirstLevel1",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(FirstLevel2) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(FirstLevel2),
+                    Converter = null,
+                    Getter = static _ => "FirstLevel2",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+    }
 }

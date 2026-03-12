@@ -45,4 +45,32 @@ internal class BaseContractJsonPolymorphicConverter :
 
         throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
     }
+
+    public static void ConfigureJsonTypeInfo(System.Text.Json.Serialization.Metadata.JsonTypeInfo jsonTypeInfo)
+    {
+ 
+        if (jsonTypeInfo.Type == typeof(ApplicationNamespace.Contracts.LeafContract) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(ApplicationNamespace.Contracts.LeafContract),
+                    Converter = null,
+                    Getter = static _ => "LeafContract",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "myCustomDiscriminator"
+                }
+            ));
+        }
+
+    }
 }

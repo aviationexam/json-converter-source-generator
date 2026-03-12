@@ -66,4 +66,101 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
 
         throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
     }
+
+    public static void ConfigureJsonTypeInfo(System.Text.Json.Serialization.Metadata.JsonTypeInfo jsonTypeInfo)
+    {
+ 
+        if (jsonTypeInfo.Type == typeof(LeafA<System.Int32>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(LeafA<System.Int32>),
+                    Converter = null,
+                    Getter = static _ => "int_LeafA",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(LeafB<System.Int32>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(LeafB<System.Int32>),
+                    Converter = null,
+                    Getter = static _ => "int_LeafB",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(LeafA<System.String>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(LeafA<System.String>),
+                    Converter = null,
+                    Getter = static _ => "string_LeafA",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+        if (jsonTypeInfo.Type == typeof(LeafB<System.String>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+        {
+            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                jsonTypeInfo.Options,
+                new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
+                {
+                    IsProperty = false,
+                    IsPublic = true,
+                    IsVirtual = true,
+                    DeclaringType = typeof(LeafB<System.String>),
+                    Converter = null,
+                    Getter = static _ => "string_LeafB",
+                    Setter = null,
+                    IgnoreCondition = null,
+                    HasJsonInclude = false,
+                    IsExtensionData = false,
+                    NumberHandling = null,
+                    PropertyName = "__jsonTypeDiscriminator",
+                    JsonPropertyName = "$type"
+                }
+            ));
+        }
+
+    }
 }
