@@ -71,9 +71,11 @@ internal static class JsonConvertersSerializerJsonContextGenerator
             .Select(x => $"new {x.Namespace}.{x.ClassName}(),")
             .JoinToString("\n        ");
 
-        var jsonTypeInfoConfigurations = converters.AsValueEnumerable()
-            .Select(x => $"new {x.Namespace}.{x.ClassName}.ConfigureJsonTypeInfo,")
-            .JoinToString("\n        ");
+        var jsonTypeInfoConfigurations = converterType is EJsonConverterType.Polymorphic
+            ? converters.AsValueEnumerable()
+                .Select(x => $"{x.Namespace}.{x.ClassName}.ConfigureJsonTypeInfo,")
+                .JoinToString("\n        ")
+            : string.Empty;
 
         return new FileWithName(
             $"{jsonSerializerContext.ClassName}.g.cs",
