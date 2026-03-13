@@ -72,7 +72,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
  
         if (jsonTypeInfo.Type == typeof(LeafA<System.Int32>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -95,7 +95,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(LeafB<System.Int32>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -118,7 +118,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(LeafA<System.String>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -141,7 +141,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(LeafB<System.String>) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {

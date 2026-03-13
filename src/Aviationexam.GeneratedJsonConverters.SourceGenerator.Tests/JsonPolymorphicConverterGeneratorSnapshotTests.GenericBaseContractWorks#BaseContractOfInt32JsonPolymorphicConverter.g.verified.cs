@@ -58,7 +58,7 @@ internal class BaseContractOfInt32JsonPolymorphicConverter :
  
         if (jsonTypeInfo.Type == typeof(ApplicationNamespace.Contracts.IntLeafContract) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -81,7 +81,7 @@ internal class BaseContractOfInt32JsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(ApplicationNamespace.Contracts.StringLeafContract) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {

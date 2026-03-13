@@ -86,7 +86,7 @@ internal class BaseTypeJsonPolymorphicConverter :
  
         if (jsonTypeInfo.Type == typeof(SecondLevel1A) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -109,7 +109,7 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(SecondLevel1B) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -132,7 +132,7 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(FirstLevel1) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -155,7 +155,7 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(SecondLevel2A) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -178,7 +178,7 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(SecondLevel2B) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {
@@ -201,7 +201,7 @@ internal class BaseTypeJsonPolymorphicConverter :
 
         if (jsonTypeInfo.Type == typeof(FirstLevel2) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
         {
-            jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+            jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                 jsonTypeInfo.Options,
                 new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<string>
                 {

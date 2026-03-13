@@ -21,4 +21,9 @@ public partial class MyJsonSerializerContext
             optionsConverters.Add(converter);
         }
     }
+
+    public static System.Collections.Generic.IReadOnlyCollection<System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>> GetEnumJsonTypeInfoConfigurations() => new System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>[]
+    {
+        
+    };
 }
