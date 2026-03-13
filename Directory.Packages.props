@@ -6,11 +6,11 @@
 
   <!-- Build-time tools (analyzers and source generators) -->
   <ItemGroup>
-    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.0.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.0.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.3.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.3.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.3.0" />
     <PackageVersion Include="H.Generators.Extensions" Version="1.24.2" />
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
@@ -49,12 +49,12 @@
 
   <!-- Runtime packages -->
   <ItemGroup>
-    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.4" />
+    <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.5" />
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
-    <PackageVersion Include="System.Formats.Asn1" Version="10.0.4" />
-    <PackageVersion Include="System.IO.Pipelines" Version="10.0.4" />
-    <PackageVersion Include="System.Text.Encodings.Web" Version="10.0.4" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.3" />
+    <PackageVersion Include="System.Formats.Asn1" Version="10.0.5" />
+    <PackageVersion Include="System.IO.Pipelines" Version="10.0.5" />
+    <PackageVersion Include="System.Text.Encodings.Web" Version="10.0.5" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.5" />
     <PackageVersion Include="ZLinq" Version="1.5.5" />
   </ItemGroup>
 
@@ -77,7 +77,7 @@
   <!-- Transitive dependencies - Testing platform -->
   <ItemGroup>
     <PackageVersion Include="Microsoft.ApplicationInsights" Version="2.23.0" />
-    <PackageVersion Include="Microsoft.DiaSymReader" Version="2.2.4" />
+    <PackageVersion Include="Microsoft.DiaSymReader" Version="2.2.5" />
     <PackageVersion Include="Microsoft.Extensions.DependencyModel" Version="8.0.2" />
   </ItemGroup>
 
@@ -121,8 +121,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
-    <PackageVersion Include="Microsoft.Bcl.Memory" Version="10.0.4" />
-    <PackageVersion Include="System.Collections.Immutable" Version="10.0.4" />
+    <PackageVersion Include="Microsoft.Bcl.Memory" Version="10.0.5" />
+    <PackageVersion Include="System.Collections.Immutable" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
