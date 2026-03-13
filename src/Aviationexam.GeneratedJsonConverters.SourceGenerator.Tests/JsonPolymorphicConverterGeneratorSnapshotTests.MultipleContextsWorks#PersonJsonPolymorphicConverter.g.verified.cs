@@ -64,7 +64,7 @@ internal class PersonJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(Student),
                     Converter = null,
                     Getter = static _ => "Student",
@@ -87,7 +87,7 @@ internal class PersonJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(Teacher),
                     Converter = null,
                     Getter = static _ => "Teacher",

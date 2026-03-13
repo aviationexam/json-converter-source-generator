@@ -78,7 +78,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(LeafA<System.Int32>),
                     Converter = null,
                     Getter = static _ => "int_LeafA",
@@ -101,7 +101,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(LeafB<System.Int32>),
                     Converter = null,
                     Getter = static _ => "int_LeafB",
@@ -124,7 +124,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(LeafA<System.String>),
                     Converter = null,
                     Getter = static _ => "string_LeafA",
@@ -147,7 +147,7 @@ internal class BaseTypeOfTJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(LeafB<System.String>),
                     Converter = null,
                     Getter = static _ => "string_LeafB",

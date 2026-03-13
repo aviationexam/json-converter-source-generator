@@ -92,7 +92,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(SecondLevel1A),
                     Converter = null,
                     Getter = static _ => "SecondLevel1A",
@@ -115,7 +115,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(SecondLevel1B),
                     Converter = null,
                     Getter = static _ => "SecondLevel1B",
@@ -138,7 +138,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(FirstLevel1),
                     Converter = null,
                     Getter = static _ => "FirstLevel1",
@@ -161,7 +161,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(SecondLevel2A),
                     Converter = null,
                     Getter = static _ => "SecondLevel2A",
@@ -184,7 +184,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(SecondLevel2B),
                     Converter = null,
                     Getter = static _ => "SecondLevel2B",
@@ -207,7 +207,7 @@ internal class BaseTypeJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(FirstLevel2),
                     Converter = null,
                     Getter = static _ => "FirstLevel2",

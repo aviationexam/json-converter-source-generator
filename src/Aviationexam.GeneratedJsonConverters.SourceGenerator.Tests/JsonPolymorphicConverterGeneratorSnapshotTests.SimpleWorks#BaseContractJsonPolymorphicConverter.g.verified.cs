@@ -71,7 +71,7 @@ internal class BaseContractJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(ApplicationNamespace.Contracts.LeafContract),
                     Converter = null,
                     Getter = static _ => "LeafContract",
@@ -94,7 +94,7 @@ internal class BaseContractJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(ApplicationNamespace.Contracts.AnotherLeafContract),
                     Converter = null,
                     Getter = static _ => 2,
@@ -117,7 +117,7 @@ internal class BaseContractJsonPolymorphicConverter :
                 {
                     IsProperty = false,
                     IsPublic = true,
-                    IsVirtual = true,
+                    IsVirtual = false,
                     DeclaringType = typeof(ApplicationNamespace.Contracts.AnonymousLeafContract),
                     Converter = null,
                     Getter = static _ => "AnonymousLeafContract",

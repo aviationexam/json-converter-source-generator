@@ -22,6 +22,6 @@ public partial class MyJsonSerializerContext
 
     public static System.Collections.Generic.IReadOnlyCollection<System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>> GetPolymorphicJsonTypeInfoConfigurations() => new System.Action<System.Text.Json.Serialization.Metadata.JsonTypeInfo>[]
     {
-        new ApplicationNamespace.BaseContractJsonPolymorphicConverter.ConfigureJsonTypeInfo,
+        ApplicationNamespace.BaseContractJsonPolymorphicConverter.ConfigureJsonTypeInfo,
     };
 }
