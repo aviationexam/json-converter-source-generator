@@ -41,6 +41,7 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>([
                 "DiscriminatorStruct",
                 "IDiscriminatorStruct",
+                "IPolymorphicJsonConvertor",
                 "PolymorphicJsonConvertor",
             ]);
 

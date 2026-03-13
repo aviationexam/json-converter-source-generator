@@ -30,6 +30,7 @@ internal static class JsonPolymorphicConverterGenerator
 
         var typeForDiscriminatorStringBuilder = new StringBuilder();
         var discriminatorForInstanceStringBuilder = new StringBuilder();
+        var configureJsonTypeInfoStringBuilder = new StringBuilder();
         foreach (var derivedType in derivedTypes)
         {
             typeForDiscriminatorStringBuilder.Append(prefix);
@@ -42,15 +43,19 @@ internal static class JsonPolymorphicConverterGenerator
                 discriminator = new DiscriminatorStruct<string> { Value = derivedType.TargetType.Name };
             }
 
-            var (typeForDiscriminatorCase, discriminatorForTypeCase) = discriminator switch
+            var (typeForDiscriminatorCase, discriminatorForTypeCase, discriminatorType, discriminatorValue) = discriminator switch
             {
                 DiscriminatorStruct<string> discriminatorString => (
                     $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> {{ Value: \"{discriminatorString.Value}\" }}",
-                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");"
+                    $"    return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string>(\"{discriminatorString.Value}\");",
+                    "string",
+                    $"\"{discriminatorString.Value}\""
                 ),
                 DiscriminatorStruct<int> discriminatorInt => (
                     $"Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int> {{ Value: {discriminatorInt.Value} }}",
-                    $"{halfPrefix}return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});"
+                    $"{halfPrefix}return new Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<int>({discriminatorInt.Value});",
+                    "int",
+                    $"{discriminatorInt.Value}"
                 ),
                 _ => throw new ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
             };
@@ -72,6 +77,35 @@ internal static class JsonPolymorphicConverterGenerator
             discriminatorForInstanceStringBuilder.AppendLine(discriminatorForTypeCase);
             discriminatorForInstanceStringBuilder.Append(prefix);
             discriminatorForInstanceStringBuilder.AppendLine("}");
+
+            configureJsonTypeInfoStringBuilder.AppendLine(
+                // language=cs
+                $$"""
+
+                if (jsonTypeInfo.Type == typeof({{fullTargetType}}) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
+                {
+                    jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                        jsonTypeInfo.Options,
+                        new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<{{discriminatorType}}>
+                        {
+                            IsProperty = false,
+                            IsPublic = true,
+                            IsVirtual = false,
+                            DeclaringType = typeof({{fullTargetType}}),
+                            Converter = null,
+                            Getter = static _ => {{discriminatorValue}},
+                            Setter = null,
+                            IgnoreCondition = null,
+                            HasJsonInclude = false,
+                            IsExtensionData = false,
+                            NumberHandling = null,
+                            PropertyName = "__jsonTypeDiscriminator",
+                            JsonPropertyName = "{{discriminatorPropertyName}}"
+                        }
+                    ));
+                }
+                """.Replace("\n", $"\n{prefix}")
+            );
         }
 
         return new FileWithName(
@@ -82,11 +116,27 @@ internal static class JsonPolymorphicConverterGenerator
 
               namespace {{targetNamespace}};
 
-              internal class {{converterName}} : Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{fullName}}>
+              internal class {{converterName}} :
+                  Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{converterName}}, {{fullName}}>,
+                  Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<{{fullName}}>
               {
-                  protected override System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
+                  #if !NET7_0_OR_GREATER
 
-                  protected override System.Type GetTypeForDiscriminator(
+                  protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
+
+                  protected override System.Type Self_GetTypeForDiscriminator(
+                      Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
+                  ) => GetTypeForDiscriminator(discriminator);
+
+                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
+                      TInstance instance, out System.Type targetType
+                  ) => GetDiscriminatorForInstance<TInstance>(instance, out targetType);
+
+                  #endif
+
+                  public static System.ReadOnlySpan<byte> GetDiscriminatorPropertyName() => "{{discriminatorPropertyName}}"u8;
+
+                  public static System.Type GetTypeForDiscriminator(
                       Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct discriminator
                   ) => discriminator switch
                   {
@@ -94,12 +144,17 @@ internal static class JsonPolymorphicConverterGenerator
                       _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
                   };
 
-                  protected override Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
+                  public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
                       TInstance instance, out System.Type targetType
-                  )
+                  ) where TInstance : {{fullName}}
                   {
               {{discriminatorForInstanceStringBuilder}}
                       throw new System.ArgumentOutOfRangeException(nameof(instance), instance, null);
+                  }
+
+                  public static void ConfigureJsonTypeInfo(System.Text.Json.Serialization.Metadata.JsonTypeInfo jsonTypeInfo)
+                  {
+               {{configureJsonTypeInfoStringBuilder}}
                   }
               }
               """

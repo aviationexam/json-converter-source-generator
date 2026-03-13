@@ -1,6 +1,7 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -10,13 +11,29 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public partial class BaseContractWithCustomDelimiterSerializationTests
 {
+    private JsonSerializerOptions CreateMySecondJsonSerializerOptions()
+    {
+        IJsonTypeInfoResolver jsonTypeInfoResolver = MySecondJsonSerializerContext.Default;
+        foreach (var jsonTypeInfoConfiguration in MySecondJsonSerializerContext.GetPolymorphicJsonTypeInfoConfigurations())
+        {
+            jsonTypeInfoResolver = jsonTypeInfoResolver.WithAddedModifier(jsonTypeInfoConfiguration);
+        }
+
+        var jsonOptions = new JsonSerializerOptions(MySecondJsonSerializerContext.Default.Options)
+        {
+            TypeInfoResolver = jsonTypeInfoResolver,
+        };
+
+        return jsonOptions;
+    }
+
     [Theory]
     [MemberData(nameof(BaseJsonContractData))]
     public void DeserializeBaseContractWorks_withMySecondJsonSerializerContext(string json, Type targetType)
     {
         var baseContract = JsonSerializer.Deserialize<BaseContractWithCustomDelimiter>(
             json,
-            MySecondJsonSerializerContext.Default.Options
+            CreateMySecondJsonSerializerOptions()
         );
 
         Assert.NotNull(baseContract);
@@ -35,7 +52,7 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
     {
         var json = JsonSerializer.Serialize(
             contract,
-            MySecondJsonSerializerContext.Default.Options
+            CreateMySecondJsonSerializerOptions()
         );
 
         var settings = new VerifySettings();

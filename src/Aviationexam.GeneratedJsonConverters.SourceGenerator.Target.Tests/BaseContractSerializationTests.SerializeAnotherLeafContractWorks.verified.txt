@@ -1,0 +1,5 @@
+﻿{
+  $type: 2,
+  anotherLeafProperty: 2,
+  baseProperty: 1
+}
