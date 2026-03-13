@@ -6,7 +6,6 @@ using System;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
@@ -69,8 +68,6 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        writer.WriteStartObject();
-
         var discriminatorPropertyName =
 #if NET7_0_OR_GREATER
             TConverter.GetDiscriminatorPropertyName();
@@ -84,6 +81,20 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
             Self_GetDiscriminatorForInstance(value, out var instanceType);
 #endif
 
+        var typeInfo = options.GetTypeInfo(instanceType);
+
+        if (
+            typeInfo.Properties.Count > 0
+            && Encoding.UTF8.GetBytes(typeInfo.Properties[0].Name).SequenceEqual(discriminatorPropertyName)
+        )
+        {
+            JsonSerializer.Serialize(writer, value, typeInfo);
+
+            return;
+        }
+
+        writer.WriteStartObject();
+
         if (discriminatorValue is DiscriminatorStruct<string> discriminatorString)
         {
             writer.WriteString(discriminatorPropertyName, discriminatorString.Value);
@@ -92,8 +103,6 @@ internal abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<
         {
             writer.WriteNumber(discriminatorPropertyName, discriminatorInt.Value);
         }
-
-        var typeInfo = options.GetTypeInfo(instanceType);
 
         foreach (var p in typeInfo.Properties)
         {
