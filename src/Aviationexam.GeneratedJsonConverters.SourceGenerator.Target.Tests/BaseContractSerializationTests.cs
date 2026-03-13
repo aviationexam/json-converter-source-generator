@@ -2,6 +2,8 @@ using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Threading.Tasks;
+using VerifyXunit;
 using Xunit;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
@@ -47,6 +49,36 @@ public class BaseContractSerializationTests
         );
 
         Assert.Equal(expectedJson, json);
+    }
+
+    [Fact]
+    public Task SerializeLeafContractWorks()
+    {
+        var json = JsonSerializer.Serialize(
+            new LeafContract
+            {
+                BaseProperty = 1,
+                LeafProperty = 2
+            },
+            MyJsonSerializerContext.Default.Options
+        );
+
+        return Verifier.VerifyJson(json);
+    }
+
+    [Fact]
+    public Task SerializeAnotherLeafContractWorks()
+    {
+        var json = JsonSerializer.Serialize(
+            new AnotherLeafContract
+            {
+                BaseProperty = 1,
+                AnotherLeafProperty = 2
+            },
+            MyJsonSerializerContext.Default.Options
+        );
+
+        return Verifier.VerifyJson(json);
     }
 
     public static IEnumerable<object[]> BaseJsonContractData()
@@ -137,10 +169,9 @@ public class BaseContractSerializationTests
         ];
     }
 
-    public static IEnumerable<object[]> LeafContractData()
+    public static TheoryData<BaseContract, string> LeafContractData() => new()
     {
-        yield return
-        [
+        {
             new LeafContract
             {
                 BaseProperty = 1,
@@ -148,15 +179,14 @@ public class BaseContractSerializationTests
             },
             // language=json
             """
-            {
-              "$type": "LeafContract",
-              "leafProperty": 2,
-              "baseProperty": 1
-            }
-            """.Replace("\r\n", Environment.NewLine),
-        ];
-        yield return
-        [
+                {
+                  "$type": "LeafContract",
+                  "leafProperty": 2,
+                  "baseProperty": 1
+                }
+                """.Replace("\r\n", Environment.NewLine)
+        },
+        {
             new AnotherLeafContract
             {
                 BaseProperty = 1,
@@ -164,15 +194,14 @@ public class BaseContractSerializationTests
             },
             // language=json
             """
-            {
-              "$type": 2,
-              "anotherLeafProperty": 2,
-              "baseProperty": 1
-            }
-            """.Replace("\r\n", Environment.NewLine),
-        ];
-        yield return
-        [
+                {
+                  "$type": 2,
+                  "anotherLeafProperty": 2,
+                  "baseProperty": 1
+                }
+                """.Replace("\r\n", Environment.NewLine)
+        },
+        {
             new GenericLeafContract
             {
                 BaseProperty = 1,
@@ -180,12 +209,12 @@ public class BaseContractSerializationTests
             },
             // language=json
             """
-            {
-              "$type": "GenericLeafContract",
-              "property": 2,
-              "baseProperty": 1
-            }
-            """.Replace("\r\n", Environment.NewLine),
-        ];
-    }
+                {
+                  "$type": "GenericLeafContract",
+                  "property": 2,
+                  "baseProperty": 1
+                }
+                """.Replace("\r\n", Environment.NewLine)
+        }
+    };
 }

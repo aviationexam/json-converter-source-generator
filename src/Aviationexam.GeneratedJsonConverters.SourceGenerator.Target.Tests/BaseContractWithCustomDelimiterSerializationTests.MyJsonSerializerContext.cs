@@ -43,4 +43,19 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
 
         return Verifier.VerifyJson(json, settings);
     }
+
+    [Fact]
+    public Task SerializeLeafContractWithCustomDelimiterWorks()
+    {
+        var json = JsonSerializer.Serialize(
+            new LeafContractWithCustomDelimiter
+            {
+                BaseProperty = 1,
+                LeafProperty = 2
+            },
+            MyJsonSerializerContext.Default.Options
+        );
+
+        return Verifier.VerifyJson(json);
+    }
 }

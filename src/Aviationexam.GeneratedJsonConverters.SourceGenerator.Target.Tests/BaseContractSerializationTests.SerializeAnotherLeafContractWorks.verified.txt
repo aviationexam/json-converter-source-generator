@@ -1,0 +1,4 @@
+﻿{
+  anotherLeafProperty: 2,
+  baseProperty: 1
+}
