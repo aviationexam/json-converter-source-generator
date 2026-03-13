@@ -11,7 +11,10 @@ internal static class JsonSerializableAttributeParser
     {
         var semanticModel = context.SemanticModel;
 
-        if (attributeSyntax.ArgumentList is { Arguments: [{ Expression: TypeOfExpressionSyntax typeOfExpressionSyntax }] })
+        if (
+            attributeSyntax.ArgumentList is { Arguments: { Count: > 0 } arguments }
+            && arguments[0] is { Expression: TypeOfExpressionSyntax typeOfExpressionSyntax }
+        )
         {
             return semanticModel.GetTypeInfo(typeOfExpressionSyntax.Type).Type;
         }

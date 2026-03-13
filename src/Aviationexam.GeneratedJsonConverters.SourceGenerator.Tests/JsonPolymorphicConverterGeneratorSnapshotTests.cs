@@ -97,6 +97,50 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
     );
 
     [Fact]
+    public Task UsingGenerationModeWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [JsonPolymorphic]
+        [JsonDerivedType(typeof(LeafContract), typeDiscriminator: nameof(LeafContract))]
+        [JsonDerivedType(typeof(AnotherLeafContract), typeDiscriminator: 2)]
+        [JsonDerivedType(typeof(AnonymousLeafContract))]
+        public abstract class BaseContract
+        {
+        }
+
+        public sealed class LeafContract : BaseContract
+        {
+        }
+
+        public sealed class AnotherLeafContract : BaseContract
+        {
+        }
+
+        public sealed class AnonymousLeafContract : BaseContract
+        {
+        }
+        """,
+        """
+        using ApplicationNamespace.Contracts;
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        [JsonSerializable(typeof(BaseContract))]
+        [JsonSerializable(typeof(LeafContract), GenerationMode = JsonSourceGenerationMode.Metadata)]
+        [JsonSerializable(typeof(AnotherLeafContract), GenerationMode = JsonSourceGenerationMode.Metadata)]
+        [JsonSerializable(typeof(AnonymousLeafContract), GenerationMode = JsonSourceGenerationMode.Metadata)]
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
+
+    [Fact]
     public Task CustomDiscriminatorWorks() => TestHelper.Verify<JsonPolymorphicConverterIncrementalGenerator>(
         // ReSharper disable once HeapView.ObjectAllocation
         """
