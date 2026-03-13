@@ -1,4 +1,5 @@
 ﻿{
+  $type: LeafContract,
   leafProperty: 2,
   baseProperty: 1
 }

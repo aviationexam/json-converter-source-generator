@@ -2,6 +2,7 @@ using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using VerifyXunit;
 using Xunit;
@@ -10,13 +11,29 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public class BaseContractSerializationTests
 {
+    private JsonSerializerOptions CreateJsonSerializerOptions()
+    {
+        IJsonTypeInfoResolver jsonTypeInfoResolver = MyJsonSerializerContext.Default;
+        foreach (var jsonTypeInfoConfiguration in MyJsonSerializerContext.GetPolymorphicJsonTypeInfoConfigurations())
+        {
+            jsonTypeInfoResolver = jsonTypeInfoResolver.WithAddedModifier(jsonTypeInfoConfiguration);
+        }
+
+        var jsonOptions = new JsonSerializerOptions(MyJsonSerializerContext.Default.Options)
+        {
+            TypeInfoResolver = jsonTypeInfoResolver,
+        };
+
+        return jsonOptions;
+    }
+
     [Theory]
     [MemberData(nameof(BaseJsonContractData))]
     public void DeserializeBaseContractWorks(string json, Type targetType)
     {
         var baseContract = JsonSerializer.Deserialize<BaseContract>(
             json,
-            MyJsonSerializerContext.Default.Options
+            CreateJsonSerializerOptions()
         );
 
         Assert.NotNull(baseContract);
@@ -45,11 +62,12 @@ public class BaseContractSerializationTests
     {
         var json = JsonSerializer.Serialize(
             contract,
-            MyJsonSerializerContext.Default.Options
+            CreateJsonSerializerOptions()
         );
 
         Assert.Equal(expectedJson, json);
     }
+
 
     [Fact]
     public Task SerializeLeafContractWorks()
@@ -60,7 +78,7 @@ public class BaseContractSerializationTests
                 BaseProperty = 1,
                 LeafProperty = 2
             },
-            MyJsonSerializerContext.Default.Options
+            CreateJsonSerializerOptions()
         );
 
         return Verifier.VerifyJson(json);
@@ -75,7 +93,7 @@ public class BaseContractSerializationTests
                 BaseProperty = 1,
                 AnotherLeafProperty = 2
             },
-            MyJsonSerializerContext.Default.Options
+            CreateJsonSerializerOptions()
         );
 
         return Verifier.VerifyJson(json);

@@ -1,6 +1,7 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.ContractWithCustomDelimiter;
 using System;
 using System.Text.Json;
+using System.Text.Json.Serialization.Metadata;
 using System.Threading.Tasks;
 using VerifyTests;
 using VerifyXunit;
@@ -10,13 +11,29 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests;
 
 public partial class BaseContractWithCustomDelimiterSerializationTests
 {
+    private JsonSerializerOptions CreateMyJsonSerializerOptions()
+    {
+        IJsonTypeInfoResolver jsonTypeInfoResolver = MyJsonSerializerContext.Default;
+        foreach (var jsonTypeInfoConfiguration in MyJsonSerializerContext.GetPolymorphicJsonTypeInfoConfigurations())
+        {
+            jsonTypeInfoResolver = jsonTypeInfoResolver.WithAddedModifier(jsonTypeInfoConfiguration);
+        }
+
+        var jsonOptions = new JsonSerializerOptions(MyJsonSerializerContext.Default.Options)
+        {
+            TypeInfoResolver = jsonTypeInfoResolver,
+        };
+
+        return jsonOptions;
+    }
+
     [Theory]
     [MemberData(nameof(BaseJsonContractData))]
     public void DeserializeBaseContractWorks(string json, Type targetType)
     {
         var baseContract = JsonSerializer.Deserialize<BaseContractWithCustomDelimiter>(
             json,
-            MyJsonSerializerContext.Default.Options
+            CreateMyJsonSerializerOptions()
         );
 
         Assert.NotNull(baseContract);
@@ -35,7 +52,7 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
     {
         var json = JsonSerializer.Serialize(
             contract,
-            MyJsonSerializerContext.Default.Options
+            CreateMyJsonSerializerOptions()
         );
 
         var settings = new VerifySettings();
@@ -53,7 +70,7 @@ public partial class BaseContractWithCustomDelimiterSerializationTests
                 BaseProperty = 1,
                 LeafProperty = 2
             },
-            MyJsonSerializerContext.Default.Options
+            CreateMyJsonSerializerOptions()
         );
 
         return Verifier.VerifyJson(json);
