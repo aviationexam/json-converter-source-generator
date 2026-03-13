@@ -84,13 +84,13 @@ internal static class JsonPolymorphicConverterGenerator
 
                 if (jsonTypeInfo.Type == typeof({{fullTargetType}}) && jsonTypeInfo.Kind is System.Text.Json.Serialization.Metadata.JsonTypeInfoKind.Object)
                 {
-                    jsonTypeInfo.Properties.Add(System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
+                    jsonTypeInfo.Properties.Insert(0, System.Text.Json.Serialization.Metadata.JsonMetadataServices.CreatePropertyInfo(
                         jsonTypeInfo.Options,
                         new System.Text.Json.Serialization.Metadata.JsonPropertyInfoValues<{{discriminatorType}}>
                         {
                             IsProperty = false,
                             IsPublic = true,
-                            IsVirtual = true,
+                            IsVirtual = false,
                             DeclaringType = typeof({{fullTargetType}}),
                             Converter = null,
                             Getter = static _ => {{discriminatorValue}},
