@@ -23,14 +23,19 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
             var grouping in
             resultWithDiagnostics
                 .AsValueEnumerable()
-                .GroupBy(r => r.Result
+                .SelectMany(r => r.Result
                     .JsonSerializableCollection
                     .AsValueEnumerable()
-                    .Select(c => c.JsonSerializableAttributeTypeArgument.ToDisplayString(
-                        JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
+                    .Select(c => (
+                        r.Result.JsonSerializerContextClassType,
+                        r.Result.Metadata,
+                        r.Diagnostics,
+                        Serializable: c
                     ))
-                    .JoinToString(',')
                 )
+                .GroupBy(c => c.Serializable.JsonSerializableAttributeTypeArgument.ToDisplayString(
+                    JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments
+                ))
                 .Select(r => r.AsValueEnumerable().ToList())
                 .ToList()
         )
@@ -39,13 +44,13 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
 
             var jsonSerializerContextClassTypes = new List<EquatableArray<ISymbol>>();
             PolymorphicJsonSerializerMetadata? jsonPolymorphicMetadata = null;
-            var jsonSerializableCollections = new List<EquatableArray<JsonSerializableConfiguration>>();
+            var jsonSerializableCollections = new List<JsonSerializableConfiguration>();
             var diagnostics = new List<EquatableArray<Diagnostic>>();
             foreach (var item in grouping)
             {
-                jsonSerializerContextClassTypes.Add(item.Result.JsonSerializerContextClassType);
-                jsonPolymorphicMetadata ??= item.Result.Metadata;
-                jsonSerializableCollections.Add(item.Result.JsonSerializableCollection);
+                jsonSerializerContextClassTypes.Add(item.JsonSerializerContextClassType);
+                jsonPolymorphicMetadata ??= item.Metadata;
+                jsonSerializableCollections.Add(item.Serializable);
                 diagnostics.Add(item.Diagnostics);
             }
 
@@ -61,7 +66,6 @@ internal static class PolymorphicJsonSerializerContextConfigurationMerger
                 jsonPolymorphicMetadata,
                 jsonSerializableCollections
                     .AsValueEnumerable()
-                    .SelectMany(static x => x)
                     .DistinctBy(c => c
                         .JsonSerializableAttributeTypeArgument.ToDisplayString(
                             JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments

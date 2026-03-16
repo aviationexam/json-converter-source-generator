@@ -57,11 +57,13 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             .Select(PolymorphicJsonSerializerContextConfigurationFilter.FilterJsonSerializerContextConfiguration)
             .MergeJsonSerializerContextConfiguration()
             .SelectAndReportExceptions(GetSourceCode, context, Id)
+            .CollectAsEquatableArray()
+            .SelectAndReportExceptions(GetConverterSourceCode, context, Id)
             .SelectAndReportDiagnostics(context)
             .AddSource(context);
     }
 
-    private static ResultWithDiagnostics<EquatableArray<FileWithName>> GetSourceCode(
+    private static ResultWithDiagnostics<PolymorphicJsonConverterProduced> GetSourceCode(
         ResultWithDiagnostics<PolymorphicJsonSerializerContextConfiguration> resultObject,
         CancellationToken cancellationToken
     )
@@ -70,15 +72,16 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
         if (context.JsonSerializableCollection.IsEmpty)
         {
-            return ImmutableArray<FileWithName>.Empty
-                .AsEquatableArray()
-                .ToResultWithDiagnostics(resultObject.Diagnostics);
+            return new PolymorphicJsonConverterProduced(
+                ImmutableArray<FileWithName>.Empty.AsEquatableArray(),
+                ImmutableArray<JsonConverterWithJsonContexts>.Empty.AsEquatableArray()
+            ).ToResultWithDiagnostics(resultObject.Diagnostics);
         }
 
         var diagnostics = resultObject.Diagnostics.AsImmutableArray();
 
         var files = new List<FileWithName>();
-        var converters = new Dictionary<string, ICollection<JsonConverter>>();
+        var converters = new List<JsonConverterWithJsonContexts>();
 
         foreach (var jsonSerializableConfiguration in context.JsonSerializableCollection)
         {
@@ -125,22 +128,17 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             }
 
             foreach (
-                var jsonSerializerContextClassType
+                var grouping
                 in context.JsonSerializerContextClassType
                     .AsValueEnumerable()
                     .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormat))
-                    .Select(static x => x.AsValueEnumerable().First())
             )
             {
+                var jsonSerializerContextClassType = grouping.AsValueEnumerable().First();
+
                 var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
                     ? EmptyPolymorphicNamespace
                     : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
-
-                if (!converters.TryGetValue(convertersTargetNamespace, out var convertersCollection))
-                {
-                    convertersCollection = new List<JsonConverter>();
-                    converters.Add(convertersTargetNamespace, convertersCollection);
-                }
 
                 files.Add(JsonPolymorphicConverterGenerator.Generate(
                     convertersTargetNamespace,
@@ -150,36 +148,20 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
                     out var converterName
                 ));
 
-                convertersCollection.Add(new JsonConverter(
-                    convertersTargetNamespace,
-                    converterName
-                ));
+                converters.AddRange(grouping.AsValueEnumerable().Select(x => new JsonConverterWithJsonContexts(
+                    x,
+                    new JsonConverter(
+                        convertersTargetNamespace,
+                        converterName
+                    )
+                )).ToList());
             }
         }
 
-        if (converters.Count > 0)
-        {
-            foreach (
-                var jsonSerializerContextClassType
-                in context.JsonSerializerContextClassType
-                    .AsValueEnumerable()
-                    .GroupBy(static x => x.ContainingNamespace.ToDisplayString(NamespaceFormatWithGenericArguments))
-                    .SelectMany(static x => x)
-            )
-            {
-                var convertersTargetNamespace = jsonSerializerContextClassType.ContainingNamespace.IsGlobalNamespace
-                    ? EmptyPolymorphicNamespace
-                    : jsonSerializerContextClassType.ContainingNamespace.ToDisplayString(NamespaceFormat);
-
-                files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
-                    EJsonConverterType.Polymorphic,
-                    jsonSerializerContextClassType,
-                    [.. converters[convertersTargetNamespace]]
-                ));
-            }
-        }
-
-        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
+        return new PolymorphicJsonConverterProduced(
+            files.ToImmutableArray().AsEquatableArray(),
+            converters.ToImmutableArray().AsEquatableArray()
+        ).ToResultWithDiagnostics(diagnostics);
     }
 
     private static IReadOnlyCollection<JsonDerivedTypeConfiguration> SortDerivedTypes(
@@ -246,5 +228,40 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         }
 
         return result;
+    }
+
+    private static ResultWithDiagnostics<EquatableArray<FileWithName>> GetConverterSourceCode(
+        EquatableArray<ResultWithDiagnostics<PolymorphicJsonConverterProduced>> resultObject,
+        CancellationToken cancellationToken
+    )
+    {
+        if (resultObject.IsEmpty)
+        {
+            return ImmutableArray<FileWithName>.Empty
+                .AsEquatableArray()
+                .ToResultWithDiagnostics();
+        }
+
+        var files = resultObject.AsValueEnumerable().SelectMany(x => x.Result.Files).ToList();
+        var producedConverters = resultObject.AsValueEnumerable().SelectMany(x => x.Result.ProducedConverters).ToList();
+        var diagnostics = resultObject.AsValueEnumerable().SelectMany(x => x.Diagnostics).ToList();
+
+        foreach (
+            var item
+            in producedConverters.AsValueEnumerable()
+                .GroupBy(x => x.JsonSerializerContextClassType)
+        )
+        {
+            var jsonSerializerContextClassType = item.AsValueEnumerable().Select(x => x.JsonSerializerContextClassType).First();
+            var converters = item.AsValueEnumerable().Select(x => x.Converter).ToList();
+
+            files.Add(JsonConvertersSerializerJsonContextGenerator.Generate(
+                EJsonConverterType.Polymorphic,
+                jsonSerializerContextClassType,
+                converters
+            ));
+        }
+
+        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics([..diagnostics]);
     }
 }

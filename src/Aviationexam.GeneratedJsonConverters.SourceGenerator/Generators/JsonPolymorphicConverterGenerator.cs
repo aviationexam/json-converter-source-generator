@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ZLinq;
 
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 
@@ -25,11 +24,6 @@ internal static class JsonPolymorphicConverterGenerator
         var fullName = jsonSerializableAttributeTypeArgument.ToDisplayString(JsonPolymorphicConverterIncrementalGenerator.NamespaceFormatWithGenericArguments);
 
         var discriminatorPropertyName = jsonPolymorphicConfiguration?.DiscriminatorPropertyName ?? DefaultTypeDiscriminatorPropertyName;
-
-
-        derivedTypes = derivedTypes.AsValueEnumerable()
-            .Where(x => true)
-            .ToList();
 
         const string halfPrefix = "    ";
         const string prefix = $"{halfPrefix}{halfPrefix}";
