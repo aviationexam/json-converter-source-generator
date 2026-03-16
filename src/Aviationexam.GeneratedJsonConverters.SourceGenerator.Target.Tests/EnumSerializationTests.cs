@@ -33,9 +33,15 @@ public class EnumSerializationTests
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.Read | EFlagsEnum.Write, "[\n  \"Read\",\n  \"Write\"\n]")]
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.None, "[\n  \"None\"\n]")]
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.Read | EFlagsEnum.Write | EFlagsEnum.Execute, "[\n  \"Read\",\n  \"Write\",\n  \"Execute\"\n]")]
+#pragma warning disable xUnit1025
+    [InlineData(typeof(EFlagsEnum), EFlagsEnum.ReadWrite, "[\n  \"Read\",\n  \"Write\"\n]")]
+#pragma warning restore xUnit1025
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.Read, "[\n  1\n]")]
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.Read | EFlagsBackingEnum.Write, "[\n  1,\n  2\n]")]
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.None, "[\n  0\n]")]
+#pragma warning disable xUnit1025
+    [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.ReadWrite, "[\n  1,\n  2\n]")]
+#pragma warning restore xUnit1025
     public void SerializeEnumWorks(
         Type type,
         object enumValue,
@@ -76,9 +82,15 @@ public class EnumSerializationTests
 #pragma warning restore xUnit1025
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.Read, "[\"Read\"]")]
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.Read | EFlagsEnum.Write, "[\"Read\",\"Write\"]")]
+#pragma warning disable xUnit1025
+    [InlineData(typeof(EFlagsEnum), EFlagsEnum.ReadWrite, "[\"Read\",\"Write\"]")]
+#pragma warning restore xUnit1025
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.None, "[]")]
     [InlineData(typeof(EFlagsEnum), EFlagsEnum.Read, "\"Read\"")]
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.Read | EFlagsBackingEnum.Write, "[1,2]")]
+#pragma warning disable xUnit1025
+    [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.ReadWrite, "[1,2]")]
+#pragma warning restore xUnit1025
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.None, "[]")]
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.Read, "1")]
     [InlineData(typeof(EFlagsBackingEnum), EFlagsBackingEnum.Read, "[1]")]

@@ -35,6 +35,11 @@ internal class EFlagsEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverter
             value = ApplicationNamespace.Contracts.EFlagsEnum.Execute;
             return true;
         }
+        if (System.MemoryExtensions.SequenceEqual(enumName, "ReadWrite"u8))
+        {
+            value = ApplicationNamespace.Contracts.EFlagsEnum.ReadWrite;
+            return true;
+        }
 
         value = default(ApplicationNamespace.Contracts.EFlagsEnum);
         return false;
@@ -56,6 +61,7 @@ internal class EFlagsEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverter
         ApplicationNamespace.Contracts.EFlagsEnum.Read => "Read"u8,
         ApplicationNamespace.Contracts.EFlagsEnum.Write => "Write"u8,
         ApplicationNamespace.Contracts.EFlagsEnum.Execute => "Execute"u8,
+        ApplicationNamespace.Contracts.EFlagsEnum.ReadWrite => "ReadWrite"u8,
         _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum 'ApplicationNamespace.Contracts.EFlagsEnum'"),
     };
 

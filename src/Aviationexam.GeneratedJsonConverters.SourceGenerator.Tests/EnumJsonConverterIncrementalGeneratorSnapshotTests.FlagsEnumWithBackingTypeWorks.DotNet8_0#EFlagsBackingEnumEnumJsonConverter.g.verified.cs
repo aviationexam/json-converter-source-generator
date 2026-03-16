@@ -25,6 +25,7 @@ internal class EFlagsBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonCo
             1 => (true, ApplicationNamespace.Contracts.EFlagsBackingEnum.Read),
             2 => (true, ApplicationNamespace.Contracts.EFlagsBackingEnum.Write),
             4 => (true, ApplicationNamespace.Contracts.EFlagsBackingEnum.Execute),
+            3 => (true, ApplicationNamespace.Contracts.EFlagsBackingEnum.ReadWrite),
             _ => (false, default(ApplicationNamespace.Contracts.EFlagsBackingEnum)),
         };
 
@@ -39,6 +40,7 @@ internal class EFlagsBackingEnumEnumJsonConverter : Aviationexam.GeneratedJsonCo
         ApplicationNamespace.Contracts.EFlagsBackingEnum.Read => 1,
         ApplicationNamespace.Contracts.EFlagsBackingEnum.Write => 2,
         ApplicationNamespace.Contracts.EFlagsBackingEnum.Execute => 4,
+        ApplicationNamespace.Contracts.EFlagsBackingEnum.ReadWrite => 3,
         _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum 'ApplicationNamespace.Contracts.EFlagsBackingEnum'"),
     };
 
