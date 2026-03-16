@@ -89,11 +89,17 @@ internal static class EnumJsonConverterGenerator
             return null;
         }
 
-        var serializationStrategy = enumJsonConverterConfiguration.SerializationStrategy;
-        if (serializationStrategy == EnumSerializationStrategy.ProjectDefault)
+        var serializationStrategies = enumJsonConverterConfiguration.SerializationStrategies;
+        if (serializationStrategies.IsEmpty)
         {
-            serializationStrategy = enumJsonConverterOptions.DefaultEnumSerializationStrategy;
+            serializationStrategies = [enumJsonConverterOptions.DefaultEnumSerializationStrategy];
         }
+
+        var serializationStrategyEnum = serializationStrategies[0];
+        var serializationStrategyFormatted = serializationStrategies
+            .AsValueEnumerable()
+            .Select(x => $"Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{x}")
+            .JoinToString(" | ");
 
         var deserializationStrategies = enumJsonConverterConfiguration.DeserializationStrategies;
         if (deserializationStrategies.IsEmpty)
@@ -108,8 +114,8 @@ internal static class EnumJsonConverterGenerator
 
         var toEnumFromString = GenerateToEnumFromString(deserializationStrategies, fullName, fieldNameDeserialization);
         var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
-        var toStringFromEnum = GenerateToStringFromEnum(serializationStrategy, fullName, fieldNameSerialization);
-        var toBackingTypeFromEnum = GenerateToBackingTypeFromEnum(serializationStrategy, fullName, backingTypeSerialization);
+        var toStringFromEnum = GenerateToStringFromEnum(serializationStrategyEnum, fullName, fieldNameSerialization);
+        var toBackingTypeFromEnum = GenerateToBackingTypeFromEnum(serializationStrategyEnum, fullName, backingTypeSerialization);
 
         return new FileWithName(
             $"{converterName}.g.cs",
@@ -125,7 +131,7 @@ internal static class EnumJsonConverterGenerator
 
                   protected override Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy DeserializationStrategy => {{deserializationStrategy}};
 
-                  protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{{serializationStrategy}};
+                   protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => {{serializationStrategyFormatted}};
 
                   public override bool TryToEnum(
                       System.ReadOnlySpan<byte> enumName, out {{fullName}} value
