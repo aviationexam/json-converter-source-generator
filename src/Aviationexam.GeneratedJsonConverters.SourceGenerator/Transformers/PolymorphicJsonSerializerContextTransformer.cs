@@ -1,6 +1,7 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
                     // return the enum
                     jsonConverterConfiguration.Add(new JsonSerializableConfiguration(
+                        (CSharpCompilation) context.SemanticModel.Compilation,
                         jsonSerializableAttributeTypeArgument
                     ));
                 }

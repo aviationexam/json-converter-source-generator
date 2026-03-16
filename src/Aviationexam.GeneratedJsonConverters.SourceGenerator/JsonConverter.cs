@@ -1,6 +1,6 @@
 namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
-public sealed record JsonConverter(
+public readonly record struct JsonConverter(
     string Namespace,
     string ClassName
 );
