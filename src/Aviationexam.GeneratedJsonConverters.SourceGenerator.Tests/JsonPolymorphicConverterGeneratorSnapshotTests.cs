@@ -260,12 +260,23 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
 
         namespace ApplicationNamespace.Contracts;
 
+        [JsonPolymorphic]
+        [JsonDerivedType<LeafContract>(typeDiscriminator: nameof(LeafContract))]
+        public abstract class BaseContract
+        {
+            public int BaseProperty { get; set; }
+        }
+
         [JsonPolymorphic(TypeDiscriminatorPropertyName = "myCustomDiscriminator")]
         [JsonDerivedType<Leaf1Contract<A>>(typeDiscriminator: "Leaf1_A")]
         [JsonDerivedType<Leaf1Contract<B>>(typeDiscriminator: "Leaf1_B")]
         [JsonDerivedType<Leaf2Contract<A>>(typeDiscriminator: "Leaf2_A")]
         [JsonDerivedType<Leaf2Contract<B>>(typeDiscriminator: "Leaf2_B")]
         public abstract class BaseContract<T> where T : class
+        {
+        }
+
+        public sealed class LeafContract : BaseContract
         {
         }
 
@@ -291,6 +302,8 @@ public class JsonPolymorphicConverterGeneratorSnapshotTests
 
         namespace ApplicationNamespace;
 
+        [JsonSerializable(typeof(BaseContract))]
+        [JsonSerializable(typeof(LeafContract))]
         [JsonSerializable(typeof(BaseContract<A>))]
         [JsonSerializable(typeof(BaseContract<B>))]
         [JsonSerializable(typeof(BaseContract<B>))] // test that duplicated attribute does not kill generator
