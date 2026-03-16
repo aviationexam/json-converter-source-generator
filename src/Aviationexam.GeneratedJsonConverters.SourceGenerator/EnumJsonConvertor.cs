@@ -23,12 +23,19 @@ internal abstract class EnumJsonConvertor<T> : JsonConverter<T>
     public abstract bool TryToEnum(ReadOnlySpan<byte> enumName, out T value);
 
     public abstract ReadOnlySpan<byte> ToFirstEnumName(T value);
+
+    protected abstract void WriteFlagsAsArray(Utf8JsonWriter writer, T value, JsonSerializerOptions options);
 }
 
 internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T>
     where T : struct, Enum
     where TBackingType : struct
 {
+    protected override void WriteFlagsAsArray(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+    {
+        throw new NotSupportedException($"Writing as '{EnumSerializationStrategy.FlagsArray}' is not supported by {GetType().Name}");
+    }
+
     public abstract bool TryToEnum(TBackingType numericValue, out T value);
 
     public abstract TBackingType ToBackingType(T value);
@@ -142,11 +149,15 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        if (SerializationStrategy is EnumSerializationStrategy.BackingType)
+        if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FlagsArray))
+        {
+            WriteFlagsAsArray(writer, value, options);
+        }
+        else if (SerializationStrategy.HasFlag(EnumSerializationStrategy.BackingType))
         {
             WriteAsBackingType(writer, value, options);
         }
-        else if (SerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        else if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FirstEnumName))
         {
             WriteAsFirstEnumName(writer, value, options);
         }
@@ -158,11 +169,26 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
 
     public override void WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        if (SerializationStrategy is EnumSerializationStrategy.BackingType)
+        if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FlagsArray))
+        {
+            if (SerializationStrategy.HasFlag(EnumSerializationStrategy.BackingType))
+            {
+                WriteAsPropertyNameAsBackingType(writer, value, options);
+            }
+            else if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FirstEnumName))
+            {
+                WriteAsPropertyNameAsFirstEnumName(writer, value, options);
+            }
+            else
+            {
+                throw new ArgumentOutOfRangeException(nameof(SerializationStrategy), SerializationStrategy, "Unknown serialization strategy");
+            }
+        }
+        else if (SerializationStrategy.HasFlag(EnumSerializationStrategy.BackingType))
         {
             WriteAsPropertyNameAsBackingType(writer, value, options);
         }
-        else if (SerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        else if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FirstEnumName))
         {
             WriteAsPropertyNameAsFirstEnumName(writer, value, options);
         }
