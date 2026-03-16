@@ -4,6 +4,6 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 
 internal record EnumJsonConverterOptions(
     JsonSerializerContext? DefaultJsonSerializerContext,
-    EnumSerializationStrategy DefaultEnumSerializationStrategy,
+    ImmutableArray<EnumSerializationStrategy> DefaultEnumSerializationStrategies,
     ImmutableArray<EnumDeserializationStrategy> DefaultEnumDeserializationStrategies
 );

@@ -52,10 +52,17 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 )
                 : null,
             x.GetGlobalOption("DefaultEnumSerializationStrategy", Id) is { } defaultEnumSerializationStrategyString
-            && Enum.TryParse<EnumSerializationStrategy>(defaultEnumSerializationStrategyString, out var defaultEnumSerializationStrategy)
-            && defaultEnumSerializationStrategy != EnumSerializationStrategy.ProjectDefault
-                ? defaultEnumSerializationStrategy
-                : DefaultEnumSerializationStrategy,
+            && defaultEnumSerializationStrategyString.Split(
+                ['|'], StringSplitOptions.RemoveEmptyEntries
+            ) is { } defaultEnumSerializationStrategiesString
+            && defaultEnumSerializationStrategiesString.AsValueEnumerable().Select(s =>
+                Enum.TryParse<EnumSerializationStrategy>(s, out var defaultEnumSerializationStrategy)
+                    ? defaultEnumSerializationStrategy
+                    : EnumSerializationStrategy.ProjectDefault
+            ).ToArray() is { } defaultEnumSerializationStrategies
+            && defaultEnumSerializationStrategies.AsValueEnumerable().All(s => s != EnumSerializationStrategy.ProjectDefault)
+                ? [.. defaultEnumSerializationStrategies]
+                : [DefaultEnumSerializationStrategy],
             x.GetGlobalOption("DefaultEnumDeserializationStrategy", Id) is { } defaultEnumDeserializationStrategyString
             && defaultEnumDeserializationStrategyString.Split(
                 ['|'], StringSplitOptions.RemoveEmptyEntries

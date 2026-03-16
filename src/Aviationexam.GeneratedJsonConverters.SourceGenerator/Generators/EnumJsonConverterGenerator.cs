@@ -92,7 +92,7 @@ internal static class EnumJsonConverterGenerator
         var serializationStrategies = enumJsonConverterConfiguration.SerializationStrategies;
         if (serializationStrategies.IsEmpty)
         {
-            serializationStrategies = [enumJsonConverterOptions.DefaultEnumSerializationStrategy];
+            serializationStrategies = enumJsonConverterOptions.DefaultEnumSerializationStrategies;
         }
 
         var serializationStrategyEnum = serializationStrategies[0];
