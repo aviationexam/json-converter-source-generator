@@ -262,6 +262,6 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
             ));
         }
 
-        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics([..diagnostics]);
+        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics([.. diagnostics]);
     }
 }
