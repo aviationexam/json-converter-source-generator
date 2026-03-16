@@ -39,7 +39,8 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
         var diagnostics = new List<Diagnostic>();
 
-        var jsonSerializerContextClassType = ModelExtensions.GetDeclaredSymbol(context.SemanticModel, classDeclarationSyntax
+        var jsonSerializerContextClassType = context.SemanticModel.GetDeclaredSymbol(
+            classDeclarationSyntax
         ) ?? throw new NullReferenceException(nameof(classDeclarationSyntax));
 
         var jsonConverterConfiguration = new List<JsonSerializableConfiguration>();
@@ -48,7 +49,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
         {
             foreach (var attributeSyntax in attributeListSyntax.Attributes)
             {
-                if (ModelExtensions.GetSymbolInfo(context.SemanticModel, attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
+                if (context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
                 {
                     // weird, we couldn't get the symbol, ignore it
                     continue;
