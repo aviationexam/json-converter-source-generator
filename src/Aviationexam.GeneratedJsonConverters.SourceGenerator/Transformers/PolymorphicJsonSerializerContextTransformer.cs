@@ -1,6 +1,7 @@
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
@@ -38,8 +39,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
         var diagnostics = new List<Diagnostic>();
 
-        var jsonSerializerContextClassType = context.SemanticModel.GetDeclaredSymbol(
-            classDeclarationSyntax
+        var jsonSerializerContextClassType = ModelExtensions.GetDeclaredSymbol(context.SemanticModel, classDeclarationSyntax
         ) ?? throw new NullReferenceException(nameof(classDeclarationSyntax));
 
         var jsonConverterConfiguration = new List<JsonSerializableConfiguration>();
@@ -48,7 +48,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
         {
             foreach (var attributeSyntax in attributeListSyntax.Attributes)
             {
-                if (context.SemanticModel.GetSymbolInfo(attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
+                if (ModelExtensions.GetSymbolInfo(context.SemanticModel, attributeSyntax, cancellationToken).Symbol is not IMethodSymbol attributeSymbol)
                 {
                     // weird, we couldn't get the symbol, ignore it
                     continue;
@@ -74,6 +74,7 @@ internal static class PolymorphicJsonSerializerContextTransformer
 
                     // return the enum
                     jsonConverterConfiguration.Add(new JsonSerializableConfiguration(
+                        (CSharpCompilation) context.SemanticModel.Compilation,
                         jsonSerializableAttributeTypeArgument
                     ));
                 }

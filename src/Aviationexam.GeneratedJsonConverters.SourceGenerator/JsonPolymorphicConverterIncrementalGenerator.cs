@@ -105,7 +105,21 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
 
                     if (jsonDerivedTypeConfiguration is not null)
                     {
-                        derivedTypes.Add(jsonDerivedTypeConfiguration);
+                        var conversion = jsonSerializableConfiguration.Compilation.ClassifyConversion(
+                            jsonDerivedTypeConfiguration.TargetType,
+                            jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument
+                        );
+
+                        if (
+                            (conversion.IsIdentity || conversion.IsBoxing || conversion.IsImplicit)
+                            && (
+                                jsonDerivedTypeConfiguration.TargetType.IsNullable()
+                                || !jsonSerializableConfiguration.JsonSerializableAttributeTypeArgument.IsNullable()
+                            )
+                        )
+                        {
+                            derivedTypes.Add(jsonDerivedTypeConfiguration);
+                        }
                     }
                 }
             }
