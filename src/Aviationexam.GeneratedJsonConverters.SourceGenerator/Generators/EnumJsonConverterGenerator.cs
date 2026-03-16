@@ -20,6 +20,8 @@ internal static class EnumJsonConverterGenerator
         EnumJsonConverterConfiguration enumJsonConverterConfiguration,
         INamedTypeSymbol enumSymbol,
         INamedTypeSymbol enumMemberAttributeSymbol,
+        bool isFlagsEnum,
+        out bool hasFlagsArrayOnNonFlagsEnum,
         out string converterName
     )
     {
@@ -86,6 +88,7 @@ internal static class EnumJsonConverterGenerator
 
         if (backingType is null)
         {
+            hasFlagsArrayOnNonFlagsEnum = false;
             return null;
         }
 
@@ -95,7 +98,11 @@ internal static class EnumJsonConverterGenerator
             serializationStrategies = enumJsonConverterOptions.DefaultEnumSerializationStrategies;
         }
 
-        var serializationStrategyEnum = serializationStrategies[0];
+        var hasFirstEnumNameSerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.FirstEnumName);
+        var hasBackingTypeSerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.BackingType);
+        var hasFlagsArraySerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.FlagsArray);
+        hasFlagsArrayOnNonFlagsEnum = hasFlagsArraySerialization && !isFlagsEnum;
+
         var serializationStrategyFormatted = serializationStrategies
             .AsValueEnumerable()
             .Select(x => $"Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.{x}")
@@ -114,8 +121,18 @@ internal static class EnumJsonConverterGenerator
 
         var toEnumFromString = GenerateToEnumFromString(deserializationStrategies, fullName, fieldNameDeserialization);
         var toEnumFromBackingType = GenerateToEnumFromBackingType(deserializationStrategies, fullName, backingTypeDeserialization);
-        var toStringFromEnum = GenerateToStringFromEnum(serializationStrategyEnum, fullName, fieldNameSerialization);
-        var toBackingTypeFromEnum = GenerateToBackingTypeFromEnum(serializationStrategyEnum, fullName, backingTypeSerialization);
+        var toStringFromEnum = GenerateToStringFromEnum(hasFirstEnumNameSerialization, fullName, fieldNameSerialization);
+        var toBackingTypeFromEnum = GenerateToBackingTypeFromEnum(hasBackingTypeSerialization, fullName, backingTypeSerialization);
+        var writeFlagsAsArray = GenerateWriteFlagsAsArray(
+            isFlagsEnum,
+            hasFlagsArraySerialization,
+            hasFirstEnumNameSerialization,
+            hasBackingTypeSerialization,
+            fullName,
+            backingType,
+            fieldNameSerialization,
+            backingTypeSerialization
+        );
 
         return new FileWithName(
             $"{converterName}.g.cs",
@@ -148,6 +165,12 @@ internal static class EnumJsonConverterGenerator
                   public override System.ReadOnlySpan<byte> ToFirstEnumName(
                       {{fullName}} value
                   ){{toStringFromEnum}}
+
+                  protected override void WriteFlagsAsArray(
+                      System.Text.Json.Utf8JsonWriter writer,
+                      {{fullName}} value,
+                      System.Text.Json.JsonSerializerOptions options
+                  ){{writeFlagsAsArray}}
               }
               """
         );
@@ -296,12 +319,12 @@ internal static class EnumJsonConverterGenerator
          """;
 
     private static string GenerateToStringFromEnum(
-        EnumSerializationStrategy enumSerializationStrategy,
+        bool supportsFirstEnumNameSerialization,
         string enumFullName,
         IDictionary<string, string> backingTypeSerialization
     )
     {
-        if (enumSerializationStrategy is EnumSerializationStrategy.FirstEnumName)
+        if (supportsFirstEnumNameSerialization)
         {
             var stringBuilder = new StringBuilder();
 
@@ -341,12 +364,12 @@ internal static class EnumJsonConverterGenerator
     }
 
     private static string GenerateToBackingTypeFromEnum(
-        EnumSerializationStrategy enumSerializationStrategy,
+        bool supportsBackingTypeSerialization,
         string enumFullName,
         IDictionary<string, object> backingTypeSerialization
     )
     {
-        if (enumSerializationStrategy is EnumSerializationStrategy.BackingType)
+        if (supportsBackingTypeSerialization)
         {
             var stringBuilder = new StringBuilder();
 
@@ -384,6 +407,212 @@ internal static class EnumJsonConverterGenerator
 
         return GenerateFromEnumException("backing type");
     }
+
+    private static string GenerateWriteFlagsAsArray(
+        bool isFlagsEnum,
+        bool hasFlagsArraySerialization,
+        bool supportsFirstEnumNameSerialization,
+        bool supportsBackingTypeSerialization,
+        string enumFullName,
+        Type backingType,
+        IDictionary<string, string> fieldNameSerialization,
+        IDictionary<string, object> backingTypeSerialization
+    )
+    {
+        var supportsFlagsArray = isFlagsEnum
+            && hasFlagsArraySerialization
+            && (supportsBackingTypeSerialization || supportsFirstEnumNameSerialization);
+
+        if (!supportsFlagsArray)
+        {
+            return " => throw new System.Text.Json.JsonException(\"Enum is not configured to support serialization to flags array\");";
+        }
+
+        var writeAsBackingType = supportsBackingTypeSerialization;
+
+        var powerOfTwoMembers = new List<(string MemberName, string FieldName, object ConstantValue)>();
+        string? zeroFieldName = null;
+        foreach (var mapping in backingTypeSerialization)
+        {
+            var numericValue = GetFlagUInt64(mapping.Value);
+
+            if (numericValue == 0)
+            {
+                zeroFieldName = fieldNameSerialization[mapping.Key];
+                continue;
+            }
+
+            if ((numericValue & (numericValue - 1)) == 0)
+            {
+                powerOfTwoMembers.Add((mapping.Key, fieldNameSerialization[mapping.Key], mapping.Value));
+            }
+        }
+
+        var backingTypeFullName = backingType.ToString() ?? throw new ArgumentNullException(nameof(backingType));
+
+        var stringBuilder = new StringBuilder();
+
+        stringBuilder.AppendLine();
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.AppendLine("{");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("if (value == default)");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("{");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("writer.WriteStartArray();");
+
+        if (writeAsBackingType)
+        {
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append("writer.WriteNumberValue((");
+            stringBuilder.Append(backingTypeFullName);
+            stringBuilder.Append(")");
+            stringBuilder.Append(GetNumericLiteral(0, backingType));
+            stringBuilder.AppendLine(");");
+        }
+        else if (zeroFieldName is not null)
+        {
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append("writer.WriteStringValue(\"");
+            stringBuilder.Append(zeroFieldName);
+            stringBuilder.AppendLine("\"u8);");
+        }
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("writer.WriteEndArray();");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("return;");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("}");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("writer.WriteStartArray();");
+
+        foreach (var mapping in powerOfTwoMembers)
+        {
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append("if (value.HasFlag(");
+            stringBuilder.Append(enumFullName);
+            stringBuilder.Append(".");
+            stringBuilder.Append(mapping.MemberName);
+            stringBuilder.AppendLine("))");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("{");
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.Append(Indention);
+
+            if (writeAsBackingType)
+            {
+                stringBuilder.Append("writer.WriteNumberValue((");
+                stringBuilder.Append(backingTypeFullName);
+                stringBuilder.Append(")");
+                stringBuilder.Append(GetNumericLiteral(mapping.ConstantValue, backingType));
+                stringBuilder.AppendLine(");");
+            }
+            else
+            {
+                stringBuilder.Append("writer.WriteStringValue(\"");
+                stringBuilder.Append(mapping.FieldName);
+                stringBuilder.AppendLine("\"u8);");
+            }
+
+            stringBuilder.Append(MethodPrefix);
+            stringBuilder.Append(Indention);
+            stringBuilder.AppendLine("}");
+        }
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append(Indention);
+        stringBuilder.AppendLine("writer.WriteEndArray();");
+
+        stringBuilder.Append(MethodPrefix);
+        stringBuilder.Append("}");
+
+        return stringBuilder.ToString();
+    }
+
+    private static string GetNumericLiteral(object value, Type backingType)
+    {
+        if (backingType == typeof(sbyte))
+        {
+            return ((sbyte) value).ToString();
+        }
+
+        if (backingType == typeof(byte))
+        {
+            return ((byte) value).ToString();
+        }
+
+        if (backingType == typeof(short))
+        {
+            return ((short) value).ToString();
+        }
+
+        if (backingType == typeof(ushort))
+        {
+            return ((ushort) value).ToString();
+        }
+
+        if (backingType == typeof(int))
+        {
+            return ((int) value).ToString();
+        }
+
+        if (backingType == typeof(uint))
+        {
+            return ((uint) value).ToString();
+        }
+
+        if (backingType == typeof(long))
+        {
+            return ((long) value).ToString();
+        }
+
+        if (backingType == typeof(ulong))
+        {
+            return ((ulong) value).ToString();
+        }
+
+        throw new ArgumentOutOfRangeException(nameof(backingType), backingType, "Unsupported enum backing type");
+    }
+
+    private static ulong GetFlagUInt64(object value) => value switch
+    {
+        sbyte signedValue => unchecked((ulong) signedValue),
+        byte byteValue => byteValue,
+        short shortValue => unchecked((ulong) shortValue),
+        ushort ushortValue => ushortValue,
+        int intValue => unchecked((ulong) intValue),
+        uint uintValue => uintValue,
+        long longValue => unchecked((ulong) longValue),
+        ulong ulongValue => ulongValue,
+        _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Unsupported enum constant type")
+    };
 
     private static string GenerateFromEnumException(
         string source

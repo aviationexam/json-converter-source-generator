@@ -44,6 +44,11 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
         ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
     )
     {
+        if (reader.TokenType is JsonTokenType.StartArray)
+        {
+            return ReadFlagsFromArray(ref reader, typeToConvert, options);
+        }
+
         if (
             reader.TokenType is JsonTokenType.String
             && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseEnumName)
@@ -79,6 +84,47 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
         var value = Encoding.UTF8.GetString(reader.ValueSpan.ToArray());
 
         throw new JsonException($"Unable to deserialize {value}('{reader.TokenType}') into {typeof(T).Name}");
+    }
+
+    protected T ReadFlagsFromArray(
+        ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options
+    )
+    {
+        T result = default;
+        while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
+        {
+            T element;
+            if (
+                reader.TokenType is JsonTokenType.String
+                && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseEnumName)
+            )
+            {
+                if (!TryToEnum(reader.ValueSpan, out element))
+                {
+                    var stringValue = Encoding.UTF8.GetString(reader.ValueSpan.ToArray());
+                    throw new JsonException($"Undefined mapping of '{stringValue}' to enum '{typeof(T).FullName}'");
+                }
+            }
+            else if (
+                reader.TokenType is JsonTokenType.Number
+                && DeserializationStrategy.HasFlag(EnumDeserializationStrategy.UseBackingType)
+            )
+            {
+                var numericValue = ReadAsNumber(ref reader);
+                if (!numericValue.HasValue || !TryToEnum(numericValue.Value, out element))
+                {
+                    throw new JsonException($"Unable to deserialize array element into {typeof(T).Name}");
+                }
+            }
+            else
+            {
+                throw new JsonException($"Unexpected token type '{reader.TokenType}' in flags array for {typeof(T).Name}");
+            }
+
+            result = BitwiseOr(result, element);
+        }
+
+        return result;
     }
 
     public override T ReadAsPropertyName(
@@ -119,7 +165,7 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
         throw new JsonException($"Unable to deserialize {value}('{reader.TokenType}') into {typeof(T).Name}");
     }
 
-    private TBackingType? ReadAsNumber(ref Utf8JsonReader reader) => BackingTypeTypeCode switch
+    protected TBackingType? ReadAsNumber(ref Utf8JsonReader reader) => BackingTypeTypeCode switch
     {
         TypeCode.SByte => reader.GetSByte() is var numericValue ? Unsafe.As<sbyte, TBackingType>(ref numericValue) : null,
         TypeCode.Byte => reader.GetByte() is var numericValue ? Unsafe.As<byte, TBackingType>(ref numericValue) : null,
@@ -131,6 +177,55 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
         TypeCode.UInt64 => reader.GetUInt64() is var numericValue ? Unsafe.As<ulong, TBackingType>(ref numericValue) : null,
         _ => throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}")
     };
+
+    private T BitwiseOr(T left, T right)
+    {
+        switch (BackingTypeTypeCode)
+        {
+            case TypeCode.SByte:
+                var sbyteLeft = Unsafe.As<T, sbyte>(ref left);
+                var sbyteRight = Unsafe.As<T, sbyte>(ref right);
+                var sbyteResult = (sbyte) (sbyteLeft | sbyteRight);
+                return Unsafe.As<sbyte, T>(ref sbyteResult);
+            case TypeCode.Byte:
+                var byteLeft = Unsafe.As<T, byte>(ref left);
+                var byteRight = Unsafe.As<T, byte>(ref right);
+                var byteResult = (byte) (byteLeft | byteRight);
+                return Unsafe.As<byte, T>(ref byteResult);
+            case TypeCode.Int16:
+                var int16Left = Unsafe.As<T, short>(ref left);
+                var int16Right = Unsafe.As<T, short>(ref right);
+                var int16Result = (short) (int16Left | int16Right);
+                return Unsafe.As<short, T>(ref int16Result);
+            case TypeCode.UInt16:
+                var uint16Left = Unsafe.As<T, ushort>(ref left);
+                var uint16Right = Unsafe.As<T, ushort>(ref right);
+                var uint16Result = (ushort) (uint16Left | uint16Right);
+                return Unsafe.As<ushort, T>(ref uint16Result);
+            case TypeCode.Int32:
+                var int32Left = Unsafe.As<T, int>(ref left);
+                var int32Right = Unsafe.As<T, int>(ref right);
+                var int32Result = int32Left | int32Right;
+                return Unsafe.As<int, T>(ref int32Result);
+            case TypeCode.UInt32:
+                var uint32Left = Unsafe.As<T, uint>(ref left);
+                var uint32Right = Unsafe.As<T, uint>(ref right);
+                var uint32Result = uint32Left | uint32Right;
+                return Unsafe.As<uint, T>(ref uint32Result);
+            case TypeCode.Int64:
+                var int64Left = Unsafe.As<T, long>(ref left);
+                var int64Right = Unsafe.As<T, long>(ref right);
+                var int64Result = int64Left | int64Right;
+                return Unsafe.As<long, T>(ref int64Result);
+            case TypeCode.UInt64:
+                var uint64Left = Unsafe.As<T, ulong>(ref left);
+                var uint64Right = Unsafe.As<T, ulong>(ref right);
+                var uint64Result = uint64Left | uint64Right;
+                return Unsafe.As<ulong, T>(ref uint64Result);
+            default:
+                throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}");
+        }
+    }
 
     private TBackingType? ParseAsNumber(
         string value

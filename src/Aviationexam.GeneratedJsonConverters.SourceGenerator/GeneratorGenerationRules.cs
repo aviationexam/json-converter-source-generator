@@ -30,4 +30,13 @@ internal static class GeneratorGenerationRules
         DiagnosticSeverity.Warning,
         true
     );
+
+    public static readonly DiagnosticDescriptor FlagsArrayOnNonFlagsEnum = new(
+        id: "AVI_EJC_0003",
+        title: "FlagsArray strategy on non-[Flags] enum",
+        messageFormat: "Enum '{0}' uses FlagsArray serialization strategy but does not have [Flags] attribute",
+        category: "Aviationexam.GeneratedJsonConverters",
+        defaultSeverity: DiagnosticSeverity.Warning,
+        isEnabledByDefault: true
+    );
 }
