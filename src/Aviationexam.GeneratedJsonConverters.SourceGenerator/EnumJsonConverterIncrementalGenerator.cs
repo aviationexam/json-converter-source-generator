@@ -52,10 +52,17 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                 )
                 : null,
             x.GetGlobalOption("DefaultEnumSerializationStrategy", Id) is { } defaultEnumSerializationStrategyString
-            && Enum.TryParse<EnumSerializationStrategy>(defaultEnumSerializationStrategyString, out var defaultEnumSerializationStrategy)
-            && defaultEnumSerializationStrategy != EnumSerializationStrategy.ProjectDefault
-                ? defaultEnumSerializationStrategy
-                : DefaultEnumSerializationStrategy,
+            && defaultEnumSerializationStrategyString.Split(
+                ['|'], StringSplitOptions.RemoveEmptyEntries
+            ) is { } defaultEnumSerializationStrategiesString
+            && defaultEnumSerializationStrategiesString.AsValueEnumerable().Select(s =>
+                Enum.TryParse<EnumSerializationStrategy>(s, out var defaultEnumSerializationStrategy)
+                    ? defaultEnumSerializationStrategy
+                    : EnumSerializationStrategy.ProjectDefault
+            ).ToArray() is { } defaultEnumSerializationStrategies
+            && defaultEnumSerializationStrategies.AsValueEnumerable().All(s => s != EnumSerializationStrategy.ProjectDefault)
+                ? [.. defaultEnumSerializationStrategies]
+                : [DefaultEnumSerializationStrategy],
             x.GetGlobalOption("DefaultEnumDeserializationStrategy", Id) is { } defaultEnumDeserializationStrategyString
             && defaultEnumDeserializationStrategyString.Split(
                 ['|'], StringSplitOptions.RemoveEmptyEntries
@@ -104,7 +111,7 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         var enumJsonConverterOptions = tuple.EnumJsonConverterOptions;
         var contexts = resultObject.Result;
 
-        var diagnostics = resultObject.Diagnostics;
+        var diagnostics = new List<Diagnostic>(resultObject.Diagnostics);
 
         var files = new List<FileWithName>();
         var converters = new List<JsonConverter>();
@@ -128,8 +135,21 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
                     enumJsonConverterConfiguration,
                     enumSymbol,
                     enumMemberAttributeSymbol,
+                    context.IsFlagsEnum,
+                    out var hasFlagsArrayOnNonFlagsEnum,
                     out var converterName
                 );
+
+                if (hasFlagsArrayOnNonFlagsEnum)
+                {
+                    diagnostics.Add(
+                        Diagnostic.Create(
+                            GeneratorGenerationRules.FlagsArrayOnNonFlagsEnum,
+                            context.EnumSymbol.Locations.Length > 0 ? context.EnumSymbol.Locations[0] : Location.None,
+                            context.EnumSymbol.ToDisplayString()
+                        )
+                    );
+                }
 
                 if (!enumConverter.HasValue)
                 {
@@ -157,6 +177,6 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
             ));
         }
 
-        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics(diagnostics);
+        return files.ToImmutableArray().AsEquatableArray().ToResultWithDiagnostics([.. diagnostics]);
     }
 }

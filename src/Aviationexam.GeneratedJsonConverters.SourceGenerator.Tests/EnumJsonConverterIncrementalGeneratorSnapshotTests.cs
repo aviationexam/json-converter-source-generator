@@ -293,4 +293,64 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
         }
         """
     );
+
+    [Fact]
+    public Task FlagsEnumWithFirstEnumNameWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+        }),
+        // language=cs
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [System.Flags]
+        [EnumJsonConverter(
+            SerializationStrategy = EnumSerializationStrategy.FirstEnumName | EnumSerializationStrategy.FlagsArray,
+            DeserializationStrategy = EnumDeserializationStrategy.UseEnumName
+        )]
+        public enum EFlagsEnum
+        {
+            None = 0,
+            Read = 1 << 0,
+            Write = 1 << 1,
+            Execute = 1 << 2,
+            ReadWrite = Read | Write,
+        }
+        """
+    );
+
+    [Fact]
+    public Task FlagsEnumWithBackingTypeWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+        }),
+        // language=cs
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [System.Flags]
+        [EnumJsonConverter(
+            SerializationStrategy = EnumSerializationStrategy.BackingType | EnumSerializationStrategy.FlagsArray,
+            DeserializationStrategy = EnumDeserializationStrategy.UseBackingType
+        )]
+        public enum EFlagsBackingEnum
+        {
+            None = 0,
+            Read = 1 << 0,
+            Write = 1 << 1,
+            Execute = 1 << 2,
+            ReadWrite = Read | Write,
+        }
+        """
+    );
 }

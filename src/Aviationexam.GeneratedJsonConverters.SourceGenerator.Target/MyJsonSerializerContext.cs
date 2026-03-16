@@ -31,6 +31,8 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Target;
 [JsonSerializable(typeof(EMyEnum))]
 [JsonSerializable(typeof(EPropertyEnum))]
 [JsonSerializable(typeof(EPropertyWithBackingEnum))]
+[JsonSerializable(typeof(EFlagsEnum))]
+[JsonSerializable(typeof(EFlagsBackingEnum))]
 [JsonSerializable(typeof(IReadOnlyDictionary<EBackingEnum, int>))]
 [JsonSerializable(typeof(IReadOnlyDictionary<EConfiguredPropertyEnum, int>))]
 public partial class MyJsonSerializerContext : JsonSerializerContext

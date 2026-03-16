@@ -34,7 +34,7 @@ internal static class EnumJsonConverterAttributeParser
                         },
                         EnumJsonConverterAttributeGenerator.SerializationStrategyPropertyName => jsonConverterConfiguration with
                         {
-                            SerializationStrategy = ParseEnum<EnumSerializationStrategy>(expression),
+                            SerializationStrategies = ParseEnumAsArray<EnumSerializationStrategy>(expression),
                         },
                         _ => throw new ArgumentOutOfRangeException(nameof(argumentName), argumentName, $"Unknown argumentName {argumentName}"),
                     };
@@ -69,11 +69,13 @@ internal static class EnumJsonConverterAttributeParser
             }
         )
         {
-            return
-            [
-                ParseEnum<TEnum>(leftExpression),
-                ParseEnum<TEnum>(rightExpression),
-            ];
+            var leftResults = leftExpression is BinaryExpressionSyntax
+                ? ParseEnumAsArray<TEnum>(leftExpression)
+                : [ParseEnum<TEnum>(leftExpression)];
+
+            var rightResult = ParseEnum<TEnum>(rightExpression);
+
+            return leftResults.Add(rightResult);
         }
 
         throw new ArgumentOutOfRangeException(nameof(expressionSyntax), expressionSyntax, $"Not supported expression syntax {expressionSyntax.ToFullString()}");
