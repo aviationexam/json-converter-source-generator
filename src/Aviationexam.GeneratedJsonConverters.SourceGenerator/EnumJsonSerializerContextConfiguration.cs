@@ -5,5 +5,6 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator;
 internal record EnumJsonSerializerContextConfiguration(
     ISymbol EnumSymbol,
     INamedTypeSymbol? EnumMemberAttributeSymbol,
-    EnumJsonConverterConfiguration? EnumJsonConverterConfiguration
+    EnumJsonConverterConfiguration? EnumJsonConverterConfiguration,
+    bool IsFlagsEnum
 );

@@ -13,6 +13,7 @@ internal static class EnumJsonSerializerContextTransformer
     private const string DisableEnumJsonConverterAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.DisableEnumJsonConverterAttribute";
     private const string EnumJsonConverterAttribute = "Aviationexam.GeneratedJsonConverters.Attributes.EnumJsonConverterAttribute";
     private const string EnumMemberAttribute = "System.Runtime.Serialization.EnumMemberAttribute";
+    private const string FlagsAttribute = "System.FlagsAttribute";
 
     public static ResultWithDiagnostics<EnumJsonSerializerContextConfiguration> GetJsonSerializerContextClassDeclarationSyntax(
         GeneratorSyntaxContext context,
@@ -24,6 +25,7 @@ internal static class EnumJsonSerializerContextTransformer
         var disableEnumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(DisableEnumJsonConverterAttribute);
         var enumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumJsonConverterAttribute);
         var enumMemberAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumMemberAttribute);
+        var flagsAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(FlagsAttribute);
 
         var diagnostics = new List<Diagnostic>();
 
@@ -34,6 +36,7 @@ internal static class EnumJsonSerializerContextTransformer
         EnumJsonConverterConfiguration? enumJsonConverterConfiguration = null;
 
         var ignoreEnum = false;
+        var isFlagsEnum = false;
 
         foreach (var attributeListSyntax in enumDeclarationSyntax.AttributeLists)
         {
@@ -47,10 +50,16 @@ internal static class EnumJsonSerializerContextTransformer
 
                 var attributeContainingTypeSymbol = attributeSymbol.ContainingType;
 
-                // Is the attribute the [EnumJsonConverter] attribute?
+                // Is the attribute the [DisableEnumJsonConverter] attribute?
                 if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, disableEnumJsonConverterAttributeSymbol))
                 {
                     ignoreEnum = true;
+                }
+
+                // Is the attribute the [Flags] attribute?
+                if (SymbolEqualityComparer.Default.Equals(attributeContainingTypeSymbol.OriginalDefinition, flagsAttributeSymbol))
+                {
+                    isFlagsEnum = true;
                 }
             }
         }
@@ -103,7 +112,8 @@ internal static class EnumJsonSerializerContextTransformer
         return new EnumJsonSerializerContextConfiguration(
                 enumSymbol,
                 enumMemberAttributeSymbol,
-                enumJsonConverterConfiguration
+                enumJsonConverterConfiguration,
+                isFlagsEnum
             )
             .ToResultWithDiagnostics([.. diagnostics]);
     }
