@@ -228,6 +228,25 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
         }
     }
 
+    private bool HasMultipleFlags(T value)
+    {
+        var numericValue = ToUInt64(value);
+        return numericValue != 0 && (numericValue & (numericValue - 1)) != 0;
+    }
+
+    private ulong ToUInt64(T value) => BackingTypeTypeCode switch
+    {
+        TypeCode.SByte => unchecked((ulong) Unsafe.As<T, sbyte>(ref value)),
+        TypeCode.Byte => Unsafe.As<T, byte>(ref value),
+        TypeCode.Int16 => unchecked((ulong) Unsafe.As<T, short>(ref value)),
+        TypeCode.UInt16 => Unsafe.As<T, ushort>(ref value),
+        TypeCode.Int32 => unchecked((ulong) Unsafe.As<T, int>(ref value)),
+        TypeCode.UInt32 => Unsafe.As<T, uint>(ref value),
+        TypeCode.Int64 => unchecked((ulong) Unsafe.As<T, long>(ref value)),
+        TypeCode.UInt64 => Unsafe.As<T, ulong>(ref value),
+        _ => throw new ArgumentOutOfRangeException(nameof(BackingTypeTypeCode), BackingTypeTypeCode, $"Unexpected TypeCode {BackingTypeTypeCode}")
+    };
+
     private TBackingType? ParseAsNumber(
         string value
     ) => BackingTypeTypeCode switch
@@ -267,6 +286,11 @@ internal abstract class EnumJsonConvertor<T, TBackingType> : EnumJsonConvertor<T
     {
         if (SerializationStrategy.HasFlag(EnumSerializationStrategy.FlagsArray))
         {
+            if (HasMultipleFlags(value))
+            {
+                throw new JsonException($"Flags enum '{typeof(T).FullName}' value '{value}' contains multiple flags and cannot be used as a JSON property name");
+            }
+
             if (SerializationStrategy.HasFlag(EnumSerializationStrategy.BackingType))
             {
                 WriteAsPropertyNameAsBackingType(writer, value, options);
