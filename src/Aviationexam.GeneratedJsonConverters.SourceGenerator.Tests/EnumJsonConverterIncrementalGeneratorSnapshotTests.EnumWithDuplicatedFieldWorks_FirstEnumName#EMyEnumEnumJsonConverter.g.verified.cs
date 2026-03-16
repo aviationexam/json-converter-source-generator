@@ -9,7 +9,7 @@ internal class EMyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverters.E
 
     protected override Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy DeserializationStrategy => Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.UseBackingType | Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.UseEnumName;
 
-    protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.BackingType;
+     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.BackingType;
 
     public override bool TryToEnum(
         System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EMyEnum value
@@ -61,4 +61,10 @@ internal class EMyEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverters.E
     public override System.ReadOnlySpan<byte> ToFirstEnumName(
         ApplicationNamespace.Contracts.EMyEnum value
     ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to enum type");
+
+    protected override void WriteFlagsAsArray(
+        System.Text.Json.Utf8JsonWriter writer,
+        ApplicationNamespace.Contracts.EMyEnum value,
+        System.Text.Json.JsonSerializerOptions options
+    ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to flags array");
 }
