@@ -93,15 +93,35 @@ internal static class EnumJsonConverterGenerator
         }
 
         var serializationStrategies = enumJsonConverterConfiguration.SerializationStrategies;
-        if (serializationStrategies.IsEmpty)
+        var hasAttributeConfiguration = !serializationStrategies.IsEmpty;
+        if (!hasAttributeConfiguration)
         {
             serializationStrategies = enumJsonConverterOptions.DefaultEnumSerializationStrategies;
         }
 
+        var hasFlagsArraySerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.FlagsArray);
+
+        // When FlagsArray comes from project defaults, silently strip it for non-[Flags] enums
+        // Only warn when FlagsArray is explicitly set per-enum on a non-[Flags] enum
+        if (
+            !hasAttributeConfiguration
+            && hasFlagsArraySerialization
+            && !isFlagsEnum
+        )
+        {
+            serializationStrategies = serializationStrategies.RemoveAll(x => x is EnumSerializationStrategy.FlagsArray);
+            hasFlagsArraySerialization = false;
+
+            // If stripping FlagsArray left no strategies, fall back to FirstEnumName
+            if (serializationStrategies.IsEmpty)
+            {
+                serializationStrategies = [EnumSerializationStrategy.FirstEnumName];
+            }
+        }
+
+        hasFlagsArrayOnNonFlagsEnum = hasFlagsArraySerialization && !isFlagsEnum;
         var hasFirstEnumNameSerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.FirstEnumName);
         var hasBackingTypeSerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.BackingType);
-        var hasFlagsArraySerialization = serializationStrategies.AsValueEnumerable().Any(x => x is EnumSerializationStrategy.FlagsArray);
-        hasFlagsArrayOnNonFlagsEnum = hasFlagsArraySerialization && !isFlagsEnum;
 
         var serializationStrategyFormatted = serializationStrategies
             .AsValueEnumerable()
@@ -420,8 +440,8 @@ internal static class EnumJsonConverterGenerator
     )
     {
         var supportsFlagsArray = isFlagsEnum
-            && hasFlagsArraySerialization
-            && (supportsBackingTypeSerialization || supportsFirstEnumNameSerialization);
+                                 && hasFlagsArraySerialization
+                                 && (supportsBackingTypeSerialization || supportsFirstEnumNameSerialization);
 
         if (!supportsFlagsArray)
         {

@@ -9,7 +9,7 @@ internal class EFlagsEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverter
 
     protected override Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy DeserializationStrategy => Aviationexam.GeneratedJsonConverters.EnumDeserializationStrategy.UseEnumName;
 
-     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FirstEnumName | Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FlagsArray;
+     protected override Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy SerializationStrategy => Aviationexam.GeneratedJsonConverters.EnumSerializationStrategy.FlagsArray;
 
     public override bool TryToEnum(
         System.ReadOnlySpan<byte> enumName, out ApplicationNamespace.Contracts.EFlagsEnum value
@@ -55,42 +55,11 @@ internal class EFlagsEnumEnumJsonConverter : Aviationexam.GeneratedJsonConverter
 
     public override System.ReadOnlySpan<byte> ToFirstEnumName(
         ApplicationNamespace.Contracts.EFlagsEnum value
-    ) => value switch
-    {
-        ApplicationNamespace.Contracts.EFlagsEnum.None => "None"u8,
-        ApplicationNamespace.Contracts.EFlagsEnum.Read => "Read"u8,
-        ApplicationNamespace.Contracts.EFlagsEnum.Write => "Write"u8,
-        ApplicationNamespace.Contracts.EFlagsEnum.Execute => "Execute"u8,
-        ApplicationNamespace.Contracts.EFlagsEnum.ReadWrite => "ReadWrite"u8,
-        _ => throw new System.Text.Json.JsonException($"Undefined mapping of '{value}' from enum 'ApplicationNamespace.Contracts.EFlagsEnum'"),
-    };
+    ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to enum type");
 
     protected override void WriteFlagsAsArray(
         System.Text.Json.Utf8JsonWriter writer,
         ApplicationNamespace.Contracts.EFlagsEnum value,
         System.Text.Json.JsonSerializerOptions options
-    )
-    {
-        if (value == default)
-        {
-            writer.WriteStartArray();
-            writer.WriteStringValue("None"u8);
-            writer.WriteEndArray();
-            return;
-        }
-        writer.WriteStartArray();
-        if (value.HasFlag(ApplicationNamespace.Contracts.EFlagsEnum.Read))
-        {
-            writer.WriteStringValue("Read"u8);
-        }
-        if (value.HasFlag(ApplicationNamespace.Contracts.EFlagsEnum.Write))
-        {
-            writer.WriteStringValue("Write"u8);
-        }
-        if (value.HasFlag(ApplicationNamespace.Contracts.EFlagsEnum.Execute))
-        {
-            writer.WriteStringValue("Execute"u8);
-        }
-        writer.WriteEndArray();
-    }
+    ) => throw new System.Text.Json.JsonException("Enum is not configured to support serialization to flags array");
 }

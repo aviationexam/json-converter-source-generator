@@ -8,6 +8,7 @@ public partial class MyJsonSerializerContext
     public static System.Collections.Generic.IReadOnlyCollection<System.Text.Json.Serialization.JsonConverter> GetEnumConverters() => new System.Text.Json.Serialization.JsonConverter[]
     {
         new ApplicationNamespace.Contracts.EFlagsEnumEnumJsonConverter(),
+        new ApplicationNamespace.Contracts.ENonFlagsEnumEnumJsonConverter(),
     };
 
     public static void UseEnumConverters(
