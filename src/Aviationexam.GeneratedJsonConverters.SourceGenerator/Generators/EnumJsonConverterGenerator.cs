@@ -109,6 +109,12 @@ internal static class EnumJsonConverterGenerator
             {
                 serializationStrategies = serializationStrategies.RemoveAll(x => x is EnumSerializationStrategy.FlagsArray);
                 hasFlagsArraySerialization = false;
+
+                // If stripping FlagsArray left no strategies, fall back to FirstEnumName
+                if (serializationStrategies.IsEmpty)
+                {
+                    serializationStrategies = [EnumSerializationStrategy.FirstEnumName];
+                }
             }
         }
 

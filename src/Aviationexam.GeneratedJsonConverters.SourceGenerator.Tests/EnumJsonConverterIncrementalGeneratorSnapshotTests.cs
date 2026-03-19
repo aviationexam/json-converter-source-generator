@@ -340,6 +340,51 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     );
 
     [Fact]
+    public Task ProjectConfigurationWorks_FlagsArrayOnly() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+            ["build_property.AVI_EJC_DefaultEnumSerializationStrategy"] = "FlagsArray",
+            ["build_property.AVI_EJC_DefaultEnumDeserializationStrategy"] = "UseEnumName",
+        }),
+        // language=cs
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [System.Flags]
+        [EnumJsonConverter]
+        public enum EFlagsEnum
+        {
+            None = 0,
+            Read = 1 << 0,
+            Write = 1 << 1,
+            Execute = 1 << 2,
+            ReadWrite = Read | Write,
+        }
+
+        [EnumJsonConverter]
+        public enum ENonFlagsEnum
+        {
+            A,
+            B,
+        }
+        """,
+        """
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
+
+    [Fact]
     public Task FlagsEnumWithFirstEnumNameWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {
