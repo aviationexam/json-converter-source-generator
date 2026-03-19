@@ -93,8 +93,8 @@ internal static class EnumJsonConverterGenerator
         }
 
         var serializationStrategies = enumJsonConverterConfiguration.SerializationStrategies;
-        var isUsingProjectDefaults = serializationStrategies.IsEmpty;
-        if (isUsingProjectDefaults)
+        var hasAttributeConfiguration = !serializationStrategies.IsEmpty;
+        if (!hasAttributeConfiguration)
         {
             serializationStrategies = enumJsonConverterOptions.DefaultEnumSerializationStrategies;
         }
@@ -103,18 +103,19 @@ internal static class EnumJsonConverterGenerator
 
         // When FlagsArray comes from project defaults, silently strip it for non-[Flags] enums
         // Only warn when FlagsArray is explicitly set per-enum on a non-[Flags] enum
-        if (hasFlagsArraySerialization && !isFlagsEnum)
+        if (
+            !hasAttributeConfiguration
+            && hasFlagsArraySerialization
+            && !isFlagsEnum
+        )
         {
-            if (isUsingProjectDefaults)
-            {
-                serializationStrategies = serializationStrategies.RemoveAll(x => x is EnumSerializationStrategy.FlagsArray);
-                hasFlagsArraySerialization = false;
+            serializationStrategies = serializationStrategies.RemoveAll(x => x is EnumSerializationStrategy.FlagsArray);
+            hasFlagsArraySerialization = false;
 
-                // If stripping FlagsArray left no strategies, fall back to FirstEnumName
-                if (serializationStrategies.IsEmpty)
-                {
-                    serializationStrategies = [EnumSerializationStrategy.FirstEnumName];
-                }
+            // If stripping FlagsArray left no strategies, fall back to FirstEnumName
+            if (serializationStrategies.IsEmpty)
+            {
+                serializationStrategies = [EnumSerializationStrategy.FirstEnumName];
             }
         }
 
@@ -439,8 +440,8 @@ internal static class EnumJsonConverterGenerator
     )
     {
         var supportsFlagsArray = isFlagsEnum
-            && hasFlagsArraySerialization
-            && (supportsBackingTypeSerialization || supportsFirstEnumNameSerialization);
+                                 && hasFlagsArraySerialization
+                                 && (supportsBackingTypeSerialization || supportsFirstEnumNameSerialization);
 
         if (!supportsFlagsArray)
         {
