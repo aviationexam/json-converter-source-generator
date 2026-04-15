@@ -378,34 +378,34 @@
       },
       "NuGet.Configuration": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "9qNpnZP73pfGm1MYET78OCW/HNnKNZpTfWPB2z/EyxQnfWtJBANeFyogX8s7S+oWMbR+EG2w6jbDVKdvVJfCXA==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "tGxWBo47EQONOaqY+MbEWMrNjFthHgfavLM1HE0RcLyOXVCoQKBlZGV7v0hrS/rJrQKw6ZaBeHetX+ZJgS7Lxg==",
         "dependencies": {
-          "NuGet.Common": "7.3.0",
+          "NuGet.Common": "7.3.1",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         }
       },
       "NuGet.Frameworks": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "AnhSFUOrCrWp7pGtqhfOxa5HKm4rfpQxuatGDKzpGtTczasj6OcGVtB74PyqW7osdu9/BtkjnkAYvNk5iT82Gg=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "VUPAE5l/Ir4Gb3dv+v0jq0Qe4nfwxfrfiYN7QhwlGyWPXFKYXSSke1t1bV/ZYd6idtTtRDqJPM49Lt/U8NTocg=="
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "zFXFW2S+GlXvFuBr5OvHGAhImz2xixibfzGDb58C5bDEysRZViqbh6rWeG3IXkpcdQJSU96BfTds+BVOljwBLw==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "q2uuJ2QIeK8+C9wCTbHk26T04ulQ7o1NkWg93lCKVT9wDnY+6ypPXGgSy40g413aQpJehj+29oDTifdqBmekWQ==",
         "dependencies": {
-          "NuGet.Protocol": "7.3.0"
+          "NuGet.Protocol": "7.3.1"
         }
       },
       "NuGet.Versioning": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "iOQPAdnVgj2U+K3AcdGGGcdS1tWyh3nvr64eqTDFCsDuHySBXSHRhl7eR8hdc0BZHxDjacRstbuaJKCurt2oPw=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "TJrQWSmD1vakfav7qIhDXgDFfaZFfMJ+v6P8tcND9ZqXajD5B/ZzaoGYNzL4D3eDue6vAOUvwzu42G+19JNVUA=="
       },
       "SimpleInfoName": {
         "type": "CentralTransitive",
@@ -955,34 +955,34 @@
       },
       "NuGet.Configuration": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "9qNpnZP73pfGm1MYET78OCW/HNnKNZpTfWPB2z/EyxQnfWtJBANeFyogX8s7S+oWMbR+EG2w6jbDVKdvVJfCXA==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "tGxWBo47EQONOaqY+MbEWMrNjFthHgfavLM1HE0RcLyOXVCoQKBlZGV7v0hrS/rJrQKw6ZaBeHetX+ZJgS7Lxg==",
         "dependencies": {
-          "NuGet.Common": "7.3.0",
+          "NuGet.Common": "7.3.1",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         }
       },
       "NuGet.Frameworks": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "AnhSFUOrCrWp7pGtqhfOxa5HKm4rfpQxuatGDKzpGtTczasj6OcGVtB74PyqW7osdu9/BtkjnkAYvNk5iT82Gg=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "VUPAE5l/Ir4Gb3dv+v0jq0Qe4nfwxfrfiYN7QhwlGyWPXFKYXSSke1t1bV/ZYd6idtTtRDqJPM49Lt/U8NTocg=="
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "zFXFW2S+GlXvFuBr5OvHGAhImz2xixibfzGDb58C5bDEysRZViqbh6rWeG3IXkpcdQJSU96BfTds+BVOljwBLw==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "q2uuJ2QIeK8+C9wCTbHk26T04ulQ7o1NkWg93lCKVT9wDnY+6ypPXGgSy40g413aQpJehj+29oDTifdqBmekWQ==",
         "dependencies": {
-          "NuGet.Protocol": "7.3.0"
+          "NuGet.Protocol": "7.3.1"
         }
       },
       "NuGet.Versioning": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "iOQPAdnVgj2U+K3AcdGGGcdS1tWyh3nvr64eqTDFCsDuHySBXSHRhl7eR8hdc0BZHxDjacRstbuaJKCurt2oPw=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "TJrQWSmD1vakfav7qIhDXgDFfaZFfMJ+v6P8tcND9ZqXajD5B/ZzaoGYNzL4D3eDue6vAOUvwzu42G+19JNVUA=="
       },
       "SimpleInfoName": {
         "type": "CentralTransitive",
@@ -1532,34 +1532,34 @@
       },
       "NuGet.Configuration": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "9qNpnZP73pfGm1MYET78OCW/HNnKNZpTfWPB2z/EyxQnfWtJBANeFyogX8s7S+oWMbR+EG2w6jbDVKdvVJfCXA==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "tGxWBo47EQONOaqY+MbEWMrNjFthHgfavLM1HE0RcLyOXVCoQKBlZGV7v0hrS/rJrQKw6ZaBeHetX+ZJgS7Lxg==",
         "dependencies": {
-          "NuGet.Common": "7.3.0",
+          "NuGet.Common": "7.3.1",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         }
       },
       "NuGet.Frameworks": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "AnhSFUOrCrWp7pGtqhfOxa5HKm4rfpQxuatGDKzpGtTczasj6OcGVtB74PyqW7osdu9/BtkjnkAYvNk5iT82Gg=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "VUPAE5l/Ir4Gb3dv+v0jq0Qe4nfwxfrfiYN7QhwlGyWPXFKYXSSke1t1bV/ZYd6idtTtRDqJPM49Lt/U8NTocg=="
       },
       "NuGet.Resolver": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "zFXFW2S+GlXvFuBr5OvHGAhImz2xixibfzGDb58C5bDEysRZViqbh6rWeG3IXkpcdQJSU96BfTds+BVOljwBLw==",
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "q2uuJ2QIeK8+C9wCTbHk26T04ulQ7o1NkWg93lCKVT9wDnY+6ypPXGgSy40g413aQpJehj+29oDTifdqBmekWQ==",
         "dependencies": {
-          "NuGet.Protocol": "7.3.0"
+          "NuGet.Protocol": "7.3.1"
         }
       },
       "NuGet.Versioning": {
         "type": "CentralTransitive",
-        "requested": "[7.3.0, )",
-        "resolved": "7.3.0",
-        "contentHash": "iOQPAdnVgj2U+K3AcdGGGcdS1tWyh3nvr64eqTDFCsDuHySBXSHRhl7eR8hdc0BZHxDjacRstbuaJKCurt2oPw=="
+        "requested": "[7.3.1, )",
+        "resolved": "7.3.1",
+        "contentHash": "TJrQWSmD1vakfav7qIhDXgDFfaZFfMJ+v6P8tcND9ZqXajD5B/ZzaoGYNzL4D3eDue6vAOUvwzu42G+19JNVUA=="
       },
       "SimpleInfoName": {
         "type": "CentralTransitive",
