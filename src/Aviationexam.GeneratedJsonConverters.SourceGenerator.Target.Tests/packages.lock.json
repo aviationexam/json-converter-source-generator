@@ -180,9 +180,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.16.0, )",
-        "resolved": "31.16.0",
-        "contentHash": "37kJaodBlCukOPM034OVu7fm3JrFOtbAqyP22ZM+VEWFN0iRM8EAx3fCaU7WobyGz2KRecNXM1CT72om4kzwww==",
+        "requested": "[31.16.1, )",
+        "resolved": "31.16.1",
+        "contentHash": "nw/NcGR7RjkFyin5Vh8Txm7jn+TDi9PI4dYaFUj3gKx5oBGEqCdEvHfiTOZ3rshHzcQcfVi669itNx0ApFwTxA==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "19.1.2",
@@ -437,9 +437,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.16.0, )",
-        "resolved": "31.16.0",
-        "contentHash": "37kJaodBlCukOPM034OVu7fm3JrFOtbAqyP22ZM+VEWFN0iRM8EAx3fCaU7WobyGz2KRecNXM1CT72om4kzwww==",
+        "requested": "[31.16.1, )",
+        "resolved": "31.16.1",
+        "contentHash": "nw/NcGR7RjkFyin5Vh8Txm7jn+TDi9PI4dYaFUj3gKx5oBGEqCdEvHfiTOZ3rshHzcQcfVi669itNx0ApFwTxA==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "19.1.2",
@@ -688,9 +688,9 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.16.0, )",
-        "resolved": "31.16.0",
-        "contentHash": "37kJaodBlCukOPM034OVu7fm3JrFOtbAqyP22ZM+VEWFN0iRM8EAx3fCaU7WobyGz2KRecNXM1CT72om4kzwww==",
+        "requested": "[31.16.1, )",
+        "resolved": "31.16.1",
+        "contentHash": "nw/NcGR7RjkFyin5Vh8Txm7jn+TDi9PI4dYaFUj3gKx5oBGEqCdEvHfiTOZ3rshHzcQcfVi669itNx0ApFwTxA==",
         "dependencies": {
           "Argon": "0.33.5",
           "DiffEngine": "19.1.2",
