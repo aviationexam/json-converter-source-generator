@@ -71,16 +71,16 @@
       },
       "System.Text.Json": {
         "type": "Direct",
-        "requested": "[10.0.7, )",
-        "resolved": "10.0.7",
-        "contentHash": "F8Pu2QLUMeniVbtiyk7n7LCfFYxlcJ8ASaSwglJyq6dxa34iCQrikQszsgJClIJWuSWjcyhKkV7daAzYJqeVwA==",
+        "requested": "[10.0.8, )",
+        "resolved": "10.0.8",
+        "contentHash": "/fysUDkD7oFGaRPoA7IaFs0wRoO3GlwlCNq2P+xWZqxLy1R4cktRSKfMjJDy9ymS4grL7IDVdt8de8L9a0z55Q==",
         "dependencies": {
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.7",
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.8",
           "System.Buffers": "4.6.1",
-          "System.IO.Pipelines": "10.0.7",
+          "System.IO.Pipelines": "10.0.8",
           "System.Memory": "4.6.3",
           "System.Runtime.CompilerServices.Unsafe": "6.1.2",
-          "System.Text.Encodings.Web": "10.0.7",
+          "System.Text.Encodings.Web": "10.0.8",
           "System.Threading.Tasks.Extensions": "4.6.3"
         }
       },
