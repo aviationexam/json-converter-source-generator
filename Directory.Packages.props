@@ -20,12 +20,12 @@
 
   <!-- Test infrastructure -->
   <ItemGroup>
-    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.6.2" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.Telemetry" Version="2.2.2" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.7.0" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.Telemetry" Version="2.2.3" />
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.2.2" />
-    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.2.2" />
-    <PackageVersion Include="Microsoft.Testing.Platform" Version="2.2.2" />
-    <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.2.2" />
+    <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport.Abstractions" Version="2.2.3" />
+    <PackageVersion Include="Microsoft.Testing.Platform" Version="2.2.3" />
+    <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.2.3" />
 
     <PackageVersion Include="Verify" Version="31.16.3" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
@@ -54,7 +54,7 @@
     <PackageVersion Include="System.Formats.Asn1" Version="10.0.8" />
     <PackageVersion Include="System.IO.Pipelines" Version="10.0.8" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="10.0.8" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.7" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.8" />
     <PackageVersion Include="ZLinq" Version="1.5.6" />
   </ItemGroup>
 
