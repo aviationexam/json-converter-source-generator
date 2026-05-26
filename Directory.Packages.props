@@ -14,7 +14,7 @@
     <PackageVersion Include="H.Generators.Extensions" Version="1.24.2" />
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
-    <PackageVersion Include="PolySharp" Version="1.15.0" />
+    <PackageVersion Include="PolySharp" Version="1.16.0" />
     <PackageVersion Include="xunit.analyzers" Version="1.27.0" />
   </ItemGroup>
 
