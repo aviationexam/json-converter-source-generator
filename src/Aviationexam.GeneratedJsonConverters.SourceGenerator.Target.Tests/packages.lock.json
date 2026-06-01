@@ -21,12 +21,12 @@
       },
       "Microsoft.Testing.Extensions.TrxReport": {
         "type": "Direct",
-        "requested": "[2.2.2, )",
-        "resolved": "2.2.2",
-        "contentHash": "iEp69l8C0OlEnqUgZVoh621PrFIbaIbhjShUkW9pgPwH1GGLawLbi7cW1wyzLxZLI3jVSuKqV/JbSFz8Ael7Kg==",
+        "requested": "[2.2.3, )",
+        "resolved": "2.2.3",
+        "contentHash": "9Hot3ty5ZVWHrW40k2NPfD0dCaPwIxj7j7VjujNYwpYkYw9AdbejPHjGNkL/gvUWorauJf5IkeDoUeIbS7LuUg==",
         "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.2",
-          "Microsoft.Testing.Platform": "2.2.2"
+          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.3",
+          "Microsoft.Testing.Platform": "2.2.3"
         }
       },
       "System.IO.Pipelines": {
@@ -268,12 +268,12 @@
       },
       "Microsoft.Testing.Extensions.TrxReport": {
         "type": "Direct",
-        "requested": "[2.2.2, )",
-        "resolved": "2.2.2",
-        "contentHash": "iEp69l8C0OlEnqUgZVoh621PrFIbaIbhjShUkW9pgPwH1GGLawLbi7cW1wyzLxZLI3jVSuKqV/JbSFz8Ael7Kg==",
+        "requested": "[2.2.3, )",
+        "resolved": "2.2.3",
+        "contentHash": "9Hot3ty5ZVWHrW40k2NPfD0dCaPwIxj7j7VjujNYwpYkYw9AdbejPHjGNkL/gvUWorauJf5IkeDoUeIbS7LuUg==",
         "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.2",
-          "Microsoft.Testing.Platform": "2.2.2"
+          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.3",
+          "Microsoft.Testing.Platform": "2.2.3"
         }
       },
       "System.Collections.Immutable": {
@@ -525,12 +525,12 @@
       },
       "Microsoft.Testing.Extensions.TrxReport": {
         "type": "Direct",
-        "requested": "[2.2.2, )",
-        "resolved": "2.2.2",
-        "contentHash": "iEp69l8C0OlEnqUgZVoh621PrFIbaIbhjShUkW9pgPwH1GGLawLbi7cW1wyzLxZLI3jVSuKqV/JbSFz8Ael7Kg==",
+        "requested": "[2.2.3, )",
+        "resolved": "2.2.3",
+        "contentHash": "9Hot3ty5ZVWHrW40k2NPfD0dCaPwIxj7j7VjujNYwpYkYw9AdbejPHjGNkL/gvUWorauJf5IkeDoUeIbS7LuUg==",
         "dependencies": {
-          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.2",
-          "Microsoft.Testing.Platform": "2.2.2"
+          "Microsoft.Testing.Extensions.TrxReport.Abstractions": "2.2.3",
+          "Microsoft.Testing.Platform": "2.2.3"
         }
       },
       "System.IO.Pipelines": {
