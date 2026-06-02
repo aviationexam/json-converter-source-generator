@@ -135,15 +135,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.16.3, )",
-        "resolved": "31.16.3",
-        "contentHash": "9v/0+g3gg7BY1TsGjtKqPFl9/3ieomSze9qjzEX8TrKN2cB/w23Yl3aydYIyoP6YtBJU5xG7NuEOnWwZsdzNhg==",
+        "requested": "[31.19.0, )",
+        "resolved": "31.19.0",
+        "contentHash": "h2Cbk9CIhaSLToa1XM4SM5PBmuR+WjsjWT444emjILfAM8xM7hBq2m7WerRDSpElzWAF0RdWmGo0Ixwz8eCWEg==",
         "dependencies": {
-          "Argon": "0.33.5",
+          "Argon": "0.34.0",
           "DiffEngine": "19.2.0",
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.7",
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.8",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.16.3",
+          "Verify": "31.19.0",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
@@ -696,15 +696,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.16.3, )",
-        "resolved": "31.16.3",
-        "contentHash": "9v/0+g3gg7BY1TsGjtKqPFl9/3ieomSze9qjzEX8TrKN2cB/w23Yl3aydYIyoP6YtBJU5xG7NuEOnWwZsdzNhg==",
+        "requested": "[31.19.0, )",
+        "resolved": "31.19.0",
+        "contentHash": "h2Cbk9CIhaSLToa1XM4SM5PBmuR+WjsjWT444emjILfAM8xM7hBq2m7WerRDSpElzWAF0RdWmGo0Ixwz8eCWEg==",
         "dependencies": {
-          "Argon": "0.33.5",
+          "Argon": "0.34.0",
           "DiffEngine": "19.2.0",
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.7",
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.8",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.16.3",
+          "Verify": "31.19.0",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
@@ -1290,15 +1290,15 @@
       },
       "Verify.XunitV3": {
         "type": "Direct",
-        "requested": "[31.16.3, )",
-        "resolved": "31.16.3",
-        "contentHash": "9v/0+g3gg7BY1TsGjtKqPFl9/3ieomSze9qjzEX8TrKN2cB/w23Yl3aydYIyoP6YtBJU5xG7NuEOnWwZsdzNhg==",
+        "requested": "[31.19.0, )",
+        "resolved": "31.19.0",
+        "contentHash": "h2Cbk9CIhaSLToa1XM4SM5PBmuR+WjsjWT444emjILfAM8xM7hBq2m7WerRDSpElzWAF0RdWmGo0Ixwz8eCWEg==",
         "dependencies": {
-          "Argon": "0.33.5",
+          "Argon": "0.34.0",
           "DiffEngine": "19.2.0",
-          "Microsoft.Bcl.AsyncInterfaces": "10.0.7",
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.8",
           "SimpleInfoName": "3.2.0",
-          "Verify": "31.16.3",
+          "Verify": "31.19.0",
           "xunit.v3.extensibility.core": "3.2.2"
         }
       },
