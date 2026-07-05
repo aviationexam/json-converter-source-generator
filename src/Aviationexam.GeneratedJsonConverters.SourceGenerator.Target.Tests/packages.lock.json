@@ -110,9 +110,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.18.1, )",
-        "resolved": "8.18.1",
-        "contentHash": "5gA7ICU+CafaHJLbrL/lOEABwkmXS6089WoCbn+NkIul2ATAGGzQsD4cXOFmYmQp6b9Jd/f4bb2EK+14dY75Pw=="
+        "requested": "[8.18.2, )",
+        "resolved": "8.18.2",
+        "contentHash": "9TKkDyiREYxgTDeoBrVlmBP83w7Hjhj5sDACQhketSgRhgaXRKpjPW7sazx3PEOg0i5PbrwLjoJG9caavf69hg=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
@@ -367,9 +367,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.18.1, )",
-        "resolved": "8.18.1",
-        "contentHash": "5gA7ICU+CafaHJLbrL/lOEABwkmXS6089WoCbn+NkIul2ATAGGzQsD4cXOFmYmQp6b9Jd/f4bb2EK+14dY75Pw=="
+        "requested": "[8.18.2, )",
+        "resolved": "8.18.2",
+        "contentHash": "9TKkDyiREYxgTDeoBrVlmBP83w7Hjhj5sDACQhketSgRhgaXRKpjPW7sazx3PEOg0i5PbrwLjoJG9caavf69hg=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
@@ -618,9 +618,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.18.1, )",
-        "resolved": "8.18.1",
-        "contentHash": "5gA7ICU+CafaHJLbrL/lOEABwkmXS6089WoCbn+NkIul2ATAGGzQsD4cXOFmYmQp6b9Jd/f4bb2EK+14dY75Pw=="
+        "requested": "[8.18.2, )",
+        "resolved": "8.18.2",
+        "contentHash": "9TKkDyiREYxgTDeoBrVlmBP83w7Hjhj5sDACQhketSgRhgaXRKpjPW7sazx3PEOg0i5PbrwLjoJG9caavf69hg=="
       },
       "Microsoft.ApplicationInsights": {
         "type": "CentralTransitive",
