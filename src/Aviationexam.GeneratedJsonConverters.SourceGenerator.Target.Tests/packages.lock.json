@@ -278,9 +278,9 @@
       },
       "System.Collections.Immutable": {
         "type": "Direct",
-        "requested": "[10.0.10, )",
-        "resolved": "10.0.10",
-        "contentHash": "Ih5zrydoDc1H5I0eNP6f4Lzw3cjsPMN4Nikd86kbyi66y0flkM9GfjVo62aUbcxeTbypzBCFAFQ+/6RF2jRORg=="
+        "requested": "[9.0.18, )",
+        "resolved": "9.0.18",
+        "contentHash": "5V1SJde+JzfcFzU5YCB2aDrua2tPuVv1pt75FtS00j68HUmQEJaxDm54DE9ZXlSgNPcEY+QFlRQ3xFwDg/gHew=="
       },
       "System.IO.Pipelines": {
         "type": "Direct",
