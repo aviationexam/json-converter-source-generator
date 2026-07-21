@@ -5,12 +5,40 @@
   </PropertyGroup>
 
   <!-- Build-time tools (analyzers and source generators) -->
-  <ItemGroup>
-    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.6.0" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.6.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.6.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.6.0" />
+
+    <!-- Transitive dependencies of Microsoft.CodeAnalysis 5.6.0 (requires >= 10.0.1) -->
+    <PackageVersion Include="System.Composition" Version="10.0.10" />
+    <PackageVersion Include="System.Composition.AttributedModel" Version="10.0.10" />
+    <PackageVersion Include="System.Composition.Convention" Version="10.0.10" />
+    <PackageVersion Include="System.Composition.Hosting" Version="10.0.10" />
+    <PackageVersion Include="System.Composition.Runtime" Version="10.0.10" />
+    <PackageVersion Include="System.Composition.TypedParts" Version="10.0.10" />
+    <PackageVersion Include="System.Reflection.Metadata" Version="10.0.10" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
     <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.3.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.3.0" />
+
+    <!-- Transitive dependencies of Microsoft.CodeAnalysis 5.3.0 -->
+    <PackageVersion Include="System.Composition" Version="9.0.18" />
+    <PackageVersion Include="System.Composition.AttributedModel" Version="9.0.18" />
+    <PackageVersion Include="System.Composition.Convention" Version="9.0.18" />
+    <PackageVersion Include="System.Composition.Hosting" Version="9.0.18" />
+    <PackageVersion Include="System.Composition.Runtime" Version="9.0.18" />
+    <PackageVersion Include="System.Composition.TypedParts" Version="9.0.18" />
+    <PackageVersion Include="System.Reflection.Metadata" Version="9.0.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.6.0" />
     <PackageVersion Include="H.Generators.Extensions" Version="1.24.2" />
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
@@ -98,15 +126,8 @@
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageVersion Include="System.Buffers" Version="4.6.1" />
     <PackageVersion Include="System.ComponentModel.Composition" Version="4.7.0" />
-    <PackageVersion Include="System.Composition" Version="9.0.18" />
-    <PackageVersion Include="System.Composition.AttributedModel" Version="9.0.18" />
-    <PackageVersion Include="System.Composition.Convention" Version="9.0.18" />
-    <PackageVersion Include="System.Composition.Hosting" Version="9.0.18" />
-    <PackageVersion Include="System.Composition.Runtime" Version="9.0.18" />
-    <PackageVersion Include="System.Composition.TypedParts" Version="9.0.18" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.Numerics.Vectors" Version="4.6.1" />
-    <PackageVersion Include="System.Reflection.Metadata" Version="9.0.18" />
     <PackageVersion Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageVersion Include="System.Security.Cryptography.Pkcs" Version="9.0.18" />
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="9.0.18" />
