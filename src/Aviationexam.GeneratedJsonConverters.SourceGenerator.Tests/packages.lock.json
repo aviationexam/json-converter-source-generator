@@ -186,11 +186,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.2.0, )",
-        "resolved": "19.2.0",
-        "contentHash": "T6LKWC+YPNswK8hgZ+kYqsIeS75qd2loAFbyopOoLwN0zK/MIEGjKMdIIF46slQfDIveZU5Rj8Ur4lUxnXdahQ==",
+        "requested": "[19.3.3, )",
+        "resolved": "19.3.3",
+        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
         "dependencies": {
-          "EmptyFiles": "8.18.1"
+          "EmptyFiles": "8.18.2"
         }
       },
       "DiffPlex": {
@@ -747,11 +747,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.2.0, )",
-        "resolved": "19.2.0",
-        "contentHash": "T6LKWC+YPNswK8hgZ+kYqsIeS75qd2loAFbyopOoLwN0zK/MIEGjKMdIIF46slQfDIveZU5Rj8Ur4lUxnXdahQ==",
+        "requested": "[19.3.3, )",
+        "resolved": "19.3.3",
+        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
         "dependencies": {
-          "EmptyFiles": "8.18.1"
+          "EmptyFiles": "8.18.2"
         }
       },
       "DiffPlex": {
@@ -1341,11 +1341,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.2.0, )",
-        "resolved": "19.2.0",
-        "contentHash": "T6LKWC+YPNswK8hgZ+kYqsIeS75qd2loAFbyopOoLwN0zK/MIEGjKMdIIF46slQfDIveZU5Rj8Ur4lUxnXdahQ==",
+        "requested": "[19.3.3, )",
+        "resolved": "19.3.3",
+        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
         "dependencies": {
-          "EmptyFiles": "8.18.1"
+          "EmptyFiles": "8.18.2"
         }
       },
       "DiffPlex": {
