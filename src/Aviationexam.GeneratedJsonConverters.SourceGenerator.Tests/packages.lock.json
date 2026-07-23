@@ -487,12 +487,12 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.20.0, )",
-        "resolved": "31.20.0",
-        "contentHash": "rG9Uvg49LwBHRBagYjBj3ckMj2PwEl6QhI5GUhqec1Z3sNWX9+58oVUH90ckPOhj/2VgVi0lh7kYIXcLkxur2A==",
+        "requested": "[31.27.0, )",
+        "resolved": "31.27.0",
+        "contentHash": "cIp8GY1vJHJAWu8b+1fscNqTqI/rU4v+nmnugjbm1ltawYOZbtzl+wParOB3Mk2TM2IeClJJoElao3BTKTRPRw==",
         "dependencies": {
-          "Argon": "0.34.0",
-          "DiffEngine": "19.2.0",
+          "Argon": "0.35.2",
+          "DiffEngine": "19.3.3",
           "SimpleInfoName": "3.2.0"
         }
       },
@@ -1084,12 +1084,12 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.20.0, )",
-        "resolved": "31.20.0",
-        "contentHash": "rG9Uvg49LwBHRBagYjBj3ckMj2PwEl6QhI5GUhqec1Z3sNWX9+58oVUH90ckPOhj/2VgVi0lh7kYIXcLkxur2A==",
+        "requested": "[31.27.0, )",
+        "resolved": "31.27.0",
+        "contentHash": "cIp8GY1vJHJAWu8b+1fscNqTqI/rU4v+nmnugjbm1ltawYOZbtzl+wParOB3Mk2TM2IeClJJoElao3BTKTRPRw==",
         "dependencies": {
-          "Argon": "0.34.0",
-          "DiffEngine": "19.2.0",
+          "Argon": "0.35.2",
+          "DiffEngine": "19.3.3",
           "SimpleInfoName": "3.2.0"
         }
       },
@@ -1642,12 +1642,12 @@
       },
       "Verify": {
         "type": "CentralTransitive",
-        "requested": "[31.20.0, )",
-        "resolved": "31.20.0",
-        "contentHash": "rG9Uvg49LwBHRBagYjBj3ckMj2PwEl6QhI5GUhqec1Z3sNWX9+58oVUH90ckPOhj/2VgVi0lh7kYIXcLkxur2A==",
+        "requested": "[31.27.0, )",
+        "resolved": "31.27.0",
+        "contentHash": "cIp8GY1vJHJAWu8b+1fscNqTqI/rU4v+nmnugjbm1ltawYOZbtzl+wParOB3Mk2TM2IeClJJoElao3BTKTRPRw==",
         "dependencies": {
-          "Argon": "0.34.0",
-          "DiffEngine": "19.2.0",
+          "Argon": "0.35.2",
+          "DiffEngine": "19.3.3",
           "SimpleInfoName": "3.2.0"
         }
       },

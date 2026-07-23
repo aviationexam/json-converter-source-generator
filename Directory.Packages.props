@@ -55,7 +55,7 @@
     <PackageVersion Include="Microsoft.Testing.Platform" Version="2.3.2" />
     <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.3.2" />
 
-    <PackageVersion Include="Verify" Version="31.20.0" />
+    <PackageVersion Include="Verify" Version="31.27.0" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
     <PackageVersion Include="Verify.XunitV3" Version="31.20.0" />
 
