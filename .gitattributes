@@ -2,3 +2,7 @@
 *.csproj text eol=crlf
 *.cs text eol=crlf
 *.sln text eol=crlf
+
+# Verify snapshots must use LF, see https://github.com/VerifyTests/Verify#text-file-settings
+*.verified.cs text eol=lf
+*.verified.txt text eol=lf
