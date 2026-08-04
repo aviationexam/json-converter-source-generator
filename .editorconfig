@@ -42,3 +42,11 @@ dotnet_diagnostic.CA5359.severity = error
 dotnet_diagnostic.CA5364.severity = error
 dotnet_diagnostic.CA5384.severity = error
 dotnet_diagnostic.CA5394.severity = error
+
+# Verify snapshots are written byte-for-byte by Verify and must not be reformatted by editors,
+# see https://github.com/VerifyTests/Verify#text-file-settings
+[*.verified.{cs,txt}]
+charset = utf-8-bom
+end_of_line = lf
+insert_final_newline = false
+trim_trailing_whitespace = false
