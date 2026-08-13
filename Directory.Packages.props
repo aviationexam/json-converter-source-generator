@@ -102,9 +102,9 @@
 
   <!-- NuGet packages -->
   <ItemGroup>
-    <PackageVersion Include="NuGet.Common" Version="7.6.0" />
-    <PackageVersion Include="NuGet.Packaging" Version="7.6.0" />
-    <PackageVersion Include="NuGet.Protocol" Version="7.6.0" />
+    <PackageVersion Include="NuGet.Common" Version="7.9.0" />
+    <PackageVersion Include="NuGet.Packaging" Version="7.9.0" />
+    <PackageVersion Include="NuGet.Protocol" Version="7.9.0" />
   </ItemGroup>
 
   <!-- Runtime packages -->
