@@ -101,9 +101,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.3.3, )",
-        "resolved": "19.3.3",
-        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
+        "requested": "[20.1.2, )",
+        "resolved": "20.1.2",
+        "contentHash": "oK7j5Y6ruRSylaCnUowt2p33EiSW638j+dnhFt/Cy0IOuBFHQ6Jk3tbtblTfaolR141sWIPz5V2bJOby4FbGzg==",
         "dependencies": {
           "EmptyFiles": "8.18.2"
         }
@@ -365,9 +365,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.3.3, )",
-        "resolved": "19.3.3",
-        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
+        "requested": "[20.1.2, )",
+        "resolved": "20.1.2",
+        "contentHash": "oK7j5Y6ruRSylaCnUowt2p33EiSW638j+dnhFt/Cy0IOuBFHQ6Jk3tbtblTfaolR141sWIPz5V2bJOby4FbGzg==",
         "dependencies": {
           "EmptyFiles": "8.18.2"
         }
@@ -623,9 +623,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[19.3.3, )",
-        "resolved": "19.3.3",
-        "contentHash": "9dgeYqMOYA5BREQj5PNEuNHOe3q8xmkLj9jPPbxrJ2roxupVmJ3LlUgForWlxXgt0zoutfPE+sbVjif3YHC3zw==",
+        "requested": "[20.1.2, )",
+        "resolved": "20.1.2",
+        "contentHash": "oK7j5Y6ruRSylaCnUowt2p33EiSW638j+dnhFt/Cy0IOuBFHQ6Jk3tbtblTfaolR141sWIPz5V2bJOby4FbGzg==",
         "dependencies": {
           "EmptyFiles": "8.18.2"
         }
