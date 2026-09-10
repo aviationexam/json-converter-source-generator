@@ -120,9 +120,9 @@
       },
       "System.Text.Json": {
         "type": "Direct",
-        "requested": "[10.0.11, )",
-        "resolved": "10.0.11",
-        "contentHash": "X2rXQy7g8KEUvWVbAz6vOk6byI1eMgmzFeXbKxq4BfZCfFy5S91K+K+hd4ZBlSp0wL1Y8FyGRXs6+hvABTjwQw=="
+        "requested": "[10.0.12, )",
+        "resolved": "10.0.12",
+        "contentHash": "AHlVpUiY96eC6Oar1Gf0YbafU7E2NUU9D80O2Xk5v7ryL3kpSsbI0EusJBE8kQfwPuDdUDoKUItArzXQHxomCg=="
       },
       "Verify.SourceGenerators": {
         "type": "Direct",
@@ -684,12 +684,12 @@
       },
       "System.Text.Json": {
         "type": "Direct",
-        "requested": "[10.0.11, )",
-        "resolved": "10.0.11",
-        "contentHash": "X2rXQy7g8KEUvWVbAz6vOk6byI1eMgmzFeXbKxq4BfZCfFy5S91K+K+hd4ZBlSp0wL1Y8FyGRXs6+hvABTjwQw==",
+        "requested": "[10.0.12, )",
+        "resolved": "10.0.12",
+        "contentHash": "AHlVpUiY96eC6Oar1Gf0YbafU7E2NUU9D80O2Xk5v7ryL3kpSsbI0EusJBE8kQfwPuDdUDoKUItArzXQHxomCg==",
         "dependencies": {
-          "System.IO.Pipelines": "10.0.11",
-          "System.Text.Encodings.Web": "10.0.11"
+          "System.IO.Pipelines": "10.0.12",
+          "System.Text.Encodings.Web": "10.0.12"
         }
       },
       "Verify.SourceGenerators": {
@@ -1285,12 +1285,12 @@
       },
       "System.Text.Json": {
         "type": "Direct",
-        "requested": "[10.0.11, )",
-        "resolved": "10.0.11",
-        "contentHash": "X2rXQy7g8KEUvWVbAz6vOk6byI1eMgmzFeXbKxq4BfZCfFy5S91K+K+hd4ZBlSp0wL1Y8FyGRXs6+hvABTjwQw==",
+        "requested": "[10.0.12, )",
+        "resolved": "10.0.12",
+        "contentHash": "AHlVpUiY96eC6Oar1Gf0YbafU7E2NUU9D80O2Xk5v7ryL3kpSsbI0EusJBE8kQfwPuDdUDoKUItArzXQHxomCg==",
         "dependencies": {
-          "System.IO.Pipelines": "10.0.11",
-          "System.Text.Encodings.Web": "10.0.11"
+          "System.IO.Pipelines": "10.0.12",
+          "System.Text.Encodings.Web": "10.0.12"
         }
       },
       "Verify.SourceGenerators": {
