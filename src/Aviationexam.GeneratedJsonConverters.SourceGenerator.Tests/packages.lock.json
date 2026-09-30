@@ -186,9 +186,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.5.2, )",
-        "resolved": "20.5.2",
-        "contentHash": "Hj/qlRBh5vCF+m5Lbv+m8fhOP0r0+TgurIrGI6mdwmg0ot4zdGNA8uu7m7dFhS2Mxt6UR65uC8fJdNA/pXOaIA==",
+        "requested": "[20.6.0, )",
+        "resolved": "20.6.0",
+        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
         "dependencies": {
           "EmptyFiles": "8.19.0"
         }
@@ -754,9 +754,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.5.2, )",
-        "resolved": "20.5.2",
-        "contentHash": "Hj/qlRBh5vCF+m5Lbv+m8fhOP0r0+TgurIrGI6mdwmg0ot4zdGNA8uu7m7dFhS2Mxt6UR65uC8fJdNA/pXOaIA==",
+        "requested": "[20.6.0, )",
+        "resolved": "20.6.0",
+        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
         "dependencies": {
           "EmptyFiles": "8.19.0"
         }
@@ -1355,9 +1355,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.5.2, )",
-        "resolved": "20.5.2",
-        "contentHash": "Hj/qlRBh5vCF+m5Lbv+m8fhOP0r0+TgurIrGI6mdwmg0ot4zdGNA8uu7m7dFhS2Mxt6UR65uC8fJdNA/pXOaIA==",
+        "requested": "[20.6.0, )",
+        "resolved": "20.6.0",
+        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
         "dependencies": {
           "EmptyFiles": "8.19.0"
         }
