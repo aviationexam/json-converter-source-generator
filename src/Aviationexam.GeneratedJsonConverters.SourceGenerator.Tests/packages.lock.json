@@ -186,11 +186,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.6.0, )",
-        "resolved": "20.6.0",
-        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
+        "requested": "[20.7.0, )",
+        "resolved": "20.7.0",
+        "contentHash": "GGyb96POGjAeMyDFTa2PfDxK7KVKtMl3rXs1EjNsKCNVvTRMY9R5s+SM7XpbxcZtKxYpzI6OcgJxyYqKG8g+rw==",
         "dependencies": {
-          "EmptyFiles": "8.19.0"
+          "EmptyFiles": "8.20.0"
         }
       },
       "DiffPlex": {
@@ -754,11 +754,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.6.0, )",
-        "resolved": "20.6.0",
-        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
+        "requested": "[20.7.0, )",
+        "resolved": "20.7.0",
+        "contentHash": "GGyb96POGjAeMyDFTa2PfDxK7KVKtMl3rXs1EjNsKCNVvTRMY9R5s+SM7XpbxcZtKxYpzI6OcgJxyYqKG8g+rw==",
         "dependencies": {
-          "EmptyFiles": "8.19.0"
+          "EmptyFiles": "8.20.0"
         }
       },
       "DiffPlex": {
@@ -1355,11 +1355,11 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.6.0, )",
-        "resolved": "20.6.0",
-        "contentHash": "tnUCDX6pDa8VHZ5nodA4bQ/kbfoVoJ5CuK+vE8DTYkrIl0mMlO4/8Vr3edYN6R7b2pHcV6DPtTz2d4VFvd/lAw==",
+        "requested": "[20.7.0, )",
+        "resolved": "20.7.0",
+        "contentHash": "GGyb96POGjAeMyDFTa2PfDxK7KVKtMl3rXs1EjNsKCNVvTRMY9R5s+SM7XpbxcZtKxYpzI6OcgJxyYqKG8g+rw==",
         "dependencies": {
-          "EmptyFiles": "8.19.0"
+          "EmptyFiles": "8.20.0"
         }
       },
       "DiffPlex": {
