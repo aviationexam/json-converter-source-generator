@@ -201,9 +201,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.20.0, )",
-        "resolved": "8.20.0",
-        "contentHash": "KnbcQk4Gvc+TSTttmSmdxGiQb+2AA739jcZ3Ics9R2l7UvDIHrL+aTtYTfn3PJIGA/NMqkd26aN/ACtJ4MCKZA=="
+        "requested": "[8.20.1, )",
+        "resolved": "8.20.1",
+        "contentHash": "0YgQ3Tg88fwTk+5hqouvTEb4L4ca8wdeCXfC+e1dMtjH6V2lQERi3M54XeDTApfzHXE50re7jTyUP3yBZBVSoA=="
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
@@ -769,9 +769,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.20.0, )",
-        "resolved": "8.20.0",
-        "contentHash": "KnbcQk4Gvc+TSTttmSmdxGiQb+2AA739jcZ3Ics9R2l7UvDIHrL+aTtYTfn3PJIGA/NMqkd26aN/ACtJ4MCKZA=="
+        "requested": "[8.20.1, )",
+        "resolved": "8.20.1",
+        "contentHash": "0YgQ3Tg88fwTk+5hqouvTEb4L4ca8wdeCXfC+e1dMtjH6V2lQERi3M54XeDTApfzHXE50re7jTyUP3yBZBVSoA=="
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
@@ -1370,9 +1370,9 @@
       },
       "EmptyFiles": {
         "type": "CentralTransitive",
-        "requested": "[8.20.0, )",
-        "resolved": "8.20.0",
-        "contentHash": "KnbcQk4Gvc+TSTttmSmdxGiQb+2AA739jcZ3Ics9R2l7UvDIHrL+aTtYTfn3PJIGA/NMqkd26aN/ACtJ4MCKZA=="
+        "requested": "[8.20.1, )",
+        "resolved": "8.20.1",
+        "contentHash": "0YgQ3Tg88fwTk+5hqouvTEb4L4ca8wdeCXfC+e1dMtjH6V2lQERi3M54XeDTApfzHXE50re7jTyUP3yBZBVSoA=="
       },
       "Humanizer.Core": {
         "type": "CentralTransitive",
