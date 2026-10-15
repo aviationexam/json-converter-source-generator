@@ -54,7 +54,7 @@ public class EnumSerializationTests
             MyJsonSerializerContext.Default.Options
         );
 
-        Assert.Equal(expectedValue, serializedValue);
+        Assert.Equal(expectedValue, serializedValue.ReplaceLineEndings("\n"));
     }
 
     [Theory]
