@@ -26,7 +26,7 @@ And string based enum serialization.
 </ItemGroup>
 ```
 
-The generated converters derive from public types in `Aviationexam.GeneratedJsonConverters.Abstractions`, which the generator package brings in as a dependency. netstandard2.0 projects compile against `Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard` instead, built from the same sources under a different assembly name, so a netstandard2.0 library keeps its own types inside a net8.0+ application. Do not mark the reference `PrivateAssets="all"`: projects referencing yours need the abstractions assembly at runtime. The analyzer and its build properties stay private by default.
+The generated converters derive from public types in `Aviationexam.GeneratedJsonConverters.Abstractions`, which the generator package brings in as a dependency. netstandard2.0 projects get `Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard` instead, built from the same sources under a different assembly name. A library used by net8.0+ applications must also target net8.0 (for example `netstandard2.0;net8.0`); a netstandard2.0-only build is supported in .NET Framework applications. Do not mark the reference `PrivateAssets="all"`: projects referencing yours need the abstractions assembly at runtime. The analyzer and its build properties stay private by default.
 
 ## How to use library
 
