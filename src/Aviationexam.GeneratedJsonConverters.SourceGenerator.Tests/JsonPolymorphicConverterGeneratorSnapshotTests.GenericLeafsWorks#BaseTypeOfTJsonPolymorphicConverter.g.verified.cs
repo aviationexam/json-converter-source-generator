@@ -4,8 +4,12 @@
 namespace PolymorphicGlobalNamespace;
 
 internal class BaseTypeOfTJsonPolymorphicConverter :
+#if NET8_0_OR_GREATER
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseTypeOfTJsonPolymorphicConverter, global::BaseType<T>>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::BaseType<T>>
+#else
+    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::BaseType<T>>
+#endif
 {
     #if !NET8_0_OR_GREATER
 

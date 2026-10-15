@@ -4,8 +4,12 @@
 namespace PolymorphicGlobalNamespace;
 
 internal class PersonJsonPolymorphicConverter :
+#if NET8_0_OR_GREATER
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<PersonJsonPolymorphicConverter, global::Person>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::Person>
+#else
+    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::Person>
+#endif
 {
     #if !NET8_0_OR_GREATER
 

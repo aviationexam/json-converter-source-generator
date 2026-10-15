@@ -4,8 +4,12 @@
 namespace ApplicationNamespace;
 
 internal class BaseContractJsonPolymorphicConverter :
+#if NET8_0_OR_GREATER
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseContractJsonPolymorphicConverter, global::ApplicationNamespace.Contracts.BaseContract>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract>
+#else
+    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract>
+#endif
 {
     #if !NET8_0_OR_GREATER
 

@@ -117,8 +117,12 @@ internal static class JsonPolymorphicConverterGenerator
               namespace {{targetNamespace}};
 
               internal class {{converterName}} :
+              #if NET8_0_OR_GREATER
                   Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{converterName}}, {{fullName}}>,
                   Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<{{fullName}}>
+              #else
+                  Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<{{fullName}}>
+              #endif
               {
                   #if !NET8_0_OR_GREATER
 
