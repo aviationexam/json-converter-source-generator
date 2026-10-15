@@ -96,12 +96,6 @@
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         }
       },
-      "aviationexam.generatedjsonconverters.abstractions": {
-        "type": "Project",
-        "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
-        }
-      },
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project",
         "dependencies": {
@@ -220,6 +214,11 @@
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         }
+      }
+    },
+    "net8.0": {
+      "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project"
       }
     }
   }

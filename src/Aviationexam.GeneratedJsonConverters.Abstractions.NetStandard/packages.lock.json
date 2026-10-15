@@ -107,7 +107,6 @@
           "System.Runtime.CompilerServices.Unsafe": "6.1.2"
         }
       }
-    },
-    "net8.0": {}
+    }
   }
 }

@@ -172,12 +172,6 @@
         "resolved": "4.6.2",
         "contentHash": "yQgmjfFximrNm9LIV3mL6T5MzjeC+epeE5rl4hXxAlYmxby7RM1dPSkIKXk9HNkl6G54h2JHOmLD46+Pey+IRg=="
       },
-      "aviationexam.generatedjsonconverters.abstractions": {
-        "type": "Project",
-        "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
-        }
-      },
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project",
         "dependencies": {
@@ -187,7 +181,7 @@
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project",
         "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions": "[1.0.0, )"
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
         }
       },
       "Argon": {
@@ -506,12 +500,6 @@
         }
       },
       "aviationexam.generatedjsonconverters.abstractions": {
-        "type": "Project",
-        "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
-        }
-      },
-      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
@@ -779,16 +767,7 @@
         }
       },
       "aviationexam.generatedjsonconverters.abstractions": {
-        "type": "Project",
-        "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
-        }
-      },
-      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
-        "type": "Project",
-        "dependencies": {
-          "System.Text.Json": "[10.0.13, )"
-        }
+        "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project",
@@ -1049,16 +1028,7 @@
         }
       },
       "aviationexam.generatedjsonconverters.abstractions": {
-        "type": "Project",
-        "dependencies": {
-          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
-        }
-      },
-      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
-        "type": "Project",
-        "dependencies": {
-          "System.Text.Json": "[10.0.13, )"
-        }
+        "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
         "type": "Project",
