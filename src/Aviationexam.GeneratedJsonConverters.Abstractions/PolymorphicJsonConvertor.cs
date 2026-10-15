@@ -9,15 +9,13 @@ using System.Text.Json.Serialization;
 
 namespace Aviationexam.GeneratedJsonConverters;
 
-/// <summary>
-/// Base of every generated polymorphic converter. Its members are the same in every target framework asset,
-/// so a converter compiled against the netstandard2.0 asset still loads when a net8.0+ application picks the net8.0+ asset.
-/// </summary>
-public abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
+public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
+    where TConverter : PolymorphicJsonConvertor<TConverter, T>, IPolymorphicJsonConvertor<T>
     where T : class
 {
     private readonly Type _polymorphicType = typeof(T);
 
+#if !NET8_0_OR_GREATER
     protected abstract ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName();
 
     protected abstract Type Self_GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
@@ -25,13 +23,18 @@ public abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
     protected abstract IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
         TInstance instance, out Type targetType
     ) where TInstance : T;
+#endif
 
     public override T? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var jsonDocument = JsonDocument.ParseValue(ref reader);
 
         var discriminatorPropertyName =
+#if NET8_0_OR_GREATER
+            TConverter.GetDiscriminatorPropertyName();
+#else
             Self_GetDiscriminatorPropertyName();
+#endif
 
         var discriminatorProperty = jsonDocument.RootElement
             .GetProperty(discriminatorPropertyName);
@@ -54,7 +57,11 @@ public abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
         }
 
         var type =
+#if NET8_0_OR_GREATER
+            TConverter.GetTypeForDiscriminator(typeDiscriminator);
+#else
             Self_GetTypeForDiscriminator(typeDiscriminator);
+#endif
 
         return (T?) jsonDocument.Deserialize(options.GetTypeInfo(type));
     }
@@ -62,9 +69,17 @@ public abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         var discriminatorPropertyName =
+#if NET8_0_OR_GREATER
+            TConverter.GetDiscriminatorPropertyName();
+#else
             Self_GetDiscriminatorPropertyName();
+#endif
         var discriminatorValue =
+#if NET8_0_OR_GREATER
+            TConverter.GetDiscriminatorForInstance(value, out var instanceType);
+#else
             Self_GetDiscriminatorForInstance(value, out var instanceType);
+#endif
 
         var typeInfo = options.GetTypeInfo(instanceType);
 
@@ -125,23 +140,3 @@ public abstract class PolymorphicJsonConvertor<T> : JsonConverter<T>
         writer.WriteEndObject();
     }
 }
-
-#if NET8_0_OR_GREATER
-/// <summary>
-/// Base of polymorphic converters generated for net8.0+, which supply the discriminator mapping through the static abstract members of <see cref="IPolymorphicJsonConvertor{T}"/>.
-/// </summary>
-public abstract class PolymorphicJsonConvertor<TConverter, T> : PolymorphicJsonConvertor<T>
-    where TConverter : PolymorphicJsonConvertor<TConverter, T>, IPolymorphicJsonConvertor<T>
-    where T : class
-{
-    protected sealed override ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => TConverter.GetDiscriminatorPropertyName();
-
-    protected sealed override Type Self_GetTypeForDiscriminator(
-        IDiscriminatorStruct discriminator
-    ) => TConverter.GetTypeForDiscriminator(discriminator);
-
-    protected sealed override IDiscriminatorStruct Self_GetDiscriminatorForInstance<TInstance>(
-        TInstance instance, out Type targetType
-    ) => TConverter.GetDiscriminatorForInstance(instance, out targetType);
-}
-#endif

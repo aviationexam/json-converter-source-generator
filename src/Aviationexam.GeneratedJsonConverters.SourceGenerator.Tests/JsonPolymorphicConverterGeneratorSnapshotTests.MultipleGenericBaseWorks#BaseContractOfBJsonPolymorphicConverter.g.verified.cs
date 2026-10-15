@@ -4,12 +4,8 @@
 namespace ApplicationNamespace;
 
 internal class BaseContractOfBJsonPolymorphicConverter :
-#if NET8_0_OR_GREATER
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseContractOfBJsonPolymorphicConverter, global::ApplicationNamespace.Contracts.BaseContract<global::ApplicationNamespace.Contracts.B>>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract<global::ApplicationNamespace.Contracts.B>>
-#else
-    Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract<global::ApplicationNamespace.Contracts.B>>
-#endif
 {
     #if !NET8_0_OR_GREATER
 
