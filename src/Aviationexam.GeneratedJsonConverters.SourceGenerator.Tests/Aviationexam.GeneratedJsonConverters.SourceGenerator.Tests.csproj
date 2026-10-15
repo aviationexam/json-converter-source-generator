@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests</ProjectName>
     <IsPackable>false</IsPackable>
+    <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
@@ -48,7 +49,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" />
-    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" />
+    <!-- The analyzer build; its NetStandard reference must not flow next to Abstractions -->
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
 
   <ItemGroup>

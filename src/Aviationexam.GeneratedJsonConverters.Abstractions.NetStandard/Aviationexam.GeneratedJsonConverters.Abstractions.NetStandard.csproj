@@ -1,13 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--
-      A separate assembly, so a netstandard2.0 library keeps binding to it inside a net8.0+ application.
-      The net8.0 build has the same netstandard2.0 shape (ABSTRACTIONS_NETSTANDARD) and only exists so net8.0+ applications
-      load it with the framework System.Text.Json instead of the netstandard2.0 package dependencies.
-    -->
-    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
-    <DefineConstants>$(DefineConstants);ABSTRACTIONS_NETSTANDARD</DefineConstants>
+    <!-- A separate assembly name, so the netstandard2.0 shape never collides with the net8.0+ assembly in one compilation -->
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard</ProjectName>
@@ -32,7 +27,7 @@
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup>
     <PackageReference Include="PolySharp" PrivateAssets="all" />
     <PackageReference Include="System.Text.Json" />
   </ItemGroup>

@@ -15,7 +15,7 @@ public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
 {
     private readonly Type _polymorphicType = typeof(T);
 
-#if !NET8_0_OR_GREATER || ABSTRACTIONS_NETSTANDARD
+#if !NET8_0_OR_GREATER
     protected abstract ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName();
 
     protected abstract Type Self_GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
@@ -30,7 +30,7 @@ public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
         using var jsonDocument = JsonDocument.ParseValue(ref reader);
 
         var discriminatorPropertyName =
-#if NET8_0_OR_GREATER && !ABSTRACTIONS_NETSTANDARD
+#if NET8_0_OR_GREATER
             TConverter.GetDiscriminatorPropertyName();
 #else
             Self_GetDiscriminatorPropertyName();
@@ -57,7 +57,7 @@ public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
         }
 
         var type =
-#if NET8_0_OR_GREATER && !ABSTRACTIONS_NETSTANDARD
+#if NET8_0_OR_GREATER
             TConverter.GetTypeForDiscriminator(typeDiscriminator);
 #else
             Self_GetTypeForDiscriminator(typeDiscriminator);
@@ -69,13 +69,13 @@ public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         var discriminatorPropertyName =
-#if NET8_0_OR_GREATER && !ABSTRACTIONS_NETSTANDARD
+#if NET8_0_OR_GREATER
             TConverter.GetDiscriminatorPropertyName();
 #else
             Self_GetDiscriminatorPropertyName();
 #endif
         var discriminatorValue =
-#if NET8_0_OR_GREATER && !ABSTRACTIONS_NETSTANDARD
+#if NET8_0_OR_GREATER
             TConverter.GetDiscriminatorForInstance(value, out var instanceType);
 #else
             Self_GetDiscriminatorForInstance(value, out var instanceType);
