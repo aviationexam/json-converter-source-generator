@@ -22,7 +22,16 @@ And string based enum serialization.
 ## Install
 ```xml
 <ItemGroup>
-    <PackageReference Include="Aviationexam.GeneratedJsonConverters.SourceGenerator" Version="0.1.0" PrivateAssets="all" />
+    <PackageReference Include="Aviationexam.GeneratedJsonConverters.SourceGenerator" Version="0.1.0" />
+</ItemGroup>
+```
+
+The generated converters derive from public types in `Aviationexam.GeneratedJsonConverters.Abstractions`, which the generator package brings in as a dependency. netstandard2.0 projects get `Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard` instead, built from the same sources under a different assembly name. Do not mark the reference `PrivateAssets="all"`: projects referencing yours need the abstractions assembly at runtime. The analyzer and its build properties stay private by default.
+
+A netstandard2.0-only library used by net8.0+ applications must reference the netstandard2.0 abstractions itself, because those applications restore the generator for net8.0 and get only `Aviationexam.GeneratedJsonConverters.Abstractions`. The reference reaches them as a runtime-only dependency, so they never compile against both assemblies. A library that also targets net8.0 (for example `netstandard2.0;net8.0`) does not need it.
+```xml
+<ItemGroup>
+    <PackageReference Include="Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard" Version="0.1.0" PrivateAssets="compile;contentfiles;analyzers;build" />
 </ItemGroup>
 ```
 

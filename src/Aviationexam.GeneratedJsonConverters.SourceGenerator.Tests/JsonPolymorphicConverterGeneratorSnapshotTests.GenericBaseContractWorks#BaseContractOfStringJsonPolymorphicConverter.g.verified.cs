@@ -7,7 +7,7 @@ internal class BaseContractOfStringJsonPolymorphicConverter :
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<BaseContractOfStringJsonPolymorphicConverter, global::ApplicationNamespace.Contracts.BaseContract<global::System.String>>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::ApplicationNamespace.Contracts.BaseContract<global::System.String>>
 {
-    #if !NET7_0_OR_GREATER
+    #if !NET8_0_OR_GREATER
 
     protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
 

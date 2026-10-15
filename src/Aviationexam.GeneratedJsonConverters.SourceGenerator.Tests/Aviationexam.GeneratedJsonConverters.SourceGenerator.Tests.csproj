@@ -47,7 +47,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" />
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" />
+    <!-- Test the shipped netstandard2.0 analyzer build; the net8.0 build is empty -->
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
 
   <ItemGroup>

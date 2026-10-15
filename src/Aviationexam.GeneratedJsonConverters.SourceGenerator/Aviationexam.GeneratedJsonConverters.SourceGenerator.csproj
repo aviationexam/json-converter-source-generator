@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- The analyzer is the netstandard2.0 build. net8.0 compiles nothing; it only gives the package a net8.0 dependency group -->
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator</ProjectName>
@@ -13,11 +14,14 @@
 
   <Import Project="..\WarningConfiguration.targets" />
 
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
   <PropertyGroup Label="NuGet">
     <PackageLicense>MIT</PackageLicense>
     <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <DevelopmentDependency>true</DevelopmentDependency>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -25,12 +29,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(OutputPath)netstandard2.0\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     <None Include="$(AssemblyName).props" Pack="true" PackagePath="build" />
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.Bcl.Memory" PrivateAssets="all" GeneratePathProperty="true" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
@@ -42,21 +46,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Attributes\DisableEnumJsonConverterAttribute.cs" />
-    <EmbeddedResource Include="EnumSerializationStrategy.cs" />
-    <EmbeddedResource Include="EnumDeserializationStrategy.cs" />
-    <EmbeddedResource Include="EnumJsonConvertor.cs" />
-    <EmbeddedResource Include="DiscriminatorStruct.cs" />
-    <EmbeddedResource Include="IDiscriminatorStruct.cs" />
-    <EmbeddedResource Include="IPolymorphicJsonConvertor.cs" />
-    <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
+    <!-- Become package dependencies, so projects using the generator get the types the generated code derives from:
+         netstandard2.0 consumers the NetStandard assembly, net8.0+ consumers the Abstractions assembly.
+         The alias keeps their types out of scope, so the generator never loads them inside the compiler -->
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard.csproj" Aliases="Abstractions" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" Aliases="Abstractions" Condition="'$(TargetFramework)' != 'netstandard2.0'" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <!-- Compiled in, because the generator uses these types itself while running inside the compiler -->
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Attributes\DisableEnumJsonConverterAttribute.cs" Link="Abstractions\DisableEnumJsonConverterAttribute.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\EnumSerializationStrategy.cs" Link="Abstractions\EnumSerializationStrategy.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\EnumDeserializationStrategy.cs" Link="Abstractions\EnumDeserializationStrategy.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\DiscriminatorStruct.cs" Link="Abstractions\DiscriminatorStruct.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\IDiscriminatorStruct.cs" Link="Abstractions\IDiscriminatorStruct.cs" />
   </ItemGroup>
 
   <PropertyGroup>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
-  <Target Name="_AddAnalyzersToOutput">
+  <Target Name="_AddAnalyzersToOutput" Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <Message Importance="High" Text="$(PkgH_Generators_Extensions)\lib\netstandard2.0\H.Generators.Extensions.dll" />
     <Message Importance="High" Text="$(PkgMicrosoft_Bcl_AsyncInterfaces)\lib\netstandard2.0\Microsoft.Bcl.AsyncInterfaces.dll" />
     <Message Importance="High" Text="$(PkgSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" />

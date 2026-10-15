@@ -7,7 +7,7 @@ internal class PersonJsonPolymorphicConverter :
     Aviationexam.GeneratedJsonConverters.PolymorphicJsonConvertor<PersonJsonPolymorphicConverter, global::Person>,
     Aviationexam.GeneratedJsonConverters.IPolymorphicJsonConvertor<global::Person>
 {
-    #if !NET7_0_OR_GREATER
+    #if !NET8_0_OR_GREATER
 
     protected override System.ReadOnlySpan<byte> Self_GetDiscriminatorPropertyName() => GetDiscriminatorPropertyName();
 

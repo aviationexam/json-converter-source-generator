@@ -172,11 +172,17 @@
         "resolved": "4.6.2",
         "contentHash": "yQgmjfFximrNm9LIV3mL6T5MzjeC+epeE5rl4hXxAlYmxby7RM1dPSkIKXk9HNkl6G54h2JHOmLD46+Pey+IRg=="
       },
-      "aviationexam.generatedjsonconverters.sourcegenerator": {
-        "type": "Project"
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
+        "type": "Project",
+        "dependencies": {
+          "System.Text.Json": "[10.0.13, )"
+        }
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
       },
       "Argon": {
         "type": "CentralTransitive",
@@ -493,11 +499,14 @@
           "xunit.v3.core.mtp-v2": "[4.0.2]"
         }
       },
-      "aviationexam.generatedjsonconverters.sourcegenerator": {
+      "aviationexam.generatedjsonconverters.abstractions": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions": "[1.0.0, )"
+        }
       },
       "Argon": {
         "type": "CentralTransitive",
@@ -757,11 +766,14 @@
           "xunit.v3.core.mtp-v2": "[4.0.2]"
         }
       },
-      "aviationexam.generatedjsonconverters.sourcegenerator": {
+      "aviationexam.generatedjsonconverters.abstractions": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions": "[1.0.0, )"
+        }
       },
       "Argon": {
         "type": "CentralTransitive",
@@ -1015,11 +1027,14 @@
           "xunit.v3.core.mtp-v2": "[4.0.2]"
         }
       },
-      "aviationexam.generatedjsonconverters.sourcegenerator": {
+      "aviationexam.generatedjsonconverters.abstractions": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions": "[1.0.0, )"
+        }
       },
       "Argon": {
         "type": "CentralTransitive",

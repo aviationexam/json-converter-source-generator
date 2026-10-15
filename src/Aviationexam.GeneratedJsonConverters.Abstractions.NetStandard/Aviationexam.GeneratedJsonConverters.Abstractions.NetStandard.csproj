@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- A separate assembly name, so the netstandard2.0 shape never collides with the net8.0+ assembly in one compilation -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard</ProjectName>
+    <RootNamespace>Aviationexam.GeneratedJsonConverters</RootNamespace>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <Import Project="..\WarningConfiguration.targets" />
+
+  <PropertyGroup Label="NuGet">
+    <PackageLicense>MIT</PackageLicense>
+    <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\**\*.cs" Exclude="..\Aviationexam.GeneratedJsonConverters.Abstractions\obj\**;..\Aviationexam.GeneratedJsonConverters.Abstractions\bin\**" LinkBase="Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" />
+  </ItemGroup>
+
+</Project>

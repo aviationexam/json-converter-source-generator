@@ -1,4 +1,3 @@
-using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Transformers;
 using H.Generators.Extensions;
@@ -29,18 +28,6 @@ public class EnumJsonConverterIncrementalGenerator : IIncrementalGenerator
         IncrementalGeneratorInitializationContext context
     )
     {
-        context.RegisterPostInitializationOutput(i =>
-        {
-            i.AddEmbeddedResources<EnumJsonConverterIncrementalGenerator>([
-                "Attributes.DisableEnumJsonConverterAttribute",
-                "EnumSerializationStrategy",
-                "EnumDeserializationStrategy",
-                "EnumJsonConvertor",
-            ]);
-
-            i.GenerateEnumJsonConverterAttribute();
-        });
-
         var enumJsonConverterOptions = context.AnalyzerConfigOptionsProvider.Select((x, _) => new EnumJsonConverterOptions(
             x.GetGlobalOption("DefaultJsonSerializerContext_ClassAccessibility", Id) is { } defaultJsonSerializerContextClassAccessibility
             && x.GetGlobalOption("DefaultJsonSerializerContext_Namespace", Id) is { } defaultJsonSerializerContextNamespace

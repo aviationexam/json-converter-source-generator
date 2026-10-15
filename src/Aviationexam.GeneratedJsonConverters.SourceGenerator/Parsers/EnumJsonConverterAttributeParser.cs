@@ -1,4 +1,3 @@
-using Aviationexam.GeneratedJsonConverters.SourceGenerator.Generators;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
@@ -8,6 +7,9 @@ namespace Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 
 internal static class EnumJsonConverterAttributeParser
 {
+    public const string SerializationStrategyPropertyName = "SerializationStrategy";
+    public const string DeserializationStrategyPropertyName = "DeserializationStrategy";
+
     public static EnumJsonConverterConfiguration? Parse(
         GeneratorSyntaxContext context, AttributeSyntax attributeSyntax
     )
@@ -28,11 +30,11 @@ internal static class EnumJsonConverterAttributeParser
                 {
                     jsonConverterConfiguration = argumentName switch
                     {
-                        EnumJsonConverterAttributeGenerator.DeserializationStrategyPropertyName => jsonConverterConfiguration with
+                        DeserializationStrategyPropertyName => jsonConverterConfiguration with
                         {
                             DeserializationStrategies = ParseEnumAsArray<EnumDeserializationStrategy>(expression),
                         },
-                        EnumJsonConverterAttributeGenerator.SerializationStrategyPropertyName => jsonConverterConfiguration with
+                        SerializationStrategyPropertyName => jsonConverterConfiguration with
                         {
                             SerializationStrategies = ParseEnumAsArray<EnumSerializationStrategy>(expression),
                         },
