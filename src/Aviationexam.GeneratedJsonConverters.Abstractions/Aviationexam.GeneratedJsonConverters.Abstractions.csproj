@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Generated code compiles NET7_0_OR_GREATER branches against these types, so the asset must match the consumer's TFM family -->
+    <!-- Generated code compiles NET8_0_OR_GREATER branches against these types, so the asset must match the consumer's TFM family -->
     <TargetFrameworks>netstandard2.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
