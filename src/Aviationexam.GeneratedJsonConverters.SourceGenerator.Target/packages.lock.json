@@ -35,8 +35,11 @@
       "aviationexam.generatedjsonconverters.abstractions": {
         "type": "Project",
         "dependencies": {
-          "System.Text.Json": "[10.0.13, )"
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
         }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
+        "type": "Project"
       },
       "Microsoft.Bcl.AsyncInterfaces": {
         "type": "CentralTransitive",
@@ -122,6 +125,12 @@
         "contentHash": "xi+BDjFpW+Sb+MHFHaH6Y/gV9I8BluFwRXc1QyCdoZbIK26eNiBeFuMTe/FMwc33G1wdHCyDg7CVTmb8OdQrMQ=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       }
     },
@@ -133,6 +142,12 @@
         "contentHash": "OJdAGATV2QoVWL11zlDLEluA06q8rK+cgZR47ohrO8V+Qj5z9dlvN7bG9/0e5t0IOe+yD8tREC0bpsEgDGrzIQ=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       }
     },
@@ -144,6 +159,12 @@
         "contentHash": "oPFydtjCgow3DXnL8z5gPbq3R1zGvBpcypgRhW172Hn8asJcI8oy7isudAnAAALIWyK+uRWCDP+/+om3s0PZHA=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       }
     }

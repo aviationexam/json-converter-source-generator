@@ -176,6 +176,12 @@
         "contentHash": "3SoUdxqmeczGmNwifgzlVDMtSYd3tyB/9qoqiN8dl9UVPI3uQKW2XwUQn86l34P3IabJMsj4EbHKZ8q9fkeDGw=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator": {
@@ -750,6 +756,12 @@
         "contentHash": "3SoUdxqmeczGmNwifgzlVDMtSYd3tyB/9qoqiN8dl9UVPI3uQKW2XwUQn86l34P3IabJMsj4EbHKZ8q9fkeDGw=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator": {
@@ -1357,6 +1369,12 @@
         "contentHash": "3SoUdxqmeczGmNwifgzlVDMtSYd3tyB/9qoqiN8dl9UVPI3uQKW2XwUQn86l34P3IabJMsj4EbHKZ8q9fkeDGw=="
       },
       "aviationexam.generatedjsonconverters.abstractions": {
+        "type": "Project",
+        "dependencies": {
+          "Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard": "[1.0.0, )"
+        }
+      },
+      "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project"
       },
       "aviationexam.generatedjsonconverters.sourcegenerator": {
