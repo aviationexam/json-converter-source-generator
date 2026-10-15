@@ -36,19 +36,6 @@ public class JsonPolymorphicConverterIncrementalGenerator : IIncrementalGenerato
         IncrementalGeneratorInitializationContext context
     )
     {
-        context.RegisterPostInitializationOutput(i =>
-        {
-            i.AddEmbeddedResources<JsonPolymorphicConverterIncrementalGenerator>([
-                "DiscriminatorStruct",
-                "IDiscriminatorStruct",
-                "IPolymorphicJsonConvertor",
-                "PolymorphicJsonConvertor",
-            ]);
-
-            i.GenerateJsonPolymorphicAttribute();
-            i.GenerateJsonDerivedTypeAttribute();
-        });
-
         context.SyntaxProvider.CreateSyntaxProvider(
                 predicate: static (node, _) => node is ClassDeclarationSyntax { AttributeLists.Count: > 0 },
                 transform: PolymorphicJsonSerializerContextTransformer.GetJsonSerializerContextClassDeclarationSyntax

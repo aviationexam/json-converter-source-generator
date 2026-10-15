@@ -17,7 +17,6 @@
     <PackageLicense>MIT</PackageLicense>
     <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <DevelopmentDependency>true</DevelopmentDependency>
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -42,14 +41,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Attributes\DisableEnumJsonConverterAttribute.cs" />
-    <EmbeddedResource Include="EnumSerializationStrategy.cs" />
-    <EmbeddedResource Include="EnumDeserializationStrategy.cs" />
-    <EmbeddedResource Include="EnumJsonConvertor.cs" />
-    <EmbeddedResource Include="DiscriminatorStruct.cs" />
-    <EmbeddedResource Include="IDiscriminatorStruct.cs" />
-    <EmbeddedResource Include="IPolymorphicJsonConvertor.cs" />
-    <EmbeddedResource Include="PolymorphicJsonConvertor.cs" />
+    <!-- Becomes a package dependency, so projects using the generator get the types the generated code derives from.
+         The alias keeps its types out of scope, so the generator never loads the assembly inside the compiler -->
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" Aliases="Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Compiled in, because the generator uses these types itself while running inside the compiler -->
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Attributes\DisableEnumJsonConverterAttribute.cs" Link="Abstractions\DisableEnumJsonConverterAttribute.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\EnumSerializationStrategy.cs" Link="Abstractions\EnumSerializationStrategy.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\EnumDeserializationStrategy.cs" Link="Abstractions\EnumDeserializationStrategy.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\DiscriminatorStruct.cs" Link="Abstractions\DiscriminatorStruct.cs" />
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\IDiscriminatorStruct.cs" Link="Abstractions\IDiscriminatorStruct.cs" />
   </ItemGroup>
 
   <PropertyGroup>

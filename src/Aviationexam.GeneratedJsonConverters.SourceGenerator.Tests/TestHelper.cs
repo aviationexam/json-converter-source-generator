@@ -59,6 +59,7 @@ public static class TestHelper
                     typeof(object).Assembly.Location,
                     typeof(EnumMemberAttribute).Assembly.Location,
                     typeof(ZLinq.ValueEnumerator<,>).Assembly.Location,
+                    typeof(EnumJsonConvertor<>).Assembly.Location,
                 }
                 .Union(GetLocationWithDependencies(typeof(JsonSerializer)))
                 .Distinct()

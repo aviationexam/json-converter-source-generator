@@ -15,6 +15,7 @@
     <File Path=".github/workflows/pr-build.yml" />
     <File Path=".github/workflows/release.yml" />
   </Folder>
+  <Project Path="src/Aviationexam.GeneratedJsonConverters.Abstractions/Aviationexam.GeneratedJsonConverters.Abstractions.csproj" Type="C#" />
   <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj" Type="C#" />
   <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj" Type="C#" />
   <Project Path="src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests.csproj" Type="C#" />

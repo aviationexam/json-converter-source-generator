@@ -26,6 +26,7 @@
   <Import Project="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.props"/>
 
   <ItemGroup>
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" />
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
