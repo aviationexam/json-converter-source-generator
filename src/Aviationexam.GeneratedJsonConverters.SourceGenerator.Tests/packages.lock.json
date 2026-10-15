@@ -762,7 +762,10 @@
         }
       },
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "System.Text.Json": "[10.0.13, )"
+        }
       },
       "aviationexam.generatedjsonconverters.sourcegenerator": {
         "type": "Project",
@@ -1375,7 +1378,10 @@
         }
       },
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
-        "type": "Project"
+        "type": "Project",
+        "dependencies": {
+          "System.Text.Json": "[10.0.13, )"
+        }
       },
       "aviationexam.generatedjsonconverters.sourcegenerator": {
         "type": "Project",
