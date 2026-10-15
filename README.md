@@ -22,9 +22,11 @@ And string based enum serialization.
 ## Install
 ```xml
 <ItemGroup>
-    <PackageReference Include="Aviationexam.GeneratedJsonConverters.SourceGenerator" Version="0.1.0" PrivateAssets="all" />
+    <PackageReference Include="Aviationexam.GeneratedJsonConverters.SourceGenerator" Version="0.1.0" />
 </ItemGroup>
 ```
+
+The generated converters derive from public types in `Aviationexam.GeneratedJsonConverters.Abstractions`, which the generator package brings in as a dependency. Do not mark the reference `PrivateAssets="all"`: projects referencing yours need the abstractions assembly at runtime. The analyzer and its build properties stay private by default.
 
 ## How to use library
 
