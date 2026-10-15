@@ -16,6 +16,17 @@
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
   </PropertyGroup>
 
+  <!-- Keep net472 restore identical on every OS so one packages.lock.json fits Windows and Linux:
+       AnyCPU stops the SDK from inferring a win-x86 RID on Windows, and the explicit reference
+       assemblies package replaces the one the SDK only adds implicitly when no targeting pack is installed -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="all" />
+  </ItemGroup>
+
   <!-- net472 still builds everywhere, but only runs on Windows (dotnet test would need Mono elsewhere) -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net472' AND '$(OS)' != 'Windows_NT'">
     <IsTestProject>false</IsTestProject>
