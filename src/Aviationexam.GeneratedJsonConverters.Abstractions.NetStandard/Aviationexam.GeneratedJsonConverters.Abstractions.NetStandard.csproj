@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- A separate assembly for netstandard2.0, so a netstandard2.0 library keeps binding to it inside a net8.0+ application -->
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard</ProjectName>
+    <RootNamespace>Aviationexam.GeneratedJsonConverters</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <!-- Pinning would compile against newer System.Memory and friends than System.Text.Json 8.0 brings, which consumers on 8.0 cannot load -->
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+
+  <Import Project="..\WarningConfiguration.targets" />
+
+  <PropertyGroup Label="NuGet">
+    <PackageLicense>MIT</PackageLicense>
+    <RepositoryUrl>https://github.com/aviationexam/json-converter-source-generator</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\**\*.cs" Exclude="..\Aviationexam.GeneratedJsonConverters.Abstractions\obj\**;..\Aviationexam.GeneratedJsonConverters.Abstractions\bin\**" LinkBase="Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PolySharp" PrivateAssets="all" />
+    <!-- Consumers reference System.Text.Json themselves (generated code needs it). Compiling against the oldest supported
+         version keeps this assembly loadable next to the framework System.Text.Json of a net8.0+ application -->
+    <PackageReference Include="System.Text.Json" VersionOverride="8.0.5" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

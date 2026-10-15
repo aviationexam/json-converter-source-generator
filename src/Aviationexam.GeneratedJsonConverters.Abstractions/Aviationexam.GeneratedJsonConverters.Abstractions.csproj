@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Generated code compiles NET8_0_OR_GREATER branches against these types, so the asset must match the consumer's TFM family -->
     <TargetFrameworks>netstandard2.0;net8.0;net9.0;net10.0</TargetFrameworks>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions</ProjectName>
     <RootNamespace>Aviationexam.GeneratedJsonConverters</RootNamespace>
     <IsPackable>true</IsPackable>
-    <IsAotCompatible Condition="'$(TargetFramework)' != 'netstandard2.0'">true</IsAotCompatible>
+    <IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
@@ -22,11 +21,26 @@
 
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
+    <!-- netstandard2.0 has no assembly of its own; the placeholder keeps the dependency group valid -->
+    <None Include="_._" Pack="true" PackagePath="lib/netstandard2.0" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="PolySharp" PrivateAssets="all" />
-    <PackageReference Include="System.Text.Json" />
+  <!--
+    netstandard2.0 consumers compile and run against Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard, built from these sources.
+    net8.0+ consumers compile against this assembly and also get the NetStandard one at runtime only,
+    so a netstandard2.0 library keeps the types it was compiled against inside a net8.0+ application.
+  -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0'">
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard\Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard.csproj" Aliases="NetStandard" PrivateAssets="compile;contentfiles;analyzers;build" />
   </ItemGroup>
 
 </Project>

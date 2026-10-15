@@ -7,6 +7,7 @@
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator</ProjectName>
     <IsRoslynComponent>true</IsRoslynComponent>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    <DisableTransitiveProjectReferences>true</DisableTransitiveProjectReferences>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
@@ -42,7 +43,8 @@
 
   <ItemGroup>
     <!-- Becomes a package dependency, so projects using the generator get the types the generated code derives from.
-         The alias keeps its types out of scope, so the generator never loads the assembly inside the compiler -->
+         The alias keeps its types out of scope, so the generator never loads the assembly inside the compiler.
+         Its NetStandard dependency would flow in without the alias, so transitive project references are off -->
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.Abstractions\Aviationexam.GeneratedJsonConverters.Abstractions.csproj" Aliases="Abstractions" />
   </ItemGroup>
 
