@@ -42,6 +42,35 @@ jobs:
           path: 'TestResults/*.trx'
           reporter: dotnet-trx
 
+  unit-test-netfx:
+    runs-on: windows-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+      TEST_PROJECT: src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj
+    steps:
+      - name: Setup .Net 10.0.x
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: '10.0.x'
+      # Snapshot file names exceed MAX_PATH
+      - name: Enable Git long paths
+        run: git config --system core.longpaths true
+      - uses: actions/checkout@v7
+      - name: Restore
+        run: dotnet restore --nologo ${{ env.TEST_PROJECT }}
+      - name: Build
+        run: dotnet build --no-restore --nologo --configuration Release --framework net472 ${{ env.TEST_PROJECT }}
+      - name: Test
+        run: dotnet test --no-build --configuration Release --framework net472 --project ${{ env.TEST_PROJECT }} --results-directory TestResults --report-trx
+
+      - name: 📄 Publish test results
+        uses: dorny/test-reporter@v3.2.0
+        if: always()
+        with:
+          name: 'xUnit Test Results (.NET Framework)'
+          path: 'TestResults/*.trx'
+          reporter: dotnet-trx
+
   code-style:
     runs-on: ubuntu-latest
     env:
