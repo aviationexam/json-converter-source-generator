@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net472;net8.0;net9.0;net10.0</TargetFrameworks>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests</ProjectName>
@@ -14,6 +14,12 @@
   <PropertyGroup>
     <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
     <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+  </PropertyGroup>
+
+  <!-- net472 still builds everywhere, but only runs on Windows (dotnet test would need Mono elsewhere) -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net472' AND '$(OS)' != 'Windows_NT'">
+    <IsTestProject>false</IsTestProject>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -37,7 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target\Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.csproj" />
-    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" />
+    <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 </Project>
