@@ -1,15 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- A separate assembly for netstandard2.0, so a netstandard2.0 library keeps binding to it inside a net8.0+ application -->
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <!--
+      A separate assembly, so a netstandard2.0 library keeps binding to it inside a net8.0+ application.
+      The net8.0 build has the same netstandard2.0 shape (ABSTRACTIONS_NETSTANDARD) and only exists so net8.0+ applications
+      load it with the framework System.Text.Json instead of the netstandard2.0 package dependencies.
+    -->
+    <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
+    <DefineConstants>$(DefineConstants);ABSTRACTIONS_NETSTANDARD</DefineConstants>
     <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard</ProjectName>
     <RootNamespace>Aviationexam.GeneratedJsonConverters</RootNamespace>
     <IsPackable>true</IsPackable>
-    <!-- Pinning would compile against newer System.Memory and friends than System.Text.Json 8.0 brings, which consumers on 8.0 cannot load -->
-    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
 
   <Import Project="..\WarningConfiguration.targets" />
@@ -29,11 +32,9 @@
     <None Include="..\..\README.md" Pack="true" PackagePath="\" Visible="false" />
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="PolySharp" PrivateAssets="all" />
-    <!-- Consumers reference System.Text.Json themselves (generated code needs it). Compiling against the oldest supported
-         version keeps this assembly loadable next to the framework System.Text.Json of a net8.0+ application -->
-    <PackageReference Include="System.Text.Json" VersionOverride="8.0.5" PrivateAssets="all" />
+    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
 
 </Project>

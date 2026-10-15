@@ -2,7 +2,7 @@ namespace Aviationexam.GeneratedJsonConverters;
 
 public interface IPolymorphicJsonConvertor<T> where T : class
 {
-#if NET8_0_OR_GREATER
+#if NET8_0_OR_GREATER && !ABSTRACTIONS_NETSTANDARD
     public static abstract System.ReadOnlySpan<byte> GetDiscriminatorPropertyName();
 
     public static abstract System.Type GetTypeForDiscriminator(IDiscriminatorStruct discriminator);
