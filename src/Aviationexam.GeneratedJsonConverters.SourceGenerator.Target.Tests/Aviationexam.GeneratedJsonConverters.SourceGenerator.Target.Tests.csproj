@@ -21,6 +21,8 @@
        assemblies package replaces the one the SDK only adds implicitly when no targeting pack is installed -->
   <PropertyGroup Condition="'$(TargetFramework)' == 'net472'">
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <!-- Verify snapshot file names exceed MAX_PATH, .NET Framework needs the opt-in -->
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
