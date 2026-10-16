@@ -141,7 +141,7 @@ internal static class JsonPolymorphicConverterGenerator
                   ) => discriminator switch
                   {
               {{typeForDiscriminatorStringBuilder}}
-                      _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+                      _ => throw new System.Text.Json.JsonException($"Unknown discriminator '{discriminator}' for type {typeof({{fullName}})}"),
                   };
 
                   public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(

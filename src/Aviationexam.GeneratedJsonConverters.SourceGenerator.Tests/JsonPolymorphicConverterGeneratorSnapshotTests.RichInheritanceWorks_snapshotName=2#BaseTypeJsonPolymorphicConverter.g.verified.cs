@@ -34,7 +34,7 @@ internal class BaseTypeJsonPolymorphicConverter :
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "SecondLevel2B" } => typeof(SecondLevel2B),
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "FirstLevel2" } => typeof(FirstLevel2),
 
-        _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+        _ => throw new System.Text.Json.JsonException($"Unknown discriminator '{discriminator}' for type {typeof(global::BaseType)}"),
     };
 
     public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(

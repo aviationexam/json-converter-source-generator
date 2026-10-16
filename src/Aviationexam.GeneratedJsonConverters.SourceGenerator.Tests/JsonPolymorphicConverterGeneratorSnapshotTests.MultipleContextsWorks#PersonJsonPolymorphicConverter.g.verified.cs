@@ -30,7 +30,7 @@ internal class PersonJsonPolymorphicConverter :
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "Student" } => typeof(Student),
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "Teacher" } => typeof(Teacher),
 
-        _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+        _ => throw new System.Text.Json.JsonException($"Unknown discriminator '{discriminator}' for type {typeof(global::Person)}"),
     };
 
     public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(
