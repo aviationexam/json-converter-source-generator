@@ -197,9 +197,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.8.1, )",
-        "resolved": "20.8.1",
-        "contentHash": "vfBch+CoUIPSfWk5nfEkzRZjWEHzAnGrvSj6SDH5vbFAAqMpXd/vJfBAd9WXlilTyCk4BYwO5U+P7con7NS3Gg==",
+        "requested": "[20.8.2, )",
+        "resolved": "20.8.2",
+        "contentHash": "913FZh0PW/wL53zdx+go/doxQuulU8C6SSgmAHMAuVS/mF1JCYcBgg29F8XkpWEGW0JotbIscsifjlaLwE71bw==",
         "dependencies": {
           "EmptyFiles": "8.20.1",
           "System.Runtime.InteropServices.RuntimeInformation": "4.3.0"
@@ -516,9 +516,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.8.1, )",
-        "resolved": "20.8.1",
-        "contentHash": "vfBch+CoUIPSfWk5nfEkzRZjWEHzAnGrvSj6SDH5vbFAAqMpXd/vJfBAd9WXlilTyCk4BYwO5U+P7con7NS3Gg==",
+        "requested": "[20.8.2, )",
+        "resolved": "20.8.2",
+        "contentHash": "913FZh0PW/wL53zdx+go/doxQuulU8C6SSgmAHMAuVS/mF1JCYcBgg29F8XkpWEGW0JotbIscsifjlaLwE71bw==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
@@ -783,9 +783,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.8.1, )",
-        "resolved": "20.8.1",
-        "contentHash": "vfBch+CoUIPSfWk5nfEkzRZjWEHzAnGrvSj6SDH5vbFAAqMpXd/vJfBAd9WXlilTyCk4BYwO5U+P7con7NS3Gg==",
+        "requested": "[20.8.2, )",
+        "resolved": "20.8.2",
+        "contentHash": "913FZh0PW/wL53zdx+go/doxQuulU8C6SSgmAHMAuVS/mF1JCYcBgg29F8XkpWEGW0JotbIscsifjlaLwE71bw==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
@@ -1044,9 +1044,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[20.8.1, )",
-        "resolved": "20.8.1",
-        "contentHash": "vfBch+CoUIPSfWk5nfEkzRZjWEHzAnGrvSj6SDH5vbFAAqMpXd/vJfBAd9WXlilTyCk4BYwO5U+P7con7NS3Gg==",
+        "requested": "[20.8.2, )",
+        "resolved": "20.8.2",
+        "contentHash": "913FZh0PW/wL53zdx+go/doxQuulU8C6SSgmAHMAuVS/mF1JCYcBgg29F8XkpWEGW0JotbIscsifjlaLwE71bw==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
