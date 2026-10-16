@@ -36,24 +36,40 @@ public abstract class PolymorphicJsonConvertor<TConverter, T> : JsonConverter<T>
             Self_GetDiscriminatorPropertyName();
 #endif
 
-        var discriminatorProperty = jsonDocument.RootElement
-            .GetProperty(discriminatorPropertyName);
+        var rootElement = jsonDocument.RootElement;
+
+        if (rootElement.ValueKind is not JsonValueKind.Object)
+        {
+            throw new JsonException($"Expected a JSON object for type {_polymorphicType}, but found {rootElement.ValueKind}");
+        }
+
+        if (!rootElement.TryGetProperty(discriminatorPropertyName, out var discriminatorProperty))
+        {
+            var discriminatorPropertyNameString = Encoding.UTF8.GetString(discriminatorPropertyName.ToArray());
+
+            throw new JsonException($"Not found discriminator property '{discriminatorPropertyNameString}' for type {_polymorphicType}");
+        }
 
         IDiscriminatorStruct? typeDiscriminator = null;
         if (discriminatorProperty.ValueKind is JsonValueKind.String)
         {
             typeDiscriminator = new DiscriminatorStruct<string>(discriminatorProperty.GetString()!);
         }
-        else if (discriminatorProperty.ValueKind is JsonValueKind.Number)
+        else if (
+            discriminatorProperty.ValueKind is JsonValueKind.Number
+            && discriminatorProperty.TryGetInt32(out var discriminatorInt)
+        )
         {
-            typeDiscriminator = new DiscriminatorStruct<int>(discriminatorProperty.GetInt32());
+            typeDiscriminator = new DiscriminatorStruct<int>(discriminatorInt);
         }
 
         if (typeDiscriminator is null)
         {
             var discriminatorPropertyNameString = Encoding.UTF8.GetString(discriminatorPropertyName.ToArray());
 
-            throw new JsonException($"Not found discriminator property '{discriminatorPropertyNameString}' for type {_polymorphicType}");
+            throw new JsonException(
+                $"Invalid discriminator property '{discriminatorPropertyNameString}' value '{discriminatorProperty.GetRawText()}' for type {_polymorphicType}"
+            );
         }
 
         var type =

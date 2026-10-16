@@ -30,7 +30,7 @@ internal class BaseContractOfBJsonPolymorphicConverter :
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "Leaf1_B" } => typeof(ApplicationNamespace.Contracts.Leaf1Contract<ApplicationNamespace.Contracts.B>),
         Aviationexam.GeneratedJsonConverters.DiscriminatorStruct<string> { Value: "Leaf2_B" } => typeof(ApplicationNamespace.Contracts.Leaf2Contract<ApplicationNamespace.Contracts.B>),
 
-        _ => throw new System.ArgumentOutOfRangeException(nameof(discriminator), discriminator, null),
+        _ => throw new System.Text.Json.JsonException($"Unknown discriminator '{discriminator}' for type {typeof(global::ApplicationNamespace.Contracts.BaseContract<global::ApplicationNamespace.Contracts.B>)}"),
     };
 
     public static Aviationexam.GeneratedJsonConverters.IDiscriminatorStruct GetDiscriminatorForInstance<TInstance>(

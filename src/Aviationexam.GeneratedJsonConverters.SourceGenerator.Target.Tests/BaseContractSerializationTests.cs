@@ -57,6 +57,41 @@ public class BaseContractSerializationTests
     }
 
     [Theory]
+    [MemberData(nameof(InvalidBaseJsonContractData))]
+    public void DeserializeBaseContractWithInvalidDiscriminatorThrowsJsonException(string json, string expectedMessageFragment)
+    {
+        var jsonSerializerOptions = CreateJsonSerializerOptions();
+
+        var exception = Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<BaseContract>(
+            json,
+            jsonSerializerOptions
+        ));
+
+        Assert.Contains(expectedMessageFragment, exception.Message);
+    }
+
+    [Fact]
+    public void DeserializeGenericBaseContractWithUnknownDiscriminatorThrowsJsonException()
+    {
+        var jsonSerializerOptions = CreateJsonSerializerOptions();
+
+        var exception = Assert.Throws<JsonException>(() => JsonSerializer.Deserialize<BaseContract<A>>(
+            // language=json
+            """
+            {
+                "myCustomDiscriminator": "Leaf3",
+                "value": {
+                  "value": 2
+                }
+            }
+            """,
+            jsonSerializerOptions
+        ));
+
+        Assert.Contains("Unknown discriminator 'Leaf3'", exception.Message);
+    }
+
+    [Theory]
     [MemberData(nameof(LeafContractData))]
     public void SerializeBaseContractWorks(BaseContract contract, string expectedJson)
     {
@@ -249,6 +284,69 @@ public class BaseContractSerializationTests
             typeof(GenericLeafContract),
         ];
     }
+
+    public static TheoryData<string, string> InvalidBaseJsonContractData() => new()
+    {
+        {
+            // language=json
+            """
+            {
+                "$type": "UnknownLeafContract",
+                "baseProperty": 1
+            }
+            """,
+            "Unknown discriminator 'UnknownLeafContract'"
+        },
+        {
+            // language=json
+            """
+            {
+                "$type": 42,
+                "baseProperty": 1
+            }
+            """,
+            "Unknown discriminator '42'"
+        },
+        {
+            // language=json
+            """
+            {
+                "$type": 2.5,
+                "baseProperty": 1
+            }
+            """,
+            "Invalid discriminator property '$type'"
+        },
+        {
+            // language=json
+            """
+            {
+                "$type": true,
+                "baseProperty": 1
+            }
+            """,
+            "Invalid discriminator property '$type'"
+        },
+        {
+            // language=json
+            """
+            {
+                "baseProperty": 1
+            }
+            """,
+            "Not found discriminator property '$type'"
+        },
+        {
+            // language=json
+            "[]",
+            "Expected a JSON object"
+        },
+        {
+            // language=json
+            "1",
+            "Expected a JSON object"
+        },
+    };
 
     public static TheoryData<string, Type> BaseJsonContractAData() => new()
     {
