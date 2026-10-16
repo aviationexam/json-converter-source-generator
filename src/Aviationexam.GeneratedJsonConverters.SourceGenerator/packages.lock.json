@@ -99,7 +99,7 @@
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project",
         "dependencies": {
-          "System.Text.Json": "[10.0.13, )"
+          "System.Text.Json": "[8.0.5, )"
         }
       },
       "Microsoft.CodeAnalysis.Common": {
