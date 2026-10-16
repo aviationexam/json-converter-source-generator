@@ -50,6 +50,46 @@ public class EnumJsonConverterIncrementalGeneratorSnapshotTests
     );
 
     [Fact]
+    public Task LegacyLibraryWithInternalAttributesWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
+        [LegacyGeneratorLibrary.Reference],
+        new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
+        {
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassAccessibility"] = "public",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_Namespace"] = "ApplicationNamespace",
+            ["build_property.AVI_EJC_DefaultJsonSerializerContext_ClassName"] = "MyJsonSerializerContext",
+        }),
+        // ReSharper disable once HeapView.ObjectAllocation
+        """
+        using Aviationexam.GeneratedJsonConverters.Attributes;
+
+        namespace ApplicationNamespace.Contracts;
+
+        [EnumJsonConverter]
+        public enum EMyEnum
+        {
+            A,
+            B,
+        }
+
+        [DisableEnumJsonConverter]
+        public enum EMyIgnoredEnum
+        {
+            C,
+            D,
+        }
+        """,
+        """
+        using System.Text.Json.Serialization;
+
+        namespace ApplicationNamespace;
+
+        public partial class MyJsonSerializerContext : JsonSerializerContext
+        {
+        }
+        """
+    );
+
+    [Fact]
     public Task EnumWithConfigurationWorks() => TestHelper.Verify<EnumJsonConverterIncrementalGenerator>(
         new DictionaryAnalyzerConfigOptionsProvider(globalOptions: new Dictionary<string, string>
         {
