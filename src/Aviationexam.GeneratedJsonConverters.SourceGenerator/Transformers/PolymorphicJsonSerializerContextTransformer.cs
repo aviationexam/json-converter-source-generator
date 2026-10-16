@@ -1,3 +1,4 @@
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
@@ -33,9 +34,9 @@ internal static class PolymorphicJsonSerializerContextTransformer
     {
         var classDeclarationSyntax = (ClassDeclarationSyntax) context.Node;
 
-        var jsonSerializableAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonSerializableAttribute);
-        var jsonPolymorphicAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonPolymorphicAttribute);
-        var jsonDerivedTypeAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(JsonDerivedTypeAttribute);
+        var jsonSerializableAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(JsonSerializableAttribute);
+        var jsonPolymorphicAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(JsonPolymorphicAttribute);
+        var jsonDerivedTypeAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(JsonDerivedTypeAttribute);
 
         var diagnostics = new List<Diagnostic>();
 

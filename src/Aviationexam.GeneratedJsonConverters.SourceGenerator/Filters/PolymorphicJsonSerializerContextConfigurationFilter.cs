@@ -45,6 +45,17 @@ internal static class PolymorphicJsonSerializerContextConfigurationFilter
             return filteredConfiguration.ToResultWithDiagnostics(x.Diagnostics);
         }
 
+        if (x.Result.Metadata.JsonPolymorphicAttributeSymbol is null)
+        {
+            // Without a resolvable polymorphic attribute no serializable type can be polymorphic.
+            var emptyConfiguration = x.Result with
+            {
+                JsonSerializableCollection = ImmutableArray<JsonSerializableConfiguration>.Empty.AsEquatableArray()
+            };
+
+            return emptyConfiguration.ToResultWithDiagnostics(x.Diagnostics);
+        }
+
         return x.Result.ToResultWithDiagnostics(x.Diagnostics);
     }
 }

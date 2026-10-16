@@ -1,3 +1,4 @@
+using Aviationexam.GeneratedJsonConverters.SourceGenerator.Extensions;
 using Aviationexam.GeneratedJsonConverters.SourceGenerator.Parsers;
 using H.Generators.Extensions;
 using Microsoft.CodeAnalysis;
@@ -22,10 +23,10 @@ internal static class EnumJsonSerializerContextTransformer
     {
         var enumDeclarationSyntax = (EnumDeclarationSyntax) context.Node;
 
-        var disableEnumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(DisableEnumJsonConverterAttribute);
-        var enumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumJsonConverterAttribute);
-        var enumMemberAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(EnumMemberAttribute);
-        var flagsAttributeSymbol = context.SemanticModel.Compilation.GetTypeByMetadataName(FlagsAttribute);
+        var disableEnumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(DisableEnumJsonConverterAttribute);
+        var enumJsonConverterAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(EnumJsonConverterAttribute);
+        var enumMemberAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(EnumMemberAttribute);
+        var flagsAttributeSymbol = context.SemanticModel.Compilation.GetAccessibleTypeByMetadataName(FlagsAttribute);
 
         var diagnostics = new List<Diagnostic>();
 
