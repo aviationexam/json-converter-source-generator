@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -45,6 +46,39 @@ public static class TestHelper
         DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
         string? parameter,
         [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => ParametrizedVerify<TIncrementalGenerator>(
+        [],
+        analyzerConfigOptionsProvider,
+        parameter,
+        source
+    );
+
+    public static Task Verify<TIncrementalGenerator>(
+        IReadOnlyCollection<MetadataReference> additionalReferences,
+        [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => ParametrizedVerify<TIncrementalGenerator>(
+        additionalReferences,
+        new DictionaryAnalyzerConfigOptionsProvider(),
+        null,
+        source
+    );
+
+    public static Task Verify<TIncrementalGenerator>(
+        IReadOnlyCollection<MetadataReference> additionalReferences,
+        DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
+        [StringSyntax("csharp")] params string[] source
+    ) where TIncrementalGenerator : class, IIncrementalGenerator, new() => ParametrizedVerify<TIncrementalGenerator>(
+        additionalReferences,
+        analyzerConfigOptionsProvider,
+        null,
+        source
+    );
+
+    public static Task ParametrizedVerify<TIncrementalGenerator>(
+        IReadOnlyCollection<MetadataReference> additionalReferences,
+        DictionaryAnalyzerConfigOptionsProvider analyzerConfigOptionsProvider,
+        string? parameter,
+        [StringSyntax("csharp")] params string[] source
     ) where TIncrementalGenerator : class, IIncrementalGenerator, new()
     {
         // Parse the provided string into a C# syntax tree
@@ -54,17 +88,7 @@ public static class TestHelper
         var compilation = CSharpCompilation.Create(
             assemblyName: "Tests",
             syntaxTrees: syntaxTrees,
-            references: new[]
-                {
-                    typeof(object).Assembly.Location,
-                    typeof(EnumMemberAttribute).Assembly.Location,
-                    typeof(ZLinq.ValueEnumerator<,>).Assembly.Location,
-                    typeof(EnumJsonConvertor<>).Assembly.Location,
-                }
-                .Union(GetLocationWithDependencies(typeof(JsonSerializer)))
-                .Distinct()
-                .Select(x => MetadataReference.CreateFromFile(x))
-                .ToArray()
+            references: GetBaseReferences().Concat(additionalReferences).ToArray()
         );
 
         // Create an instance of our EnumGenerator incremental source generator
@@ -90,6 +114,45 @@ public static class TestHelper
         return Verifier.Verify(driver, settings);
     }
 
+    /// <summary>
+    /// Compiles <paramref name="source"/> into a separate library, so a test can reference it like an assembly from another package.
+    /// </summary>
+    public static MetadataReference CreateLibraryReference(
+        string assemblyName,
+        [StringSyntax("csharp")] string source
+    )
+    {
+        var compilation = CSharpCompilation.Create(
+            assemblyName: assemblyName,
+            syntaxTrees: [CSharpSyntaxTree.ParseText(source)],
+            references: GetBaseReferences(),
+            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary)
+        );
+
+        using var peStream = new MemoryStream();
+        var emitResult = compilation.Emit(peStream);
+
+        if (!emitResult.Success)
+        {
+            throw new InvalidOperationException(
+                $"Library {assemblyName} failed to compile:{Environment.NewLine}{string.Join(Environment.NewLine, emitResult.Diagnostics)}"
+            );
+        }
+
+        return MetadataReference.CreateFromImage(peStream.ToArray());
+    }
+
+    private static MetadataReference[] GetBaseReferences() => new[]
+        {
+            typeof(object).Assembly.Location,
+            typeof(EnumMemberAttribute).Assembly.Location,
+            typeof(ZLinq.ValueEnumerator<,>).Assembly.Location,
+            typeof(EnumJsonConvertor<>).Assembly.Location,
+        }
+        .Union(GetLocationWithDependencies(typeof(JsonSerializer)))
+        .Distinct()
+        .Select(x => MetadataReference.CreateFromFile(x))
+        .ToArray<MetadataReference>();
 
     private static IEnumerable<string> GetLocationWithDependencies(Type type) => GetLocationWithDependencies(type.Assembly);
 
