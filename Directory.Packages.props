@@ -89,7 +89,7 @@
     <PackageVersion Include="Microsoft.Testing.Platform.MSBuild" Version="2.5.1" />
     <PackageVersion Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" />
 
-    <PackageVersion Include="Verify" Version="33.3.3" />
+    <PackageVersion Include="Verify" Version="33.3.4" />
     <PackageVersion Include="Verify.SourceGenerators" Version="2.5.0" />
     <PackageVersion Include="Verify.XunitV3" Version="33.3.3" />
 
