@@ -175,7 +175,7 @@
       "aviationexam.generatedjsonconverters.abstractions.netstandard": {
         "type": "Project",
         "dependencies": {
-          "System.Text.Json": "[8.0.5, )"
+          "System.Text.Json": "[8.0.6, )"
         }
       },
       "aviationexam.generatedjsonconverters.sourcegenerator.target": {
