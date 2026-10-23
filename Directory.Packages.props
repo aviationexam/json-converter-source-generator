@@ -120,14 +120,14 @@
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.13" />
     <PackageVersion Include="System.IO.Pipelines" Version="10.0.13" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="10.0.13" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.6" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.13" />
   </ItemGroup>
 
   <!-- Lowest patched System.Text.Json 8.0, so netstandard2.0 consumers that pin 8.0.x are not forced to 10.0 -->
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard'">
     <PackageVersion Include="Microsoft.Bcl.AsyncInterfaces" Version="8.0.0" />
     <PackageVersion Include="System.Text.Encodings.Web" Version="8.0.0" />
-    <PackageVersion Include="System.Text.Json" Version="8.0.5" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.6" />
   </ItemGroup>
 
   <!-- Transitive dependencies - Code analysis and testing -->
