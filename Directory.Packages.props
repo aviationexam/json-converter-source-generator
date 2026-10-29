@@ -113,7 +113,7 @@
   <ItemGroup>
     <PackageVersion Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageVersion Include="System.Formats.Asn1" Version="10.0.14" />
-    <PackageVersion Include="ZLinq" Version="1.5.6" />
+    <PackageVersion Include="ZLinq" Version="1.6.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(MSBuildProjectName)' != 'Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard'">
