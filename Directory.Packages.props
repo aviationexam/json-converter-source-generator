@@ -7,7 +7,7 @@
   <!-- Build-time tools (analyzers and source generators) -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
     <!-- Microsoft.CodeAnalysis.* declare exact version constraints on each other, always bump as a group -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.9.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.12.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="5.9.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="5.9.0" />
@@ -71,7 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.9.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.12.0" />
     <PackageVersion Include="H.Generators.Extensions" Version="1.24.2" />
     <PackageVersion Include="H.Generators.Tests.Extensions" Version="1.24.2" />
 
