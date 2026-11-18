@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- A separate assembly name, so the netstandard2.0 shape never collides with the net8.0+ assembly in one compilation -->
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>14.0</LangVersion>
+    <LangVersion>15.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.Abstractions.NetStandard</ProjectName>
     <RootNamespace>Aviationexam.GeneratedJsonConverters</RootNamespace>

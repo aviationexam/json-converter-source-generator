@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- The analyzer is the netstandard2.0 build. net8.0 compiles nothing; it only gives the package a net8.0 dependency group -->
     <TargetFrameworks>netstandard2.0;net8.0</TargetFrameworks>
-    <LangVersion>14.0</LangVersion>
+    <LangVersion>15.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator</ProjectName>
     <IsRoslynComponent>true</IsRoslynComponent>

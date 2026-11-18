@@ -49,7 +49,7 @@ dotnet format --no-restore
 ### File & Namespace Conventions
 - **Line endings**: CRLF (enforced by `.editorconfig`)
 - **Encoding**: UTF-8 with BOM for `.cs` files
-- **Namespaces**: File-scoped namespaces (C# 14.0 / .NET 10)
+- **Namespaces**: File-scoped namespaces (C# 15.0 / .NET 11)
 - **Namespace structure**: Should match folder structure (`dotnet_style_namespace_match_folder = true`)
 
 ### C# Formatting
@@ -98,7 +98,7 @@ using System.Collections.Immutable;
 
 ### Type Usage
 - **Nullable reference types**: ENABLED (`<Nullable>enable</Nullable>`)
-- **LangVersion**: 14.0 (C# 14)
+- **LangVersion**: 15.0 (C# 15)
 - **Target frameworks**: `netstandard2.0` (generator), `net8.0;net9.0;net10.0` (tests)
 - Use modern C# features: file-scoped namespaces, target-typed `new()`, collection expressions `[..]`
 - Prefer `ImmutableArray` for generator collections
