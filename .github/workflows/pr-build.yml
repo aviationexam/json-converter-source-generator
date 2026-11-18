@@ -27,6 +27,7 @@ jobs:
             8.0.x
             9.0.x
             10.0.x
+            11.0.x
       - uses: actions/checkout@v7
       - name: Restore
         run: dotnet restore --nologo
@@ -49,10 +50,10 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
       TEST_PROJECT: src/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests/Aviationexam.GeneratedJsonConverters.SourceGenerator.Target.Tests.csproj
     steps:
-      - name: Setup .Net 10.0.x
+      - name: Setup .Net 11.0.x
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '11.0.x'
       # Snapshot file names exceed MAX_PATH
       - name: Enable Git long paths
         run: git config --system core.longpaths true
@@ -78,10 +79,10 @@ jobs:
       DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
     steps:
       - uses: actions/checkout@v7
-      - name: Setup .Net 10.0.x
+      - name: Setup .Net 11.0.x
         uses: actions/setup-dotnet@v6
         with:
-          dotnet-version: '10.0.x'
+          dotnet-version: '11.0.x'
       - name: Restore
         run: dotnet restore --nologo
       - name: .Net Format
