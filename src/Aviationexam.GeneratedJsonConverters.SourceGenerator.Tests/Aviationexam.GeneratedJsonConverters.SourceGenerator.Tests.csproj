@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
     <LangVersion>15.0</LangVersion>
     <Nullable>enable</Nullable>
     <ProjectName>Aviationexam.GeneratedJsonConverters.SourceGenerator.Tests</ProjectName>
@@ -51,6 +51,14 @@
     <!-- Test the shipped netstandard2.0 analyzer build; the net8.0 build is empty -->
     <ProjectReference Include="..\Aviationexam.GeneratedJsonConverters.SourceGenerator\Aviationexam.GeneratedJsonConverters.SourceGenerator.csproj" SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
+
+  <!-- The generator passes its netstandard2.0 System.Text.Json 10 assemblies on as references.
+       From net11.0 the framework ships a newer System.Text.Json, so both would reach the compiler -->
+  <Target Name="RemoveGeneratorSystemTextJsonReferences" AfterTargets="ResolveProjectReferences" Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net11.0'))">
+    <ItemGroup>
+      <_ResolvedProjectReferencePaths Remove="@(_ResolvedProjectReferencePaths)" Condition="'%(_ResolvedProjectReferencePaths.IncludeRuntimeDependency)' == 'false' AND ('%(_ResolvedProjectReferencePaths.Filename)' == 'System.Text.Json' OR '%(_ResolvedProjectReferencePaths.Filename)' == 'System.Text.Encodings.Web')" />
+    </ItemGroup>
+  </Target>
 
   <ItemGroup>
     <None Update="JsonPolymorphicConverterGeneratorSnapshotTests.*.g.verified.cs">
