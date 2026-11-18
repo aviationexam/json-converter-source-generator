@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <!-- Build-time tools (analyzers and source generators) -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' OR '$(TargetFramework)' == 'net11.0'">
     <!-- Microsoft.CodeAnalysis.* declare exact version constraints on each other, always bump as a group -->
     <PackageVersion Include="Microsoft.CodeAnalysis.Common" Version="5.9.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
@@ -186,7 +186,7 @@
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.23" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0' OR '$(TargetFramework)' == 'net11.0'">
     <PackageVersion Include="Microsoft.Bcl.Memory" Version="10.0.15" />
     <PackageVersion Include="System.Collections.Immutable" Version="10.0.15" />
   </ItemGroup>

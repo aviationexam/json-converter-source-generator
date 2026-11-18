@@ -99,7 +99,7 @@ using System.Collections.Immutable;
 ### Type Usage
 - **Nullable reference types**: ENABLED (`<Nullable>enable</Nullable>`)
 - **LangVersion**: 15.0 (C# 15)
-- **Target frameworks**: `netstandard2.0` (generator), `net8.0;net9.0;net10.0` (tests)
+- **Target frameworks**: `netstandard2.0` (generator), `net8.0;net9.0;net10.0;net11.0` (tests)
 - Use modern C# features: file-scoped namespaces, target-typed `new()`, collection expressions `[..]`
 - Prefer `ImmutableArray` for generator collections
 - Use `SymbolEqualityComparer` for Roslyn symbol comparisons
@@ -169,4 +169,4 @@ i.AddEmbeddedResources<GeneratorClass>([
 ## Version Control
 - Use GitVersion for semantic versioning
 - All changes must pass `dotnet format` validation
-- Tests must pass on .NET 8, 9, and 10
+- Tests must pass on .NET 8, 9, 10, and 11
