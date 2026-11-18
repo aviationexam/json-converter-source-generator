@@ -232,4 +232,9 @@
     <PackageVersion Update="System.Text.Json" Version="11.0.0" />
   </ItemGroup>
 
+  <!-- Verify 33.4.0+ requires Microsoft.Bcl.AsyncInterfaces >= 11.0.0 on .NET Framework -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <PackageVersion Update="Microsoft.Bcl.AsyncInterfaces" Version="11.0.0" />
+  </ItemGroup>
+
 </Project>
