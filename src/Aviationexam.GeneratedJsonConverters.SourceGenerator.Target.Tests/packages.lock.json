@@ -197,9 +197,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[21.2.0, )",
-        "resolved": "21.2.0",
-        "contentHash": "UZkOsuzkw68auMTCs2RXE8naXhHyABocKMLzZ7V7rzcrD5BGZBbz2dtyNBG/B6lziXMk/moRcLWWj1kRtd/tAw==",
+        "requested": "[21.2.1, )",
+        "resolved": "21.2.1",
+        "contentHash": "R8sDj+9AravZDOQA3CDxnSYcjT6622a66xnH+jdiu8XR96mDBHVRMGuN15EPffqmoekWFxU6VlJ76D8NxYv+vA==",
         "dependencies": {
           "EmptyFiles": "8.20.1",
           "System.Runtime.InteropServices.RuntimeInformation": "4.3.0"
@@ -516,9 +516,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[21.2.0, )",
-        "resolved": "21.2.0",
-        "contentHash": "UZkOsuzkw68auMTCs2RXE8naXhHyABocKMLzZ7V7rzcrD5BGZBbz2dtyNBG/B6lziXMk/moRcLWWj1kRtd/tAw==",
+        "requested": "[21.2.1, )",
+        "resolved": "21.2.1",
+        "contentHash": "R8sDj+9AravZDOQA3CDxnSYcjT6622a66xnH+jdiu8XR96mDBHVRMGuN15EPffqmoekWFxU6VlJ76D8NxYv+vA==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
@@ -773,9 +773,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[21.2.0, )",
-        "resolved": "21.2.0",
-        "contentHash": "UZkOsuzkw68auMTCs2RXE8naXhHyABocKMLzZ7V7rzcrD5BGZBbz2dtyNBG/B6lziXMk/moRcLWWj1kRtd/tAw==",
+        "requested": "[21.2.1, )",
+        "resolved": "21.2.1",
+        "contentHash": "R8sDj+9AravZDOQA3CDxnSYcjT6622a66xnH+jdiu8XR96mDBHVRMGuN15EPffqmoekWFxU6VlJ76D8NxYv+vA==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
@@ -1040,9 +1040,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[21.2.0, )",
-        "resolved": "21.2.0",
-        "contentHash": "UZkOsuzkw68auMTCs2RXE8naXhHyABocKMLzZ7V7rzcrD5BGZBbz2dtyNBG/B6lziXMk/moRcLWWj1kRtd/tAw==",
+        "requested": "[21.2.1, )",
+        "resolved": "21.2.1",
+        "contentHash": "R8sDj+9AravZDOQA3CDxnSYcjT6622a66xnH+jdiu8XR96mDBHVRMGuN15EPffqmoekWFxU6VlJ76D8NxYv+vA==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
@@ -1301,9 +1301,9 @@
       },
       "DiffEngine": {
         "type": "CentralTransitive",
-        "requested": "[21.2.0, )",
-        "resolved": "21.2.0",
-        "contentHash": "UZkOsuzkw68auMTCs2RXE8naXhHyABocKMLzZ7V7rzcrD5BGZBbz2dtyNBG/B6lziXMk/moRcLWWj1kRtd/tAw==",
+        "requested": "[21.2.1, )",
+        "resolved": "21.2.1",
+        "contentHash": "R8sDj+9AravZDOQA3CDxnSYcjT6622a66xnH+jdiu8XR96mDBHVRMGuN15EPffqmoekWFxU6VlJ76D8NxYv+vA==",
         "dependencies": {
           "EmptyFiles": "8.20.1"
         }
